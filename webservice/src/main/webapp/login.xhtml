@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: wangxukun
+  Date: 2021/1/1
+  Time: 22:59
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>BAMS Login Page</title>
+    <h:outputStylesheet library="css" name="common.css"/>
+    <h:outputScript library="scripts" name="jquery-3.5.1.min.js"/>
+</h:head>
+
+<h:body>
+    <h:panelGroup class="login-panel">
+        <h:form>
+            <h:outputLabel for="username" value="User Name" />
+            <h:inputText id="username" />
+            <br />
+            <h:outputLabel for="password" value="Password" />
+            <h:inputSecret id="password" />
+            <br />
+        </h:form>
+    </h:panelGroup>
+</h:body>
+
+</html>
