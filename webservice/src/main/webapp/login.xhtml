@@ -19,27 +19,24 @@
 </h:head>
 
 <h:body>
-    <h:panelGroup class="login-panel">
-        <h:form>
-            <h:outputLabel for="username" value="User Name" />
-            <h:inputText id="username" />
-            <br />
-            <h:outputLabel for="password" value="Password" />
-            <h:inputSecret id="password" />
-            <br />
+    <h:panelGroup>
+        <h:form styleClass="shadow-sm p-3 mb-5 bg-white rounded">
+            <h:panelGroup styleClass="mb-3">
+                <h:outputLabel for="username" value="User Name" styleClass="form-label"/>
+                <h:inputText id="username" styleClass="form-control" aria-describedby="emailHelp"/>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </h:panelGroup>
+            <h:panelGroup styleClass="mb-3">
+                <h:outputLabel for="password" value="Password" styleClass="form-label"/>
+                <h:inputSecret id="password" styleClass="form-control"/>
+            </h:panelGroup>
+            <h:panelGroup styleClass="mb-3 form-check">
+                <h:selectBooleanCheckbox styleClass="form-check-input" id="check1"/>
+                <h:outputLabel for="check1" styleClass="form-check-label" value="Check me out" />
+            </h:panelGroup>
+            <h:commandButton styleClass="btn btn-primary" type="submit" value="Submit" />
         </h:form>
     </h:panelGroup>
-
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary">Secondary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
-    <button type="button" class="btn btn-info">Info</button>
-    <button type="button" class="btn btn-light">Light</button>
-    <button type="button" class="btn btn-dark">Dark</button>
-
-    <button type="button" class="btn btn-link">Link</button>
 
 </h:body>
 
