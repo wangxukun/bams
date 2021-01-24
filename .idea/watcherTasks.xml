@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <enabled-global>
-      <option value="SCSS Style Sheet" />
-    </enabled-global>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="C:\Users\wangxukun\IdeaProjects\bams\webservice\src\main\webapp\resources\scss\custom.scss:C:\Users\wangxukun\IdeaProjects\bams\webservice\src\main\webapp\resources\css\custom.css" />
+      <option name="checkSyntaxErrors" value="false" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="SCSS Style Sheet" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="true" />
+      <option name="program" value="$USER_HOME$/AppData/Roaming/npm/sass" />
+      <option name="runOnExternalChanges" value="true" />
+      <option name="scopeName" value="All Places" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
   </component>
 </project>
