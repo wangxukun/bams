@@ -10,8 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BAMS" target="1.5" />
-      <module name="webservice" target="1.5" />
+      <module name="BAMS" target="1.8" />
+      <module name="webservice" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

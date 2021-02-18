@@ -12,10 +12,15 @@
     <name>Bank Account Management System</name>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jakartaee.api.version>8.0.0</jakartaee.api.version>
         <junit.version>5.7.0</junit.version>
         <eclipselink.version>2.7.7</eclipselink.version>
+        <mysql.connector.version>5.1.49</mysql.connector.version>
+        <primefaces.version>10.0.0</primefaces.version>
     </properties>
 
     <modules>
@@ -35,6 +40,24 @@
                 <artifactId>jakarta.jakartaee-api</artifactId>
                 <version>${jakartaee.api.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>eclipselink</artifactId>
+                <version>${eclipselink.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.version}</version>
+                <!-- if you do not want to use the X DevAPI features -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.protobuf</groupId>
+                        <artifactId>protobuf-java</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
