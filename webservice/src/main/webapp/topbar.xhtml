@@ -10,14 +10,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:form rendered="true">
-
-        <h:outputLabel for="username" value="#{bundle.Topbar_User_Label}" />
-        <h:inputText id="username" value="" size="30" />
-        <h:outputLabel for="password" value="#{bundle.Topbar_Pass_Label}" />
-        <h:inputSecret id="password" value="" size="30" />
-
-        <h:commandButton action="#"  value="#{bundle.Topbar_Login_Label}" />
-        <h:commandButton action="customer/Create.xhtml"  value="#{bundle.Topbar_Signup_Label}" />
+        <h4>#{bundle.Welcome_Signin_Phrase}<h:commandLink action="/login.xhtml"
+                                                          value="#{bundle.Welcome_Signin_Button}"/></h4>
     </h:form>
     <h:form rendered="false">
         <h:commandButton rendered="true" action="#"  value="Administration" />
