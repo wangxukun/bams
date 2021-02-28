@@ -2,23 +2,43 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="C:\Users\wangxukun\IdeaProjects\bams\webservice\src\main\webapp\resources\scss\custom.scss:C:\Users\wangxukun\IdeaProjects\bams\webservice\src\main\webapp\resources\css\custom.css" />
-      <option name="checkSyntaxErrors" value="false" />
+      <option name="arguments" value="$PROJECT_DIR$/webservice/src/main/webapp/resources/scss/default.scss:/home/xk/IdeaProjects/bams/webservice/src/main/webapp/resources/css/default.css" />
+      <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="scss" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="SCSS Style Sheet" />
-      <option name="output" value="" />
+      <option name="name" value="SCSS-default" />
+      <option name="output" value="$FileNameWithoutExtension$.css:$FileNameWithoutExtension$.css.map" />
       <option name="outputFilters">
         <array />
       </option>
-      <option name="outputFromStdout" value="true" />
-      <option name="program" value="$USER_HOME$/AppData/Roaming/npm/sass" />
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="/opt/dart-sass/sass" />
       <option name="runOnExternalChanges" value="true" />
-      <option name="scopeName" value="All Places" />
-      <option name="trackOnlyRoot" value="false" />
-      <option name="workingDir" value="" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$PROJECT_DIR$/webservice/src/main/webapp/resources/scss/custom.scss:/home/xk/IdeaProjects/bams/webservice/src/main/webapp/resources/css/custom.css" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="SCSS-custom" />
+      <option name="output" value="$FileNameWithoutExtension$.css:$FileNameWithoutExtension$.css.map" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="/opt/dart-sass/sass" />
+      <option name="runOnExternalChanges" value="true" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
   </component>

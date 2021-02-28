@@ -22,11 +22,6 @@
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>8.0</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -47,6 +42,12 @@
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/webapp/resources</directory>
+                <includes>
+                    <include>**/*</include>
                 </includes>
             </resource>
         </resources>
