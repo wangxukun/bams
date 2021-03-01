@@ -1,0 +1,9 @@
+html body{
+    background: #FFF url("#{resource['img:background.jpg']}") repeat-x 50% -26px;
+}
+header{
+    background: #fff url(#{resource['img:top-background.jpg']}) repeat-x;
+}
+#menu{
+    background: #fff url(#{resource['img:top-background.jpg']}) repeat-x;
+}
