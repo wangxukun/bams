@@ -17,23 +17,19 @@
     <ui:define name="body">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="#{bundle.CreateCustomerLabel_firstname}" for="firstname" />
-                <h:inputText id="firstname" value="#{customerController.selected.firstname}" title="#{bundle.CreateCustomerTitle_firstname}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_firstname}"/>
-                <h:outputLabel value="#{bundle.CreateCustomerLabel_lastname}" for="lastname" />
-                <h:inputText id="lastname" value="#{customerController.selected.lastname}" title="#{bundle.CreateCustomerTitle_lastname}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_lastname}"/>
+                <h:outputLabel value="#{bundle.CreateCustomerLabel_full_name}" for="full_name" />
+                <h:inputText id="full_name" value="" title="#{bundle.CreateCustomerTitle_full_name}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_full_name}"/>
+                <h:outputLabel value="#{bundle.CreateCustomerLabel_phone}" for="phone" />
+                <h:inputText id="phone" value="" title="#{bundle.CreateCustomerTitle_phone}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_phone}"/>
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_email}" for="email" />
-                <h:inputText id="email" value="#{customerController.selected.email}" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
-                <h:outputLabel value="#{bundle.CreateCustomerLabel_address}" for="address" />
-                <h:inputText id="address" value="#{customerController.selected.address}" title="#{bundle.CreateCustomerTitle_address}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_address}"/>
-                <h:outputLabel value="#{bundle.CreateCustomerLabel_city}" for="city" />
-                <h:inputText id="city" value="#{customerController.selected.city}" title="#{bundle.CreateCustomerTitle_city}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_city}"/>
+                <h:inputText id="email" value="" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_password}" for="password" />
-                <h:inputSecret id="password" value="#{customerController.selected.password}" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
+                <h:inputSecret id="password" value="" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
 
             </h:panelGrid>
             <ul class="commandButtons">
                 <li><h:commandLink action="#{customerController.create}" value="#{bundle.CreateCustomerSaveLink}" /></li>
-                <li><h:commandLink action="/index.xhtml" value="Cancel" immediate="true" /></li>
+                <li><h:commandLink action="/index.xhtml" value="#{bundle.CommonCancel}" immediate="true" /></li>
             </ul>
         </h:form>
     </ui:define>

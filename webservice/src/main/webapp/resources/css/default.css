@@ -1,4 +1,4 @@
-html body {
+html, body {
   font-size: 12px;
   font-family: Verdana, "Verdana CE", Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
   margin: 0;
@@ -6,20 +6,34 @@ html body {
   text-align: center;
 }
 
+#pendingOrders nav {
+  width: 48%;
+  float: left;
+  position: inherit;
+  border: #dddddd 1px solid;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 0px;
+  overflow: auto;
+}
+
 nav ul {
   list-style: none;
   padding: 0px;
   margin: 0px;
 }
-nav ul li {
+
+nav li {
   display: block;
   text-decoration: none;
   text-align: left;
   padding: 10px;
   position: relative;
-  width: 100px;
+  width: 100%;
 }
-nav ul li:hover, nav ul li:focus {
+
+nav li:hover, nav li:focus {
   color: black;
   background-color: rgba(97, 124, 88, 0.3);
   display: block;
@@ -27,6 +41,21 @@ nav ul li:hover, nav ul li:focus {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+}
+
+.shipItem:hover {
+  color: black;
+  background-color: rgba(97, 124, 88, 0.3);
+  display: block;
+  border: #dddddd 0px solid;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+nav #option {
+  float: right;
 }
 
 #pagewidth {
@@ -52,6 +81,7 @@ header {
   border-radius: 10px;
   z-index: 1;
 }
+
 header img {
   position: relative;
   float: right;
@@ -68,6 +98,24 @@ header img {
   border-radius: 10px;
 }
 
+#breadcrumb {
+  position: relative;
+  width: 75%;
+  float: right;
+  margin-top: 5px;
+}
+
+#breadcrumb a {
+  color: black;
+  font-size: 14px;
+}
+
+#breadcrumb a:hover {
+  color: #3B5A3F;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 #maincol {
   position: relative;
   width: 75%;
@@ -79,6 +127,19 @@ header img {
   margin-top: 5px;
   padding: 0px;
   padding-left: 10px;
+}
+
+#maincol-ship {
+  position: relative;
+  width: 100%;
+  float: right;
+  border: none 1px #000000;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+  padding: 0px;
+  margin-left: 10px;
 }
 
 #messagePanel {
@@ -133,6 +194,8 @@ header img {
   display: block;
 }
 
+/* End hide from IE-mac */
+/* *************************** CONTENT BOXES *************************** */
 #categoryList {
   font-size: 18px;
 }
@@ -172,7 +235,7 @@ header img {
 }
 
 #topbar input[type=password] {
-  width: 120px;
+  width: 80px;
   color: black;
   font-size: 10px;
   height: 16px;
@@ -234,6 +297,37 @@ h3 {
   border: 0px;
 }
 
+.adminItem {
+  list-style-type: none;
+  list-style-position: inside;
+  width: 85%;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+#maincol table {
+  width: 100%;
+  border: 0px;
+}
+
+#maincol td {
+  padding: 0px;
+  padding-left: 5px;
+  margin: 0px;
+  text-align: left;
+  vertical-align: middle;
+  border: 0px;
+  height: 30px;
+}
+
+#maincol tr {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
 #maincol a {
   color: darkgreen;
   font-weight: bold;
@@ -244,6 +338,29 @@ h3 {
   color: #A1D0DA;
   font-weight: bold;
   padding: 5px;
+}
+
+#info {
+  font-size: 12px;
+  margin: 10px;
+  margin-left: 60%;
+  padding-bottom: 10px;
+  display: block;
+  border: 0px;
+  border-top: 2px solid #2E2E19;
+}
+
+#info input {
+  margin: 1px;
+  padding: 0px;
+  background-color: #cee573;
+  border: 0px;
+  height: 16px;
+  font-size: 12px;
+}
+
+#info label {
+  font-size: 12px;
 }
 
 #vertmenu ul {
@@ -314,6 +431,42 @@ h3 {
   border-left: 1px solid #dddddd;
 }
 
+table {
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+}
+
+.firstRow {
+  background-color: #FFFFFF;
+  text-align: left;
+}
+
+.secondRow {
+  background-color: #67a100;
+  background-color: rgba(103, 161, 0, 0.8);
+  text-align: left;
+}
+
+/*****************************************************************************/
+/* PURE HTML
+*****************************************************************************/
+table {
+  border: 0px;
+}
+
+th {
+  background-color: #a6bf40;
+  color: black;
+  height: 25px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 0px;
+  padding-left: 10px;
+}
+
 a {
   margin: 0px;
   padding: 0px;
@@ -356,7 +509,7 @@ input[type=text] {
 
 input[type=password] {
   padding-left: 5px;
-  width: 80%;
+  width: 40%;
   height: 100%;
 }
 
@@ -380,6 +533,43 @@ option {
 .user {
   text-align: right;
   font-weight: bold;
+}
+
+#shoppingCart {
+  padding-left: 10px;
+  width: 100%;
+  float: left;
+  position: relative;
+  font-size: 20px;
+}
+
+#shoppingCart table {
+  width: 95%;
+  float: left;
+  position: relative;
+}
+
+#shoppingCart tr {
+  border-bottom: 1px dotted;
+}
+
+.productImgCol {
+  width: 10%;
+}
+
+.productDescriptionCol {
+  width: 60%;
+  text-align: left;
+}
+
+.productPriceCol td {
+  width: 30%;
+  text-align: left;
+}
+
+.productBtnCol td {
+  width: 10%;
+  text-align: left;
 }
 
 /*# sourceMappingURL=default.css.map */
