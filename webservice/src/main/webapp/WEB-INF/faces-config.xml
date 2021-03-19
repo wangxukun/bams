@@ -19,7 +19,7 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <application>
         <resource-bundle>
-            <base-name>org.xkidea.bams.web.messages.Messages</base-name>
+            <base-name>bundles.Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
         <locale-config>

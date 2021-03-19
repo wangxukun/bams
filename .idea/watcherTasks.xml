@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$PROJECT_DIR$/webservice/src/main/webapp/resources/scss/default.scss:/home/xk/IdeaProjects/bams/webservice/src/main/webapp/resources/css/default.css" />
+      <option name="arguments" value="$PROJECT_DIR$/bams-resources/src/main/resources/META-INF/resources/scss/default.scss:/home/xk/IdeaProjects/bams/bams-resources/src/main/resources/META-INF/resources/css/default.css" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
@@ -22,7 +22,7 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$PROJECT_DIR$/webservice/src/main/webapp/resources/scss/custom.scss:/home/xk/IdeaProjects/bams/webservice/src/main/webapp/resources/css/custom.css" />
+      <option name="arguments" value="$PROJECT_DIR$/bams-resources/src/main/resources/META-INF/resources/scss/custom.scss:/home/xk/IdeaProjects/bams/bams-resources/src/main/resources/META-INF/resources/css/custom.css" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
