@@ -17,6 +17,10 @@
           <element id="archive" name="bams-resources-1.0.jar">
             <element id="module-output" name="bams-resources" />
           </element>
+          <element id="archive" name="bams-entities-1.0.jar">
+            <element id="module-output" name="bams-entities" />
+          </element>
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.49" />
         </element>
       </element>
       <element id="directory" name="META-INF">

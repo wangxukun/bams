@@ -23,9 +23,23 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.xkidea</groupId>
             <artifactId>bams-resources</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xkidea</groupId>
+            <artifactId>bams-entities</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

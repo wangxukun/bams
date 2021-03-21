@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BAMS.iml" filepath="$PROJECT_DIR$/.idea/BAMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bams-entities/bams-entities.iml" filepath="$PROJECT_DIR$/bams-entities/bams-entities.iml" />
       <module fileurl="file://$PROJECT_DIR$/bams-resources/bams-resources.iml" filepath="$PROJECT_DIR$/bams-resources/bams-resources.iml" />
       <module fileurl="file://$PROJECT_DIR$/webservice/webservice.iml" filepath="$PROJECT_DIR$/webservice/webservice.iml" />
     </modules>

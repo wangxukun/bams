@@ -17,23 +17,31 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jakartaee.api.version>8.0.0</jakartaee.api.version>
-        <junit.version>5.7.0</junit.version>
+        <junit.version>4.13.1</junit.version>
         <eclipselink.version>2.7.7</eclipselink.version>
         <mysql.connector.version>5.1.49</mysql.connector.version>
         <primefaces.version>10.0.0</primefaces.version>
+        <glassfish.embedded.version>5.1.0</glassfish.embedded.version>
     </properties>
 
     <modules>
         <module>webservice</module>
         <module>bams-resources</module>
+        <module>bams-entities</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.main.extras</groupId>
+                <artifactId>glassfish-embedded-all</artifactId>
+                <version>${glassfish.embedded.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

@@ -6,12 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bams-resources" />
+        <module name="bams-entities" />
         <module name="webservice" />
+        <module name="bams-resources" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BAMS" target="1.8" />
+      <module name="bams-entities" target="8" />
+      <module name="bams-logic" target="8" />
       <module name="bams-resources" target="8" />
       <module name="webservice" target="1.8" />
     </bytecodeTargetLevel>
