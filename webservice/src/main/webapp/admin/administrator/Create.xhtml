@@ -25,13 +25,13 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateCustomerLabel_full_name}" for="full_name" />
-                    <h:inputText id="full_name" value="" title="#{bundle.CreateCustomerTitle_full_name}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_full_name}"/>
+                    <h:inputText id="full_name" value="#{administratorController.selected.name}" title="#{bundle.CreateCustomerTitle_full_name}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_full_name}"/>
                     <h:outputLabel value="#{bundle.CreateCustomerLabel_phone}" for="phone" />
-                    <h:inputText id="phone" value="" title="#{bundle.CreateCustomerTitle_phone}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_phone}"/>
+                    <h:inputText id="phone" value="#{administratorController.selected.phone}" title="#{bundle.CreateCustomerTitle_phone}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_phone}"/>
                     <h:outputLabel value="#{bundle.CreateCustomerLabel_email}" for="email" />
-                    <h:inputText id="email" value="" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
+                    <h:inputText id="email" value="#{administratorController.selected.email}" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
                     <h:outputLabel value="#{bundle.CreateCustomerLabel_password}" for="password" />
-                    <h:inputSecret id="password" value="" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
+                    <h:inputSecret id="password" value="#{administratorController.selected.password}" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
                 </h:panelGrid>
                 
                 <util:commandButtons bundleEntity="CreateAdministrator" controller="#{administratorController}" type="create" />

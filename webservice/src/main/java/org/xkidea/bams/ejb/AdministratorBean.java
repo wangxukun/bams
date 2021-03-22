@@ -23,7 +23,7 @@ public class AdministratorBean extends AbstractFacade<Administrator> {
 
     @Override
     public void create(Administrator admin) {
-        Groups adminGroup = (Groups) em.createQuery("Groups.findByName")
+        Groups adminGroup = (Groups) em.createNamedQuery("Groups_findByName")
                 .setParameter("name","ADMINS")
                 .getSingleResult();
         admin.getGroupsList().add(adminGroup);
@@ -34,7 +34,7 @@ public class AdministratorBean extends AbstractFacade<Administrator> {
 
     @Override
     public void remove(Administrator admin) {
-        Groups adminGroup = (Groups) em.createQuery("Groups.findByName")
+        Groups adminGroup = (Groups) em.createNamedQuery("Groups_findByName")
                 .setParameter("name","ADMINS")
                 .getSingleResult();
         adminGroup.getPersonList().remove(admin);

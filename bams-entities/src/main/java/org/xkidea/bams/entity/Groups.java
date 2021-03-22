@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "GROUPZ")
 // TODO NamedQueries
 @NamedQueries({
-        @NamedQuery(name = "Groups.findByName", query = "SELECT g FROM Groups WHERE g.name = :name")
+        @NamedQuery(name = "Groups_findByName", query = "SELECT g FROM Groups g WHERE g.name = :name")
 })
 public class Groups implements Serializable {
     private static final long serialVersionUID = -3652979213312473763L;

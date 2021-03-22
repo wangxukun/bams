@@ -35,7 +35,7 @@
 
 <resources>
     <jdbc-connection-pool
-            name="mysql-pool-bams"
+            name="mysql-pool"
             datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
             res-type="javax.sql.DataSource">
         <property name="user" value="root"/>
@@ -45,7 +45,7 @@
 
     <jdbc-resource
             enabled="true"
-            jndi-name="java:app/bamsDataSource"
+            jndi-name="java:app/BamsDataSource"
             object-type="user"
-            pool-name="mysql-pool-bams"/>
+            pool-name="mysql-pool"/>
 </resources>
