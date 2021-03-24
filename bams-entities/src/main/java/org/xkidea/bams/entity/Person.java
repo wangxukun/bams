@@ -25,7 +25,7 @@ public class Person implements Serializable {
     @Column(name = "ID")
     protected Integer id;
     @Basic(optional = false)
-    @Size(min=3, max=50, message="{person.name}")
+    @Size(min=2, max=50, message="{person.name}")
     @Column(name = "NAME")
     protected String name;
     @Basic(optional = false)
@@ -37,7 +37,7 @@ public class Person implements Serializable {
     @Column(name = "EMAIL", unique = true)
     protected String email;
     @Basic(optional = false)
-    @Size(min = 7, max = 100, message = "{person.password}")
+    @Size(min = 6, max = 100, message = "{person.password}")
     @Column(name = "PASSWORD")
     protected String password;
 

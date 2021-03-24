@@ -3,6 +3,9 @@ package org.xkidea.bams.web;
 import org.xkidea.bams.ejb.AdministratorBean;
 import org.xkidea.bams.entity.Administrator;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
+import org.xkidea.bams.web.util.JsfUtil;
+import org.xkidea.bams.web.util.MD5Util;
+import org.xkidea.bams.web.util.PageNavigation;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -10,6 +13,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 @Named(value = "administratorController")
 @SessionScoped
@@ -62,11 +66,29 @@ public class AdministratorController implements Serializable {
         return pagination;
     }
 
-    public void create() {
+    public PageNavigation prepareCreate() {
+        current = new Administrator();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE;
+    }
+
+    public PageNavigation create() {
         try {
+            current.setPassword(MD5Util.generateMD5(current.getPassword()));
             getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AdministratorCreated"));
+            return prepareCreate();
         } catch (Exception e) {
             e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
         }
+    }
+
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
     }
 }
