@@ -3,7 +3,7 @@ package org.xkidea.bams.web.util;
 public enum PageNavigation {
 
     CREATE("Create"),
-    List("List"),
+    LIST("List"),
     EDIT("Edit"),
     VIEW("View"),
     INDEX("index");

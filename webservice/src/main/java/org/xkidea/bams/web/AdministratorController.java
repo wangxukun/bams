@@ -66,10 +66,31 @@ public class AdministratorController implements Serializable {
         return pagination;
     }
 
+    public PageNavigation prepareList() {
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    private void recreateModel() {
+        items = null;
+    }
+
     public PageNavigation prepareCreate() {
         current = new Administrator();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation previous() {
+        getPagination().previousPage();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation next(){
+        pagination.nextPage();
+        recreateModel();
+        return PageNavigation.LIST;
     }
 
     public PageNavigation create() {
