@@ -30,6 +30,8 @@
                     <h:inputText id="phone" value="#{administratorController.selected.phone}" title="#{bundle.CreateCustomerTitle_phone}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_phone}"/>
                     <h:outputLabel value="#{bundle.CreateCustomerLabel_email}" for="email" />
                     <h:inputText id="email" value="#{administratorController.selected.email}" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
+                    <h:outputLabel value="#{bundle.CreateCustomerLabel_organization}" for="organization" />
+                    <h:inputText id="organization" value="#{administratorController.selected.organization}" title="#{bundle.CreateCustomerTitle_organization}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_organization}" />
                     <h:outputLabel value="#{bundle.CreateCustomerLabel_password}" for="password" />
                     <h:inputSecret id="password" value="#{administratorController.selected.password}" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
                 </h:panelGrid>

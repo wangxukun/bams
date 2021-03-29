@@ -13,6 +13,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 @Named(value = "administratorController")
@@ -96,6 +97,7 @@ public class AdministratorController implements Serializable {
     public PageNavigation create() {
         try {
             current.setPassword(MD5Util.generateMD5(current.getPassword()));
+            current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AdministratorCreated"));
             return prepareCreate();

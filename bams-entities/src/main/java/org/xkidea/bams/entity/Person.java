@@ -1,10 +1,13 @@
 package org.xkidea.bams.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,6 +43,15 @@ public class Person implements Serializable {
     @Size(min = 6, max = 100, message = "{person.password}")
     @Column(name = "PASSWORD")
     protected String password;
+    @Basic(optional = false)
+    @Size(min = 2, max = 100, message = "{person.organization")
+    @Column(name = "ORGANIZATION")
+    protected String organization;
+    @Basic(optional = false)
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_CREATED")
+    protected Date dateCreated;
 
     public Person() {
     }
@@ -48,12 +60,14 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public Person(Integer id, @Size(min = 3, max = 50, message = "{person.name}") String name, String phone, @Pattern(regexp = ".+@.+\\.[a-z]+", message = "{person.email}") @Size(min = 3, max = 45, message = "{person.email}") String email, @Size(min = 7, max = 100, message = "{person.password}") String password) {
+    public Person(Integer id, @Size(min = 2, max = 50, message = "{person.name}") String name, String phone, @Pattern(regexp = ".+@.+\\.[a-z]+", message = "{person.email}") @Size(min = 3, max = 45, message = "{person.email}") String email, @Size(min = 6, max = 100, message = "{person.password}") String password, @Size(min = 2, max = 100, message = "{person.organization") String organization, @NotNull Date dateCreated) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.organization = organization;
+        this.dateCreated = dateCreated;
     }
 
     public Integer getId() {
@@ -99,6 +113,22 @@ public class Person implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public List<Groups> getGroupsList() {
