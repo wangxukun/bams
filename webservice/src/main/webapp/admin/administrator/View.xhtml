@@ -27,16 +27,16 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewAdministratorLabel_id}"/>
                     <h:outputText value="#{administratorController.selected.id}" title="#{bundle.ViewAdministratorTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewAdministratorLabel_firstname}"/>
-                    <h:outputText value="#{administratorController.selected.firstname}" title="#{bundle.ViewAdministratorTitle_firstname}"/>
-                    <h:outputText value="#{bundle.ViewAdministratorLabel_lastname}"/>
-                    <h:outputText value="#{administratorController.selected.lastname}" title="#{bundle.ViewAdministratorTitle_lastname}"/>
+                    <h:outputText value="#{bundle.ViewAdministratorLabel_fullname}"/>
+                    <h:outputText value="#{administratorController.selected.name}" title="#{bundle.ViewAdministratorTitle_fullname}"/>
+                    <h:outputText value="#{bundle.ViewAdministratorLabel_phone}"/>
+                    <h:outputText value="#{administratorController.selected.phone}" title="#{bundle.ViewAdministratorTitle_phone}"/>
                     <h:outputText value="#{bundle.ViewAdministratorLabel_email}"/>
                     <h:outputText value="#{administratorController.selected.email}" title="#{bundle.ViewAdministratorTitle_email}"/>
-                    <h:outputText value="#{bundle.ViewAdministratorLabel_address}"/>
-                    <h:outputText value="#{administratorController.selected.address}" title="#{bundle.ViewAdministratorTitle_address}"/>
-                    <h:outputText value="#{bundle.ViewAdministratorLabel_city}"/>
-                    <h:outputText value="#{administratorController.selected.city}" title="#{bundle.ViewAdministratorTitle_city}"/>
+                    <h:outputText value="#{bundle.ViewAdministratorLabel_organization}"/>
+                    <h:outputText value="#{administratorController.selected.organization}" title="#{bundle.ViewAdministratorTitle_organization}"/>
+                    <h:outputText value="#{bundle.ViewAdministratorLabel_dateCreated}"/>
+                    <h:outputText value="#{administratorController.selected.dateCreated}" title="#{bundle.ViewAdministratorTitle_dateCreated}"/>
                 </h:panelGrid>
                 
                 <util:commandButtons bundleEntity="ViewAdministrator" controller="#{administratorController}" type="view" />

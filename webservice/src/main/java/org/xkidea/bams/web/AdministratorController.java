@@ -72,6 +72,12 @@ public class AdministratorController implements Serializable {
         return PageNavigation.LIST;
     }
 
+    public PageNavigation prepareView() {
+        current = (Administrator) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.VIEW;
+    }
+
     private void recreateModel() {
         items = null;
     }
@@ -80,6 +86,23 @@ public class AdministratorController implements Serializable {
         current = new Administrator();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation prepareEdit() {
+        current = (Administrator) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.EDIT;
+    }
+
+    public PageNavigation update() {
+        try {
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AdministratorUpdated"));
+            return PageNavigation.VIEW;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
+        }
     }
 
     public PageNavigation previous() {
