@@ -5,6 +5,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
+
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
 

@@ -105,6 +105,49 @@ public class AdministratorController implements Serializable {
         }
     }
 
+    public PageNavigation destroy() {
+        current = (Administrator) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation destroyAndView() {
+        performDestroy();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return PageNavigation.VIEW;
+        } else {
+            recreateModel();
+            return PageNavigation.LIST;
+        }
+    }
+
+    private void updateCurrentItem() {
+        int count = getFacade().count();
+        if (selectedItemIndex >= count) {
+            selectedItemIndex = count - 1;
+
+            if (pagination.getPageFirstItem() >= count) {
+                pagination.previousPage();
+            }
+        }
+        if (selectedItemIndex >= 0) {
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+        }
+    }
+
+    private void performDestroy() {
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AdministratorDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+        }
+    }
+
     public PageNavigation previous() {
         getPagination().previousPage();
         recreateModel();
