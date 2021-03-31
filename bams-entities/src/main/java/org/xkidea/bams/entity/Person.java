@@ -14,6 +14,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "PERSON")
 // TODO @NamedQueries
+@NamedQueries({
+        @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email")
+})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 7728610399338717149L;

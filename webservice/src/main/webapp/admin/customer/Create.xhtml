@@ -8,7 +8,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:util="http://xmlns.jcp.org/jsf/composite/components">
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
@@ -28,10 +30,8 @@
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_password}" for="password" />
                 <h:inputSecret id="password" value="#{customerController.selected.password}" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
             </h:panelGrid>
-            <ul class="commandButtons">
-                <li><h:commandLink action="#{customerController.create}" value="#{bundle.CreateCustomerSaveLink}" /></li>
-                <li><h:commandLink action="/index.xhtml" value="#{bundle.CommonCancel}" immediate="true" /></li>
-            </ul>
+
+            <util:commandButtons bundleEntity="CreateCustomer" controller="#{customerController}" type="create" />
         </h:form>
     </ui:define>
 </ui:composition>
