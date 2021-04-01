@@ -23,15 +23,14 @@
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListCustomerEmpty}" rendered="#{customerController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{customerController.items.rowCount > 0}">
-                    <h:outputText value="#{customerController.pagination.pageFirstItem + 1}..#{customerController.pagination.pageLastItem + 1}/#{customerController.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{customerController.previous}" value="#{bundle.Previous} #{customerController.pagination.pageSize}" rendered="#{customerController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{customerController.next}" value="#{bundle.Next} #{customerController.pagination.pageSize}" rendered="#{customerController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{administratorController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <ul class="commandButtons">
+                        <li><h:commandLink action="#{customerController.previous}" value="#{bundle.Previous} #{customerController.pagination.pageSize}" rendered="#{customerController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{customerController.next}" value="#{bundle.Next} #{customerController.pagination.pageSize}" rendered="#{customerController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{customerController.prepareCreate}" value="#{bundle.ListCustomerCreateLink}"/></li>
+                    </ul>
+                    <h:dataTable value="#{customerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCustomerTitle_id}"/>
@@ -80,10 +79,6 @@
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
-                <h:panelGrid id="commandButtons" styleClass="commandButtons" columns="5" cellpadding="5" cellspacing="10">
-                    <h:commandLink action="#{customerController.prepareCreate}" value="#{bundle.ListCustomerCreateLink}"/>
-                    <h:commandLink value="#{bundle.ListCustomerIndexLink}" action="/index" immediate="true"/>
-                </h:panelGrid>
             </h:form>
         </ui:define>
     </ui:composition>

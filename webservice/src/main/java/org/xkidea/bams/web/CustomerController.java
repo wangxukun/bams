@@ -14,6 +14,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -44,6 +45,18 @@ public class CustomerController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+
+    public PageNavigation previous() {
+        getPagination().previousPage();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation next() {
+        getPagination().nextPage();
+        recreateModel();
+        return PageNavigation.LIST;
     }
 
     public UserBean getFacade() {
@@ -89,4 +102,66 @@ public class CustomerController implements Serializable {
         }
     }
 
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+
+    private void recreateModel() {
+        items = null;
+    }
+
+    public PageNavigation prepareView() {
+        current = (Customer) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.VIEW;
+    }
+
+    public PageNavigation prepareList() {
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation prepareCreate() {
+        current = new Customer();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE;
+    }
+
+    public PageNavigation prepareEdit() {
+        current = (Customer) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.EDIT;
+    }
+
+    public PageNavigation update() {
+        try {
+            current.setPassword(MD5Util.generateMD5(current.getPassword()));
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CustomerUpdated"));
+            return PageNavigation.VIEW;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e,ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+
+    public PageNavigation destroy() {
+        current = (Customer) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    private void performDestroy() {
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CustomerDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e,ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+        }
+    }
 }

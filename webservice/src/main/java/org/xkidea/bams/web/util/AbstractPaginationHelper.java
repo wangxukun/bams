@@ -16,10 +16,18 @@ public abstract class AbstractPaginationHelper {
 
     public abstract DataModel createPageDataModel();
 
+    /**
+     * 取得当前页的第一条的index
+     * @return
+     */
     public int getPageFirstItem() {
         return page*pageSize;
     }
 
+    /**
+     * 取得当前页的最后一条的index
+     * @return
+     */
     public int getPageLastItem() {
         int i = getPageFirstItem() + pageSize -1;
         int count = getItemsCount() - 1;
