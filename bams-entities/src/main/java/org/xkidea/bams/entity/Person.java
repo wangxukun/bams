@@ -7,6 +7,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -20,11 +21,22 @@ import java.util.Objects;
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 7728610399338717149L;
-    @JoinTable(name = "PERSON_GROUPZ",
-                joinColumns = {@JoinColumn(name = "EMAIL",referencedColumnName = "EMAIL")},
-                inverseJoinColumns = {@JoinColumn(name = "GROUPZ_ID",referencedColumnName = "ID")})
+    @JoinTable(
+            name = "PERSON_GROUPZ",
+            joinColumns = {@JoinColumn(name = "EMAIL",referencedColumnName = "EMAIL")},
+            inverseJoinColumns = {@JoinColumn(name = "GROUPZ_ID",referencedColumnName = "ID")})
     @ManyToMany
     protected List<Groups> groupsList;
+
+    @JoinTable(
+            name="PERSON_GENERALACCOUNT",
+            joinColumns=
+            @JoinColumn(name="EMAIL", referencedColumnName="EMAIL"),
+            inverseJoinColumns=
+            @JoinColumn(name="ACCOUNT_ID", referencedColumnName="ID")
+    )
+    @ManyToMany
+    protected List<GeneralAccount> accountList;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -57,10 +69,14 @@ public class Person implements Serializable {
     protected Date dateCreated;
 
     public Person() {
+        groupsList = new ArrayList<>();
+        accountList = new ArrayList<>();
     }
 
     public Person(Integer id) {
         this.id = id;
+        groupsList = new ArrayList<>();
+        accountList = new ArrayList<>();
     }
 
     public Person(Integer id, @Size(min = 2, max = 50, message = "{person.name}") String name, String phone, @Pattern(regexp = ".+@.+\\.[a-z]+", message = "{person.email}") @Size(min = 3, max = 45, message = "{person.email}") String email, @Size(min = 6, max = 100, message = "{person.password}") String password, @Size(min = 2, max = 100, message = "{person.organization") String organization, @NotNull Date dateCreated) {
@@ -71,6 +87,8 @@ public class Person implements Serializable {
         this.password = password;
         this.organization = organization;
         this.dateCreated = dateCreated;
+        groupsList = new ArrayList<>();
+        accountList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -140,6 +158,14 @@ public class Person implements Serializable {
 
     public void setGroupsList(List<Groups> groupsList) {
         this.groupsList = groupsList;
+    }
+
+    public List<GeneralAccount> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<GeneralAccount> accountList) {
+        this.accountList = accountList;
     }
 
     @Override
