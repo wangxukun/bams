@@ -21,7 +21,7 @@ public class Account implements Serializable {
     @Column(name = "ID")
     protected Integer id;
     @Basic(optional = false)
-    @Size(min=2, max=50, message="{person.name}")
+    @Size(min=2, max=50, message="{account.name}")
     @Column(name = "NAME")
     protected String name;
     @Basic(optional = false)
@@ -36,7 +36,7 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(Integer id, @Size(min = 2, max = 50, message = "{person.name}") String name, BigDecimal balance, @NotNull Date dateCreated) {
+    public Account(Integer id, @Size(min = 2, max = 50, message = "{account.name}") String name, BigDecimal balance, @NotNull Date dateCreated) {
         this.id = id;
         this.name = name;
         this.balance = balance;

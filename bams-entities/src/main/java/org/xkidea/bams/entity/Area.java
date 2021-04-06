@@ -2,6 +2,7 @@ package org.xkidea.bams.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,10 @@ public class Area implements Serializable {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "area")
     private List<SubsidiaryAccount> subsidiaryAccountList;
 
+    @ManyToMany(mappedBy = "areaList")
+    @XmlTransient
+    private List<Person> personList;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -34,17 +39,20 @@ public class Area implements Serializable {
 
     public Area() {
         this.subsidiaryAccountList = new ArrayList<>();
+        this.personList = new ArrayList<>();
     }
 
     public Area(Integer id) {
         this.id = id;
         this.subsidiaryAccountList = new ArrayList<>();
+        this.personList = new ArrayList<>();
     }
 
     public Area(Integer id, @Size(min = 2, max = 50, message = "{area.name}") String name) {
         this.id = id;
         this.name = name;
         this.subsidiaryAccountList = new ArrayList<>();
+        this.personList = new ArrayList<>();
     }
 
     public GeneralAccount getGeneralAccount() {
@@ -85,6 +93,14 @@ public class Area implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 
     @Override

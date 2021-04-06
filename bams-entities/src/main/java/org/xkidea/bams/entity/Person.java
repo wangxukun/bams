@@ -37,6 +37,17 @@ public class Person implements Serializable {
     )
     @ManyToMany
     protected List<GeneralAccount> accountList;
+
+    @JoinTable(
+            name="PERSON_AREA",
+            joinColumns=
+            @JoinColumn(name="EMAIL", referencedColumnName="EMAIL"),
+            inverseJoinColumns=
+            @JoinColumn(name="AREA_ID", referencedColumnName="ID")
+    )
+    @ManyToMany
+    protected List<Area> areaList;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -71,12 +82,14 @@ public class Person implements Serializable {
     public Person() {
         groupsList = new ArrayList<>();
         accountList = new ArrayList<>();
+        areaList = new ArrayList<>();
     }
 
     public Person(Integer id) {
         this.id = id;
         groupsList = new ArrayList<>();
         accountList = new ArrayList<>();
+        areaList = new ArrayList<>();
     }
 
     public Person(Integer id, @Size(min = 2, max = 50, message = "{person.name}") String name, String phone, @Pattern(regexp = ".+@.+\\.[a-z]+", message = "{person.email}") @Size(min = 3, max = 45, message = "{person.email}") String email, @Size(min = 6, max = 100, message = "{person.password}") String password, @Size(min = 2, max = 100, message = "{person.organization") String organization, @NotNull Date dateCreated) {
@@ -89,6 +102,7 @@ public class Person implements Serializable {
         this.dateCreated = dateCreated;
         groupsList = new ArrayList<>();
         accountList = new ArrayList<>();
+        areaList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -166,6 +180,14 @@ public class Person implements Serializable {
 
     public void setAccountList(List<GeneralAccount> accountList) {
         this.accountList = accountList;
+    }
+
+    public List<Area> getAreaList() {
+        return areaList;
+    }
+
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
     }
 
     @Override

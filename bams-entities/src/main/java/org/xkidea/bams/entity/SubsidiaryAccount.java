@@ -1,8 +1,8 @@
 package org.xkidea.bams.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class SubsidiaryAccount extends Account{
@@ -13,11 +13,27 @@ public class SubsidiaryAccount extends Account{
     @ManyToOne
     private Area area;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "subsidiaryAccount")
+    private List<DetailRecord> detailRecordList;
+
     public SubsidiaryAccount() {
+        detailRecordList = new ArrayList<>();
     }
 
-    public SubsidiaryAccount(Area area) {
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
         this.area = area;
+    }
+
+    public List<DetailRecord> getDetailRecordList() {
+        return detailRecordList;
+    }
+
+    public void setDetailRecordList(List<DetailRecord> detailRecordList) {
+        this.detailRecordList = detailRecordList;
     }
 
     @Override
