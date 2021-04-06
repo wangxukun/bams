@@ -15,6 +15,10 @@ public class Account implements Serializable {
 
     private static final long serialVersionUID = 4907786332920001037L;
 
+    @JoinColumn(name = "GROUPS_ID",referencedColumnName = "ID")
+    @ManyToOne
+    protected Groups groups;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -73,6 +77,14 @@ public class Account implements Serializable {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
     @Override

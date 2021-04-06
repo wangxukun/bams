@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DETAILRECODD")
+@Table(name = "DETAILRECODE")
 public class DetailRecord implements Serializable {
 
     private static final long serialVersionUID = -288504768855346786L;
