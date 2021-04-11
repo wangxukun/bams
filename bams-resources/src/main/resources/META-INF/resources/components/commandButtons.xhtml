@@ -33,7 +33,7 @@
         <ul class="commandButtons">
             <li><h:commandLink action="#{cc.attrs.controller.create}" value="#{bundle[(cc.attrs.bundleEntity).concat('SaveLink')]}" /></li>
             <li><h:commandLink action="#{cc.attrs.controller.prepareList}" value="#{bundle[(cc.attrs.bundleEntity).concat('ShowAllLink')]}" immediate="true"/></li>
-            <li><h:commandLink action="/admin/index" value="返回" immediate="true"/></li>
+            <li><h:commandLink action="#{cc.attrs.controller.home}" value="返回" immediate="true"/></li>
         </ul>
     </ui:fragment>
 

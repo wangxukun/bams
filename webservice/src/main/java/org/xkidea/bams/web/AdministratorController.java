@@ -160,6 +160,10 @@ public class AdministratorController implements Serializable {
         return PageNavigation.LIST;
     }
 
+    public PageNavigation home(){
+        return PageNavigation.SYSTEM_MANAGE_HOME;
+    }
+
     public PageNavigation create() {
         try {
             current.setPassword(MD5Util.generateMD5(current.getPassword()));

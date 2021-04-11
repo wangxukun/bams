@@ -6,7 +6,8 @@ public enum PageNavigation {
     LIST("List"),
     EDIT("Edit"),
     VIEW("View"),
-    INDEX("index");
+    INDEX("index"),
+    SYSTEM_MANAGE_HOME("/admin/index");
     private String text;
 
     PageNavigation(final String s) {

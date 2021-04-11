@@ -29,7 +29,7 @@ public class Account implements Serializable {
     @Column(name = "NAME")
     protected String name;
     @Basic(optional = false)
-    @Column(name = "BALANCE",columnDefinition = "Decimal(12,2) default '0.00'")
+    @Column(name = "BALANCE",columnDefinition = "Decimal(12,2) default 0.00")
     protected BigDecimal balance;
     @Basic(optional = false)
     @NotNull

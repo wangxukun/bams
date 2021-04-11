@@ -3,9 +3,11 @@ package org.xkidea.bams.ejb;
 import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.Groups;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 public class GeneralAccountBean extends AbstractFacade<GeneralAccount>{
 
     @PersistenceContext(unitName = "bamsPU")
