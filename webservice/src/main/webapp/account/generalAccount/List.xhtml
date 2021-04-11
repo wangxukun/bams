@@ -19,54 +19,48 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListAdministratorTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListGeneralAccountTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="listAdministratorMessagePanel" layout="block">
+                <h:panelGroup id="listGeneralAccountMessagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListAdministratorEmpty}" rendered="#{administratorController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{administratorController.items.rowCount > 0}">
+                <h:outputText escape="false" value="#{bundle.ListGeneralAccountEmpty}" rendered="#{generalAccountController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{generalAccountController.items.rowCount > 0}">
                     <ul class="commandButtons">
-                        <li><h:commandLink action="#{administratorController.previous}" value="#{bundle.Previous} #{administratorController.pagination.pageSize}" rendered="#{administratorController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{administratorController.next}" value="#{bundle.Next} #{administratorController.pagination.pageSize}" rendered="#{administratorController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{administratorController.prepareCreate}" value="#{bundle.ListAdministratorCreateLink}"/></li>
+                        <li><h:commandLink action="#{generalAccountController.previous}" value="#{bundle.Previous} #{generalAccountController.pagination.pageSize}" rendered="#{generalAccountController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{generalAccountController.next}" value="#{bundle.Next} #{generalAccountController.pagination.pageSize}" rendered="#{generalAccountController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{generalAccountController.prepareCreate}" value="#{bundle.ListGeneralAccountCreateLink}"/></li>
                     </ul>
-                    <h:dataTable value="#{administratorController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{generalAccountController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_id}"/>
+                                <h:outputText value="#{bundle.ListGeneralAccountTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_name}"/>
+                                <h:outputText value="#{bundle.ListGeneralAccountTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_email}"/>
+                                <h:outputText value="#{bundle.ListGeneralAccountTitle_groupsId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.email}"/>
+                            <h:outputText value="#{item.groups.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_phone}"/>
+                                <h:outputText value="#{bundle.ListGeneralAccountTitle_balance}"/>
                             </f:facet>
-                            <h:outputText value="#{item.phone}"/>
+                            <h:outputText value="#{item.balance}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_organization}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.organization}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_dateCreated}"/>
+                                <h:outputText value="#{bundle.ListGeneralAccountTitle_dateCreated}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateCreated}"/>
                         </h:column>
@@ -74,11 +68,11 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{administratorController.prepareView}" value="#{bundle.ListAdministratorViewLink}"/>
+                            <h:commandLink action="#{generalAccountController.prepareView}" value="#{bundle.ListGeneralAccountViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{administratorController.prepareEdit}" value="#{bundle.ListAdministratorEditLink}"/>
+                            <h:commandLink action="#{generalAccountController.prepareEdit}" value="#{bundle.ListGeneralAccountEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{administratorController.destroy}" value="#{bundle.ListAdministratorDestroyLink}"/>
+                            <h:commandLink action="#{generalAccountController.destroy}" value="#{bundle.ListGeneralAccountDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
