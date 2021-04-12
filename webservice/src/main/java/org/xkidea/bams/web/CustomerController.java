@@ -85,6 +85,10 @@ public class CustomerController implements Serializable {
         return (getFacade().getUserByEmail(person.getEmail()) == null) ? false : true;
     }
 
+    public PageNavigation home() {
+        return PageNavigation.SYSTEM_MANAGE_HOME;
+    }
+
     public PageNavigation create(){
         try {
             if (!isUserDuplicated(current)) {
@@ -95,7 +99,7 @@ public class CustomerController implements Serializable {
             } else {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("DuplicatedCustomerError"));
             }
-            return PageNavigation.INDEX;
+            return PageNavigation.VIEW;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e,ResourceBundle.getBundle(BUNDLE).getString("CustomerCreationError"));
             return null;

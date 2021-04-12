@@ -84,11 +84,15 @@ public class GroupsController implements Serializable {
         return PageNavigation.CREATE;
     }
 
+    public PageNavigation home() {
+        return PageNavigation.SYSTEM_MANAGE_HOME;
+    }
+
     public PageNavigation create() {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("GroupsCreated"));
-            return prepareCreate();
+            return PageNavigation.VIEW;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
             return null;

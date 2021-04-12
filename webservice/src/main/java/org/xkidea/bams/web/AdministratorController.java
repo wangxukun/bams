@@ -170,7 +170,7 @@ public class AdministratorController implements Serializable {
             current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AdministratorCreated"));
-            return prepareCreate();
+            return PageNavigation.VIEW;
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
