@@ -1,3 +1,11 @@
+html, body {
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE", Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
 html body{
     background: #FFF url("#{resource['img:background.jpg']}") repeat-x 50% -26px;
 }
@@ -6,4 +14,37 @@ header{
 }
 #menu{
     background: #fff url(#{resource['img:top-background.jpg']}) repeat-x;
+}
+
+.login-content {
+    display: flex;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    align-items: center;
+    color: #FFFFFF;
+}
+.login-content .login-panel {
+    width: 40%;
+    height: 100vh;
+    text-align: center;
+    /*background-color: rgba(59, 90, 63, 0.3);*/
+    /*background-color: #3B5A3F;*/
+    min-width: 120px;
+}
+.login-content .login-panel .login-panel-content{
+    margin: 80px;
+    padding: 40px;
+    background-color: rgba(59, 90, 63, 1);
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+.login-content .login-panel .login-panel-content .forms{
+    padding: 40px;
+    background-color: rgba(59, 90, 63, 1);
+}
+.login-content .login-panel .login-panel-content .forms table{
+    margin: 0 auto;
 }

@@ -5,33 +5,38 @@
   Date: 2021/1/1
   Time: 22:59
 -->
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                template="/template.xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>A h:form example</title>
+    <!--    <h:outputStylesheet library="css" name="default.css"/>-->
+    <h:outputStylesheet library="css" name="nosass.css"/>
+</h:head>
+<h:body>
+    <div class="login-content">
+        <div class="login-panel">
+            <div class="login-panel-content">
+                <div class="logo">
+                    <h:graphicImage library="img" name="logo-small.png"/>
+                </div>
 
-    <ui:define name="title">
-        登录
-    </ui:define>
-
-    <ui:define name="body">
-
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="#{bundle.Username_Label}" for="username" />
-                <h:inputText id="username" value="" />
-
-                <h:outputLabel value="#{bundle.Password_Label}" for="password" />
-                <h:inputSecret id="password" value="" />
-
-                <h:commandButton action="#" value="#{bundle.Login_label}" rendered="true" />
-                <h:commandButton action="#" value="#{bundle.Topbar_Logout_Label}" rendered="true" />
-
-            </h:panelGrid>
-
-        </h:form>
-
-    </ui:define>
-
-</ui:composition>
+                <h1>Sign in to Mirage</h1>
+                <p>Welcome, please use the form to sign-in Mirage network</p>
+                <form class="forms" id="login" method="post" action="#">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="username" value="Username"/>
+                        <h:inputText id="username" value=""/>
+                        <h:outputLabel for="password" value="Password"/>
+                        <h:inputSecret id="password" value=""/>
+                    </h:panelGrid>
+                    <h:commandButton action="#" value="Login"/>
+                    <h:commandLink action="#" value="Forget password"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>
