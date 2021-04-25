@@ -14,7 +14,6 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.nio.file.Path;
 import java.util.Date;
 import java.util.ResourceBundle;
 

@@ -22,13 +22,13 @@
     <session-timeout>30</session-timeout>
   </session-config>
   <welcome-file-list>
-    <welcome-file>index.xhtml</welcome-file>
+    <welcome-file>logined/index.xhtml</welcome-file>
   </welcome-file-list>
 
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>bams</web-resource-name>
-      <url-pattern>/index.xhtml</url-pattern>
+      <web-resource-name>secure page</web-resource-name>
+      <url-pattern>/logined/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>AdminUser</role-name>
@@ -41,7 +41,7 @@
     <auth-method>FORM</auth-method>
     <realm-name>file</realm-name>
     <form-login-config>
-      <form-login-page>/login.html</form-login-page>
+      <form-login-page>/login.xhtml</form-login-page>
       <form-error-page>/error.xhtml</form-error-page>
     </form-login-config>
   </login-config>

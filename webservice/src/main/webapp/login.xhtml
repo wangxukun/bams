@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: wangxukun
+  Date: 2021/1/1
+  Time: 22:59
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>#{bundle.PageTitle}</title>
+    <!--    <h:outputStylesheet library="css" name="default.css"/>-->
+    <h:outputStylesheet library="css" name="login.css"/>
+</h:head>
+<h:body>
+    <div class="login-content">
+        <div class="login-panel">
+            <div class="logo">
+                <h:graphicImage library="img" name="logo-small.png"/>
+            </div>
+
+            <h1>#{bundle.PageTitle}</h1>
+            <p>请输入授权验证信息</p>
+            <h:form styleClass="forms">
+                <h:panelGrid role="presentation" columns="2">
+                    <h:outputLabel value="#{bundle.Topbar_User_Label}" for="username" />
+                    <h:inputText id="username" value="#{customerController.selected.email}" />
+                    <h:outputLabel value="#{bundle.Topbar_Pass_Label}" for="password" />
+                    <h:inputText id="password" value="#{customerController.selected.password}" />
+                </h:panelGrid>
+                <h:panelGrid role="presentation" columns="2">
+                    <h:commandButton action="#{customerController.login}" value="#{bundle.Login_label}" />
+                    <h:commandLink action="#" value="#{bundle.ForgetPassword}" />
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>

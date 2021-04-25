@@ -1,11 +1,12 @@
 html, body {
-    background: #FFF url("img/background.jpg") repeat-x 50% -26px;
     font-size: 12px;
     font-family: Verdana, "Verdana CE", Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     margin: 0;
     padding: 0;
 }
-
+body{
+    background: #FFF url("#{resource['img:background.jpg']}") repeat-x 50% -26px;
+}
 .login-content {
 }
 .login-content .login-panel {
