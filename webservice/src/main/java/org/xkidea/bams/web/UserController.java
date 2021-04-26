@@ -25,6 +25,9 @@ public class UserController implements Serializable {
     private static final String BUNDLE = "bundles.Bundle";
     private static final long serialVersionUID = -3197592665392201393L;
 
+    private static final Logger logger =
+            Logger.getLogger("bams.web.UserController");
+
     Person user;
     @EJB
     private UserBean ejbFacade;
@@ -42,6 +45,7 @@ public class UserController implements Serializable {
         String result;
 
         try {
+            logger.log(Level.INFO, "----Request username is {0}", this.getUsername());
             request.login(this.getUsername(), this.getPassword());
 
             JsfUtil.addSuccessMessage(JsfUtil.getStringFromBundle(BUNDLE, "Login_Success"));
@@ -52,7 +56,7 @@ public class UserController implements Serializable {
             if (isAdmin()) {
                 result = "/admin/index";
             } else {
-                result = "logined/index";
+                result = "/logined/index";
             }
         } catch (ServletException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE,null,ex);
