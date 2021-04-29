@@ -16,27 +16,27 @@
     <h:outputStylesheet library="css" name="login.css"/>
 </h:head>
 <h:body>
-    <div class="login-content">
-        <div class="login-panel">
-            <div class="logo">
-                <h:graphicImage library="img" name="logo-small.png"/>
-            </div>
+<!--    <div class="login-content">-->
+<!--        <div class="login-panel">-->
+<!--            <div class="logo">-->
+<!--                <h:graphicImage library="img" name="logo-small.png"/>-->
+<!--            </div>-->
 
-            <h1>#{bundle.PageTitle}</h1>
-            <p>#{bundle.Login_Msg}</p>
-            <h:form styleClass="forms">
-                <h:panelGrid role="presentation" columns="2">
-                    <h:outputLabel value="#{bundle.Topbar_User_Label}" for="username" />
-                    <h:inputText id="username" value="#{userController.username}" />
-                    <h:outputLabel value="#{bundle.Topbar_Pass_Label}" for="password" />
-                    <h:inputSecret id="password" value="#{userController.password}" />
-                </h:panelGrid>
-                <h:panelGrid role="presentation" columns="2">
-                    <h:commandButton action="#{userController.login}" value="#{bundle.Login_label}" />
-                    <h:commandLink action="#" value="#{bundle.ForgetPassword}" />
-                </h:panelGrid>
-            </h:form>
-        </div>
-    </div>
+<!--            <h1>#{bundle.PageTitle}</h1>-->
+<!--            <p>#{bundle.Login_Msg}</p>-->
+<!--            <h:form styleClass="forms">-->
+<!--                <h:panelGrid role="presentation" columns="2">-->
+<!--                    <h:outputLabel value="#{bundle.Topbar_User_Label}" for="username" />-->
+<!--                    <h:inputText id="username" value="#{userController.username}" />-->
+<!--                    <h:outputLabel value="#{bundle.Topbar_Pass_Label}" for="password" />-->
+<!--                    <h:inputSecret id="password" value="#{userController.password}" />-->
+<!--                </h:panelGrid>-->
+<!--                <h:panelGrid role="presentation" columns="2">-->
+<!--                    <h:commandButton action="#{userController.login}" value="#{bundle.Login_label}" />-->
+<!--                    <h:commandLink action="#" value="#{bundle.ForgetPassword}" />-->
+<!--                </h:panelGrid>-->
+<!--            </h:form>-->
+<!--        </div>-->
+<!--    </div>-->
 </h:body>
 </html>

@@ -5,6 +5,7 @@ import org.xkidea.bams.entity.Groups;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.qualifiers.LoggedIn;
 import org.xkidea.bams.web.util.JsfUtil;
+import org.xkidea.bams.web.util.MD5Util;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -39,14 +40,16 @@ public class UserController implements Serializable {
     public UserController() {
     }
 
+    public String wxk(){
+        return "wxk";
+    }
     public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
         String result;
 
         try {
-            logger.log(Level.INFO, "----Request username is {0}", this.getUsername());
-            request.login(this.getUsername(), this.getPassword());
+            request.login(this.getUsername(), MD5Util.generateMD5(this.getPassword()));
 
             JsfUtil.addSuccessMessage(JsfUtil.getStringFromBundle(BUNDLE, "Login_Success"));
 
