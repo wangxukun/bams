@@ -6,6 +6,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
-    <h1>#{userController.wxk}</h1>
+    <h:form>
+        <h:outputLabel for="username" value="Username:" />
+        <h:inputText id="username" value="#{loginController.username}" />
+        <br/>
+
+        <h:outputLabel for="password" value="Password:" />
+        <h:inputSecret id="password" value="#{loginController.password}" />
+        <br/>
+        <h:commandButton action="#{loginController.go}" value="Submit"/>
+    </h:form>
 </h:body>
 </html>

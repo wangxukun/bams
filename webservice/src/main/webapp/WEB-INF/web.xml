@@ -22,7 +22,7 @@
     <session-timeout>30</session-timeout>
   </session-config>
   <welcome-file-list>
-    <welcome-file>login.xhtml</welcome-file>
+    <welcome-file>logined/index.xhtml</welcome-file>
   </welcome-file-list>
 
   <security-constraint>
@@ -39,7 +39,7 @@
   </security-role>
   <login-config>
     <auth-method>FORM</auth-method>
-    <realm-name>JDBCRealm</realm-name>
+    <realm-name>jdbcRealm</realm-name>
     <form-login-config>
       <form-login-page>/login.xhtml</form-login-page>
       <form-error-page>/error.xhtml</form-error-page>
