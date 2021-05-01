@@ -1,6 +1,7 @@
 package org.xkidea.bams.ejb;
 
 import org.xkidea.bams.entity.Customer;
+import org.xkidea.bams.entity.Groups;
 import org.xkidea.bams.entity.Person;
 
 import javax.ejb.Stateless;
@@ -25,7 +26,13 @@ public class UserBean extends AbstractFacade<Customer> {
 
     public boolean createUser(Customer customer) {
         if (getUserByEmail(customer.getEmail()) == null) {
-            super.create(customer);
+            Groups customerGroup = (Groups) em.createNamedQuery("Groups_findByName")
+                    .setParameter("name","CUSTOMER")
+                    .getSingleResult();
+            customer.getGroupsList().add(customerGroup);
+            customerGroup.getPersonList().add(customer);
+//            super.create(customer);
+            em.persist(customer);
             return true;
         } else {
             return false;

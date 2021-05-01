@@ -7,7 +7,6 @@ import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.PageNavigation;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
