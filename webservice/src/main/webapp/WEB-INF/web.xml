@@ -39,7 +39,7 @@
             <url-pattern>/logined/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>Customer</role-name>
+            <role-name>CUSTOMER</role-name>
         </auth-constraint>
     </security-constraint>
     <security-constraint>
@@ -48,13 +48,13 @@
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>Administrator</role-name>
+            <role-name>ADMINISTRATOR</role-name>
         </auth-constraint>
     </security-constraint>
 <!--    <security-role>-->
-<!--        <role-name>Administrator</role-name>-->
+<!--        <role-name>ADMINISTRATOR</role-name>-->
 <!--    </security-role>-->
 <!--    <security-role>-->
-<!--        <role-name>Customer</role-name>-->
+<!--        <role-name>CUSTOMER</role-name>-->
 <!--    </security-role>-->
 </web-app>
