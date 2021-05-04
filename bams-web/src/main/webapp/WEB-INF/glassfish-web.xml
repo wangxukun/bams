@@ -8,11 +8,11 @@
 
 <glassfish-web-app error-url="">
     <security-role-mapping>
-        <role-name>Customer</role-name>
+        <role-name>CUSTOMER</role-name>
         <group-name>CUSTOMER</group-name>
     </security-role-mapping>
     <security-role-mapping>
-        <role-name>Administrator</role-name>
+        <role-name>ADMINISTRATOR</role-name>
         <group-name>ADMINISTRATOR</group-name>
     </security-role-mapping>
     <class-loader delegate="true"/>

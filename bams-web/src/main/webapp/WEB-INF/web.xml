@@ -33,15 +33,15 @@
             <form-error-page>/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>logined page</web-resource-name>
-            <url-pattern>/logined/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>CUSTOMER</role-name>
-        </auth-constraint>
-    </security-constraint>
+<!--    <security-constraint>-->
+<!--        <web-resource-collection>-->
+<!--            <web-resource-name>logined page</web-resource-name>-->
+<!--            <url-pattern>/logined/*</url-pattern>-->
+<!--        </web-resource-collection>-->
+<!--        <auth-constraint>-->
+<!--            <role-name>CUSTOMER</role-name>-->
+<!--        </auth-constraint>-->
+<!--    </security-constraint>-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>main page</web-resource-name>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bams-web:war">
+    <output-path>$PROJECT_DIR$/bams-web/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>bams-web</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="bams-web-1.0.war">
+      <element id="artifact" artifact-name="bams-web:war exploded" />
+    </root>
+  </artifact>
+</component>

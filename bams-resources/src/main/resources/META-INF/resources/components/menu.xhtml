@@ -18,11 +18,11 @@
 <cc:implementation>
     <div id="vertmenu">
         <ul>
-            <li><h:commandLink action="/index" value="#{bundle.Menu_Home}" /></li>
-            <li><h:commandLink action="/bookkeeping/index" value="#{bundle.Menu_Account_Recode}" /></li>
-            <li><h:commandLink action="/query/index" value="#{bundle.Menu_Account_Query}" /></li>
-            <li><h:commandLink action="/account/index" value="#{bundle.Menu_Account_Manager}" /></li>
-            <li><h:commandLink action="/admin/index" value="#{bundle.Menu_Admin}" /></li>
+            <li><h:commandLink action="/logined/index?faces-redirect=true" value="#{bundle.Menu_Home}"/></li>
+            <li><h:commandLink action="/bookkeeping/index?faces-redirect=true" value="#{bundle.Menu_Account_Recode}"/></li>
+            <li><h:commandLink action="/query/index?faces-redirect=true" value="#{bundle.Menu_Account_Query}"/></li>
+            <li><h:commandLink action="/account/index?faces-redirect=true" value="#{bundle.Menu_Account_Manager}"/></li>
+            <li><h:commandLink action="/admin/index?faces-redirect=true" value="#{bundle.Menu_Admin}"/></li>
         </ul>
     </div>
 </cc:implementation>

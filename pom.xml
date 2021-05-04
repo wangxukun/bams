@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0</version>
 
-    <name>Bank Account Management System</name>
+    <name>bams</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -25,7 +25,7 @@
     </properties>
 
     <modules>
-        <module>webservice</module>
+        <module>bams-web</module>
         <module>bams-resources</module>
         <module>bams-entities</module>
     </modules>

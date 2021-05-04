@@ -26,7 +26,7 @@ public class Groups implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50, message = "{groups.name}")
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
     @Size(max = 300, message = "{groups.description}")
     @Column(name = "DESCRIPTION")

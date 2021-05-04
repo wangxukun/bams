@@ -1,17 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="webservice:war exploded">
-    <output-path>$PROJECT_DIR$/webservice/target/webservice-1.0</output-path>
+  <artifact type="exploded-war" name="bams-web:war exploded">
+    <output-path>$PROJECT_DIR$/bams-web/target/bams-web-1.0</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>webservice</module>
+        <module>bams-web</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="webservice" />
+          <element id="module-output" name="bams-web" />
         </element>
         <element id="directory" name="lib">
           <element id="archive" name="bams-resources-1.0.jar">
@@ -24,9 +24,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/webservice/target/webservice-1.0/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/bams-web/target/bams-web-1.0/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="webservice/web/Web" />
+      <element id="javaee-facet-resources" facet="bams-web/web/Web" />
     </root>
   </artifact>
 </component>
