@@ -1,6 +1,6 @@
 package org.xkidea.bams.web;
 
-import org.xkidea.bams.ejb.UserBean;
+import org.xkidea.bams.ejb.CustomerBean;
 import org.xkidea.bams.entity.Groups;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.qualifiers.LoggedIn;
@@ -30,7 +30,7 @@ public class UserController implements Serializable {
 
     Person user;
     @EJB
-    private UserBean ejbFacade;
+    private CustomerBean ejbFacade;
     private String username;
     private String password;
     @Inject
@@ -103,7 +103,7 @@ public class UserController implements Serializable {
         return user;
     }
 
-    public UserBean getEjbFacade() {
+    public CustomerBean getEjbFacade() {
         return ejbFacade;
     }
 }

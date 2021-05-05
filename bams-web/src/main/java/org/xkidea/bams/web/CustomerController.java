@@ -1,6 +1,6 @@
 package org.xkidea.bams.web;
 
-import org.xkidea.bams.ejb.UserBean;
+import org.xkidea.bams.ejb.CustomerBean;
 import org.xkidea.bams.entity.Customer;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
@@ -30,7 +30,7 @@ public class CustomerController implements Serializable {
     private DataModel items = null;
 
     @EJB
-    UserBean ejbFacade;
+    CustomerBean ejbFacade;
 
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
@@ -58,7 +58,7 @@ public class CustomerController implements Serializable {
         return PageNavigation.LIST;
     }
 
-    public UserBean getFacade() {
+    public CustomerBean getFacade() {
         return ejbFacade;
     }
 
@@ -93,7 +93,7 @@ public class CustomerController implements Serializable {
             if (!isUserDuplicated(current)) {
                 current.setPassword(MD5Util.generateMD5(current.getPassword()));
                 current.setDateCreated(new Date());
-                getFacade().createUser(current);
+                getFacade().create(current);
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CustomerCreated"));
             } else {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("DuplicatedCustomerError"));

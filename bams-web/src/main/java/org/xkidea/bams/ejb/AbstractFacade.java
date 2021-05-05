@@ -1,6 +1,9 @@
 package org.xkidea.bams.ejb;
 
+import org.xkidea.bams.entity.Person;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
@@ -56,6 +59,17 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
+    public Person getUserByEmail(String email) {
+        Query createNamedQuery = getEntityManager().createNamedQuery("Person.findByEmail");
+
+        createNamedQuery.setParameter("email", email);
+
+        if (createNamedQuery.getResultList().size() > 0) {
+            return (Person) createNamedQuery.getSingleResult();
+        } else {
+            return null;
+        }
+    }
 
     public CriteriaBuilder getCriteriaBuilder() {
         return getEntityManager().getCriteriaBuilder();
