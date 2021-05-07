@@ -19,18 +19,18 @@
 
     <ui:composition template="/logined/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListCustomerTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListTreasurerTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:outputText escape="false" value="#{bundle.ListCustomerEmpty}" rendered="#{customerController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{customerController.items.rowCount > 0}">
+                <h:outputText escape="false" value="#{bundle.ListCustomerEmpty}" rendered="#{treasurerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{treasurerController.items.rowCount > 0}">
                     <ul class="commandButtons">
-                        <li><h:commandLink action="#{customerController.previous}" value="#{bundle.Previous} #{customerController.pagination.pageSize}" rendered="#{customerController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{customerController.next}" value="#{bundle.Next} #{customerController.pagination.pageSize}" rendered="#{customerController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{customerController.prepareCreate}" value="#{bundle.ListCustomerCreateLink}"/></li>
+                        <li><h:commandLink action="#{treasurerController.previous}" value="#{bundle.Previous} #{treasurerController.pagination.pageSize}" rendered="#{treasurerController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{treasurerController.next}" value="#{bundle.Next} #{treasurerController.pagination.pageSize}" rendered="#{treasurerController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{treasurerController.prepareCreate}" value="#{bundle.ListTreasurerCreateLink}"/></li>
                     </ul>
-                    <h:dataTable value="#{customerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{treasurerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCustomerTitle_id}"/>
@@ -71,11 +71,11 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{customerController.prepareView}" value="#{bundle.ListCustomerViewLink}"/>
+                            <h:commandLink action="#{treasurerController.prepareView}" value="#{bundle.ListCustomerViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{customerController.prepareEdit}" value="#{bundle.ListCustomerEditLink}"/>
+                            <h:commandLink action="#{treasurerController.prepareEdit}" value="#{bundle.ListCustomerEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{customerController.destroy}" value="#{bundle.ListCustomerDestroyLink}"/>
+                            <h:commandLink action="#{treasurerController.destroy}" value="#{bundle.ListCustomerDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
