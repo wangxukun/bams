@@ -24,7 +24,7 @@
         <ui:define name="body">
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.ViewGroupsLabel_id}" for="id"/>
+                    <h:outputLabel value="#{bundle.EditGroupsLabel_id}" for="id"/>
                     <h:inputText id="id" value="#{groupsController.selected.id}" title="#{bundle.EditGroupsTitle_id}" readonly="true"/>
                     <h:outputLabel value="#{bundle.EditGroupsLabel_name}" for="name" />
                     <h:inputText id="name" value="#{groupsController.selected.name}" title="#{bundle.EditGroupsTitle_name}" required="true" requiredMessage="#{bundle.EditGroupsRequiredMessage_name}"/>
