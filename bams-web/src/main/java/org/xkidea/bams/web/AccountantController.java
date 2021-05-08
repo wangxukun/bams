@@ -1,7 +1,7 @@
 package org.xkidea.bams.web;
 
-import org.xkidea.bams.ejb.TreasurerBean;
-import org.xkidea.bams.entity.Treasurer;
+import org.xkidea.bams.AccountantBean;
+import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.MD5Util;
@@ -16,32 +16,32 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-@Named(value = "treasurerController")
+@Named(value = "accountantController")
 @SessionScoped
-public class TreasurerController implements Serializable {
+public class AccountantController implements Serializable {
 
-    private static final long serialVersionUID = 3822388479554114531L;
+    private static final long serialVersionUID = -5956167013948244397L;
     private static final String BUNDLE = "bundles.Bundle";
 
-    private Treasurer current;
+    private Accountant current;
     private DataModel items = null;
 
     @EJB
-    private TreasurerBean ejbFacade;
+    private AccountantBean ejbFacade;
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
 
-    public TreasurerController() {
+    public AccountantController() {
     }
 
-    public Treasurer getSelected() {
+    public Accountant getSelected() {
         if (current == null) {
-            current = new Treasurer();
+            current = new Accountant();
         }
         return current;
     }
 
-    private TreasurerBean getFacade() {
+    private AccountantBean getFacade() {
         return ejbFacade;
     }
 
@@ -70,7 +70,7 @@ public class TreasurerController implements Serializable {
             current.setPassword(MD5Util.generateMD5(current.getPassword()));
             current.setDateCreated(new Date());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("TreasurerCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AccountantCreated"));
             return PageNavigation.VIEW;
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class TreasurerController implements Serializable {
     }
 
     public PageNavigation prepareCreate() {
-        current = new Treasurer();
+        current = new Accountant();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
     }
@@ -91,13 +91,13 @@ public class TreasurerController implements Serializable {
     }
 
     public PageNavigation prepareView() {
-        current = (Treasurer) getItems().getRowData();
+        current = (Accountant) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem()+getItems().getRowIndex();
         return PageNavigation.VIEW;
     }
 
     public PageNavigation prepareEdit() {
-        current = (Treasurer) getItems().getRowData();
+        current = (Accountant) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem()+getItems().getRowIndex();
         return PageNavigation.EDIT;
     }
@@ -106,7 +106,7 @@ public class TreasurerController implements Serializable {
         try {
             current.setPassword(MD5Util.generateMD5(current.getPassword()));
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("TreasurerUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AccountantUpdated"));
             return PageNavigation.VIEW;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
@@ -115,7 +115,7 @@ public class TreasurerController implements Serializable {
     }
 
     public PageNavigation destroy() {
-        current = (Treasurer) getItems().getRowData();
+        current = (Accountant) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreateModel();
@@ -137,7 +137,7 @@ public class TreasurerController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("TreasurerDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AccountantDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
         }

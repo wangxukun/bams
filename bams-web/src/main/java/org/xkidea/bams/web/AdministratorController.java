@@ -51,7 +51,7 @@ public class AdministratorController implements Serializable {
      */
     public AbstractPaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new AbstractPaginationHelper(10) {
+            pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
                     // 返回数据库中Administrator实体的数量
@@ -96,6 +96,7 @@ public class AdministratorController implements Serializable {
 
     public PageNavigation update() {
         try {
+            current.setPassword(MD5Util.generateMD5(current.getPassword()));
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AdministratorUpdated"));
             return PageNavigation.VIEW;
@@ -105,6 +106,10 @@ public class AdministratorController implements Serializable {
         }
     }
 
+    /**
+     * admin/administrator/List.xhtml下的删除键使用
+     * @return
+     */
     public PageNavigation destroy() {
         current = (Administrator) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -113,6 +118,10 @@ public class AdministratorController implements Serializable {
         return PageNavigation.LIST;
     }
 
+    /**
+     * admin/administrator/View.xhtml下的删除键使用
+     * @return
+     */
     public PageNavigation destroyAndView() {
         performDestroy();
         recreateModel();
@@ -125,11 +134,15 @@ public class AdministratorController implements Serializable {
         }
     }
 
+    /**
+     * 当当前条目被删除后，更新下一条为当前条目
+     */
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getFacade().count(); //　获取条目总数
         if (selectedItemIndex >= count) {
             selectedItemIndex = count - 1;
 
+            // 如果变量--当前页面的第一条目 >= 总条目数
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }

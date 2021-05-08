@@ -14,24 +14,24 @@
 
 <ui:composition template="/logined/template.xhtml">
     <ui:define name="title">
-        <h:outputText value="#{bundle.CreateCustomerTitle}"></h:outputText>
+        <h:outputText value="#{bundle.CreateAccountantTitle}"></h:outputText>
     </ui:define>
     <ui:define name="body">
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_full_name}" for="full_name" />
-                <h:inputText id="full_name" value="#{customerController.selected.name}" title="#{bundle.CreateCustomerTitle_full_name}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_full_name}"/>
+                <h:inputText id="full_name" value="#{accountantController.selected.name}" title="#{bundle.CreateCustomerTitle_full_name}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_full_name}"/>
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_phone}" for="phone" />
-                <h:inputText id="phone" value="#{customerController.selected.phone}" title="#{bundle.CreateCustomerTitle_phone}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_phone}"/>
+                <h:inputText id="phone" value="#{accountantController.selected.phone}" title="#{bundle.CreateCustomerTitle_phone}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_phone}"/>
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_email}" for="email" />
-                <h:inputText id="email" value="#{customerController.selected.email}" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
+                <h:inputText id="email" value="#{accountantController.selected.email}" title="#{bundle.CreateCustomerTitle_email}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_email}"/>
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_organization}" for="organization" />
-                <h:inputText id="organization" value="#{customerController.selected.organization}" title="#{bundle.CreateCustomerTitle_organization}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_organization}" />
+                <h:inputText id="organization" value="#{accountantController.selected.organization}" title="#{bundle.CreateCustomerTitle_organization}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_organization}" />
                 <h:outputLabel value="#{bundle.CreateCustomerLabel_password}" for="password" />
-                <h:inputSecret id="password" value="#{customerController.selected.password}" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
+                <h:inputSecret id="password" value="#{accountantController.selected.password}" title="#{bundle.CreateCustomerTitle_password}" required="true" requiredMessage="#{bundle.CreateCustomerRequiredMessage_password}"/>
             </h:panelGrid>
 
-            <util:commandButtons bundleEntity="CreateCustomer" controller="#{customerController}" type="create" />
+            <util:commandButtons bundleEntity="CreateAccountant" controller="#{accountantController}" type="create" />
         </h:form>
     </ui:define>
 </ui:composition>

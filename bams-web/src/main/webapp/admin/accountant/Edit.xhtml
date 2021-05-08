@@ -20,26 +20,26 @@
 
     <ui:composition template="/logined/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditCustomerTitle}"></h:outputText>
+            <h:outputText value="#{bundle.EditAccountantTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditAdministratorLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{customerController.selected.id}" title="#{bundle.EditAdministratorTitle_id}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_id}" readonly="true"/>
+                    <h:inputText id="id" value="#{accountantController.selected.id}" title="#{bundle.EditAdministratorTitle_id}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_id}" readonly="true"/>
                     <h:outputLabel value="#{bundle.EditAdministratorLabel_fullname}" for="fullname" />
-                    <h:inputText id="fullname" value="#{customerController.selected.name}" title="#{bundle.EditAdministratorTitle_fullname}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_fullname}"/>
+                    <h:inputText id="fullname" value="#{accountantController.selected.name}" title="#{bundle.EditAdministratorTitle_fullname}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_fullname}"/>
                     <h:outputLabel value="#{bundle.EditAdministratorLabel_phone}" for="phone" />
-                    <h:inputText id="phone" value="#{customerController.selected.phone}" title="#{bundle.EditAdministratorTitle_phone}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_phone}"/>
+                    <h:inputText id="phone" value="#{accountantController.selected.phone}" title="#{bundle.EditAdministratorTitle_phone}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_phone}"/>
                     <h:outputLabel value="#{bundle.EditAdministratorLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{customerController.selected.email}" title="#{bundle.EditAdministratorTitle_email}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_email}"/>
+                    <h:inputText id="email" value="#{accountantController.selected.email}" title="#{bundle.EditAdministratorTitle_email}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_email}"/>
                     <h:outputLabel value="#{bundle.EditAdministratorLabel_organization}" for="organization" />
-                    <h:inputText id="organization" value="#{customerController.selected.organization}" title="#{bundle.EditAdministratorTitle_organization}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_organization}"/>
+                    <h:inputText id="organization" value="#{accountantController.selected.organization}" title="#{bundle.EditAdministratorTitle_organization}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_organization}"/>
                     <h:outputLabel value="#{bundle.EditAdministratorLabel_password}" for="password" />
-                    <h:inputSecret id="password" value="#{customerController.selected.password}" title="#{bundle.EditAdministratorTitle_password}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_password}"/>
+                    <h:inputSecret id="password" value="#{accountantController.selected.password}" title="#{bundle.EditAdministratorTitle_password}" required="true" requiredMessage="#{bundle.EditAdministratorRequiredMessage_password}"/>
                 </h:panelGrid>
 
-                <util:commandButtons bundleEntity="EditCustomer" controller="#{customerController}" type="edit" />
+                <util:commandButtons bundleEntity="EditAccountant" controller="#{accountantController}" type="edit" />
             </h:form>
         </ui:define>
     </ui:composition>
