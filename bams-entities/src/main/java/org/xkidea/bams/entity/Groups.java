@@ -35,25 +35,19 @@ public class Groups implements Serializable {
     @XmlTransient
     private List<Person> personList;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "groups")
-    private List<Account> accountList;
-
     public Groups() {
         personList = new ArrayList<>();
-        accountList = new ArrayList<>();
     }
 
     public Groups(Integer id) {
         this.id = id;
         personList = new ArrayList<>();
-        accountList = new ArrayList<>();
     }
 
     public Groups(Integer id, String name) {
         this.id = id;
         this.name = name;
         personList = new ArrayList<>();
-        accountList = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -87,14 +81,6 @@ public class Groups implements Serializable {
 
     public void setPersonList(List<Person> personList) {
         this.personList = personList;
-    }
-
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
     }
 
     @Override

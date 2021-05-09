@@ -2,6 +2,7 @@ package org.xkidea.bams.ejb;
 
 import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.Groups;
+import org.xkidea.bams.entity.SortAccount;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,12 +26,12 @@ public class GeneralAccountBean extends AbstractFacade<GeneralAccount>{
 
     @Override
     public void create(GeneralAccount generalAccount) {
-        Groups generalAccountGroup = (Groups) em.createNamedQuery("Groups_findByName")
+        SortAccount sortAccount = (SortAccount) em.createNamedQuery("SortAccount_findByName")
                 .setParameter("name","GENERALACCOUNT")
                 .getSingleResult();
         generalAccount.setBalance(BigDecimal.ZERO);
-        generalAccount.setGroups(generalAccountGroup);
-        generalAccountGroup.getAccountList().add(generalAccount);
+        generalAccount.setSortAccount(sortAccount);
+        sortAccount.getAccountList().add(generalAccount);
         em.persist(generalAccount);
     }
 

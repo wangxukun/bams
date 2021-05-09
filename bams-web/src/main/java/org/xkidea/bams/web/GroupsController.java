@@ -8,10 +8,10 @@ import org.xkidea.bams.web.util.PageNavigation;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
+/*import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.faces.convert.FacesConverter;*/
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -192,7 +192,7 @@ public class GroupsController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Groups.class)
+    /*@FacesConverter(forClass = Groups.class)
     public static class GroupsControllerConverter implements Converter {
 
         @Override
@@ -229,5 +229,5 @@ public class GroupsController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + GroupsController.class.getName());
             }
         }
-    }
+    }*/
 }

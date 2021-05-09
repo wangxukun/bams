@@ -15,9 +15,9 @@ public class Account implements Serializable {
 
     private static final long serialVersionUID = 4907786332920001037L;
 
-    @JoinColumn(name = "GROUPS_ID",referencedColumnName = "ID")
+    @JoinColumn(name = "sortAccount_id",referencedColumnName = "ID")
     @ManyToOne
-    protected Groups groups;
+    protected SortAccount sortAccount;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,15 +79,14 @@ public class Account implements Serializable {
         this.dateCreated = dateCreated;
     }
 
-    public Groups getGroups() {
-        return groups;
+    public SortAccount getSortAccount() {
+        return sortAccount;
     }
 
-    public void setGroups(Groups groups) {
-        this.groups = groups;
+    public void setSortAccount(SortAccount sortAccount) {
+        this.sortAccount = sortAccount;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

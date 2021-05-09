@@ -13,6 +13,10 @@ public class SubsidiaryAccount extends Account{
     @ManyToOne
     private Area area;
 
+    @JoinColumn(name = "CategoryAccount_id", referencedColumnName = "ID")
+    @ManyToOne
+    private CategoryAccount categoryAccount;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "subsidiaryAccount")
     private List<DetailRecord> detailRecordList;
 
@@ -34,6 +38,14 @@ public class SubsidiaryAccount extends Account{
 
     public void setDetailRecordList(List<DetailRecord> detailRecordList) {
         this.detailRecordList = detailRecordList;
+    }
+
+    public CategoryAccount getCategoryAccount() {
+        return categoryAccount;
+    }
+
+    public void setCategoryAccount(CategoryAccount categoryAccount) {
+        this.categoryAccount = categoryAccount;
     }
 
     @Override
