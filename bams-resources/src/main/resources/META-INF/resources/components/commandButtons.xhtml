@@ -16,17 +16,17 @@
 <html   xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:composite="http://java.sun.com/jsf/composite">
+        xmlns:cc="http://java.sun.com/jsf/composite">
 
 <head><title>(For validation only)</title></head>
 <body>
-<composite:interface>
-    <composite:attribute name="controller" />
-    <composite:attribute name="bundleEntity" />
-    <composite:attribute name="type" />
-</composite:interface>
+<cc:interface>
+    <cc:attribute name="controller" />
+    <cc:attribute name="bundleEntity" />
+    <cc:attribute name="type" />
+</cc:interface>
 
-<composite:implementation>
+<cc:implementation>
 
     <!-- CREATE -->
     <ui:fragment rendered="#{cc.attrs.type eq 'create'}">
@@ -56,7 +56,7 @@
         </ul>
     </ui:fragment>
 
-</composite:implementation>
+</cc:implementation>
 
 </body>
 
