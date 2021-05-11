@@ -54,7 +54,9 @@ public class UserController implements Serializable {
 
             if (isAdmin()) {
                 result = "/admin/index";
-            } else {
+            } else if(isTreasurer()){
+                result = "/account/index";
+            } else{
                 result = "/logined/index";
             }
         } catch (ServletException ex) {
@@ -67,11 +69,19 @@ public class UserController implements Serializable {
         return result;
     }
 
+    public String logout() {
+        return "/index";
+    }
+
     public
     @Produces
     @LoggedIn
     Person getAuthenticatedUser() {
         return user;
+    }
+
+    public boolean isLogged() {
+        return (getUser() == null) ? false : true;
     }
 
     public boolean isAdmin(){
@@ -81,6 +91,23 @@ public class UserController implements Serializable {
             }
         }
         return false;
+    }
+
+    public boolean isTreasurer() {
+        for (Groups g : user.getGroupsList()) {
+            if (g.getName().equals("TREASURER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String goAdmin() {
+        if (isAdmin()) {
+            return "/admin/index";
+        } else {
+            return "/logined/index";
+        }
     }
 
     public String getUsername() {

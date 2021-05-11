@@ -3,6 +3,7 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/bams-web/src/main/webapp/logined/topbar.xhtml" value="file://$PROJECT_DIR$/bams-web/src/main/webapp/logined" />
         <entry key="file://$PROJECT_DIR$/webservice/src/main/webapp/admin/groups/View.xhtml" value="file://$PROJECT_DIR$/webservice/src/main/webapp/admin/groups" />
         <entry key="file://$PROJECT_DIR$/webservice/src/main/webapp/template.xhtml" value="file://$PROJECT_DIR$/webservice/src/main/webapp" />
       </map>

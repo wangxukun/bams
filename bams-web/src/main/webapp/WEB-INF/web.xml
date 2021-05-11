@@ -33,16 +33,16 @@
             <form-error-page>/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-<!--    <security-constraint>-->
-<!--        <web-resource-collection>-->
-<!--            <web-resource-name>logined page</web-resource-name>-->
-<!--            <url-pattern>/logined/*</url-pattern>-->
-<!--        </web-resource-collection>-->
-<!--        <auth-constraint>-->
-<!--            <role-name>CUSTOMER</role-name>-->
-<!--        </auth-constraint>-->
-<!--    </security-constraint>-->
-    <!--<security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>management account page</web-resource-name>
+            <url-pattern>/account/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>TREASURER</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
         <web-resource-collection>
             <web-resource-name>main page</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
@@ -50,7 +50,7 @@
         <auth-constraint>
             <role-name>ADMINISTRATOR</role-name>
         </auth-constraint>
-    </security-constraint>-->
+    </security-constraint>
 <!--    <security-role>-->
 <!--        <role-name>ADMINISTRATOR</role-name>-->
 <!--    </security-role>-->
