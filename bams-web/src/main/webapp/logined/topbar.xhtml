@@ -12,7 +12,7 @@
     <h:form rendered="#{userController.logged}">
         <h:commandButton rendered="#{userController.admin}" action="#{userController.goAdmin}"  value="Administration" />
         <h:commandButton action="#{userController.logout}" value="#{bundle.Topbar_Logout_Label}"/>
-        <h:outputText value=" #{bundle.Topbar_User_Label} #{userController.authenticatedUser.name}"  styleClass="user"/>
+        <h:outputText value=" #{bundle.Topbar_organization_Label} #{userController.authenticatedUser.organization} #{userController.authenticatedUser.name}"  styleClass="user"/>
     </h:form>
 
 </ui:composition>

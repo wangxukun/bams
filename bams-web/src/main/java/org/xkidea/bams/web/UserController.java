@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,21 @@ public class UserController implements Serializable {
     }
 
     public String logout() {
-        return "/index";
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+
+        try {
+            this.user = null;
+            request.logout();
+            // clear the session;
+            ((HttpSession) context.getExternalContext().getSession(false)).invalidate();
+            JsfUtil.addSuccessMessage(JsfUtil.getStringFromBundle(BUNDLE, "Logout_Success"));
+        } catch (ServletException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE,null,ex);
+            JsfUtil.addErrorMessage(JsfUtil.getStringFromBundle(BUNDLE,"Logout_Failed"));
+        }finally {
+            return "/login";
+        }
     }
 
     public
