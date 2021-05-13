@@ -1,6 +1,6 @@
 package org.xkidea.bams.web;
 
-import org.xkidea.bams.AccountantBean;
+import org.xkidea.bams.ejb.AccountantBean;
 import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;

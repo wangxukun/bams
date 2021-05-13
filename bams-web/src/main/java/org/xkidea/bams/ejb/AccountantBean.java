@@ -1,6 +1,5 @@
-package org.xkidea.bams;
+package org.xkidea.bams.ejb;
 
-import org.xkidea.bams.ejb.AbstractFacade;
 import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Groups;
 
