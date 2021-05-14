@@ -13,7 +13,7 @@ public class SubsidiaryAccount extends Account{
     @ManyToOne
     private Area area;
 
-    @JoinColumn(name = "CategoryAccount_id", referencedColumnName = "ID")
+    @JoinColumn(name = "CATEGORYACCOUNT_ID", referencedColumnName = "ID")
     @ManyToOne
     private CategoryAccount categoryAccount;
 

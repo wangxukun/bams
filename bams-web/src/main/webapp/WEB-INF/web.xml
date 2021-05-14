@@ -33,7 +33,7 @@
             <form-error-page>/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-    <security-constraint>
+    <!--<security-constraint>
         <web-resource-collection>
             <web-resource-name>management account page</web-resource-name>
             <url-pattern>/account/*</url-pattern>
@@ -50,7 +50,7 @@
         <auth-constraint>
             <role-name>ADMINISTRATOR</role-name>
         </auth-constraint>
-    </security-constraint>
+    </security-constraint>-->
 <!--    <security-role>-->
 <!--        <role-name>ADMINISTRATOR</role-name>-->
 <!--    </security-role>-->

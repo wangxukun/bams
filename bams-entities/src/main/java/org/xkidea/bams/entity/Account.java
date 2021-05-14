@@ -15,7 +15,7 @@ public class Account implements Serializable {
 
     private static final long serialVersionUID = 4907786332920001037L;
 
-    @JoinColumn(name = "sortAccount_id",referencedColumnName = "ID")
+    @JoinColumn(name = "SORTACCOUNT_ID",referencedColumnName = "ID")
     @ManyToOne
     protected SortAccount sortAccount;
 
