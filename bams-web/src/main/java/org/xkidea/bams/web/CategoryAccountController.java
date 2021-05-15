@@ -1,6 +1,8 @@
 package org.xkidea.bams.web;
 
+import org.xkidea.bams.ejb.CategoryAccountBean;
 import org.xkidea.bams.ejb.SortAccountBean;
+import org.xkidea.bams.entity.CategoryAccount;
 import org.xkidea.bams.entity.SortAccount;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -14,39 +16,39 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-@Named(value = "sortAccountController")
+@Named(value = "categoryAccountController")
 @SessionScoped
-public class SortAccountController implements Serializable {
-    private static final long serialVersionUID = -2701722893952713776L;
+public class CategoryAccountController implements Serializable {
+    private static final long serialVersionUID = -8141234017550612607L;
     private static final String BUNDLE = "bundles.Bundle";
 
-    private SortAccount current;
+    private CategoryAccount current;
     private DataModel items = null;
 
     @EJB
-    private SortAccountBean ejbFacade;
+    private CategoryAccountBean ejbFacade;
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
 
-    public SortAccountController() {
+    public CategoryAccountController() {
     }
 
-    public SortAccount getSelected() {
+    public CategoryAccount getSelected() {
         if (current == null) {
-            current = new SortAccount();
+            current = new CategoryAccount();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private SortAccountBean getFacade() {
+    private CategoryAccountBean getFacade() {
         return ejbFacade;
     }
 
     public PageNavigation create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SortAccountCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CategoryAccountCreated"));
             return PageNavigation.VIEW;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
@@ -105,25 +107,25 @@ public class SortAccountController implements Serializable {
     }
 
     public PageNavigation prepareCreate() {
-        current = new SortAccount();
+        current = new CategoryAccount();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
     }
 
     public PageNavigation prepareView() {
-        current = (SortAccount) getItems().getRowData();
+        current = (CategoryAccount) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.VIEW;
     }
 
     public PageNavigation prepareEdit() {
-        current = (SortAccount) getItems().getRowData();
+        current = (CategoryAccount) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.EDIT;
     }
 
     public PageNavigation destroy() {
-        current = (SortAccount) getItems().getRowData();
+        current = (CategoryAccount) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreateModel();
@@ -133,7 +135,7 @@ public class SortAccountController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SortAccountDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CategoryAccountDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
         }
@@ -142,7 +144,7 @@ public class SortAccountController implements Serializable {
     public PageNavigation update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SortAccountUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CategoryAccountUpdated"));
             return PageNavigation.VIEW;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));

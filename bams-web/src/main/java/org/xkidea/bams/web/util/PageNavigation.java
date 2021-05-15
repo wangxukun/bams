@@ -8,7 +8,8 @@ public enum PageNavigation {
     VIEW("View"),
     INDEX("index"),
     SYSTEM_MANAGE_HOME("/admin/index"),
-    ACCOUNT_MANAGE_HOME("/account/index");
+    ACCOUNT_MANAGE_HOME("/account/index"),
+    SETTING_HOME("/setting/index");
     private String text;
 
     PageNavigation(final String s) {

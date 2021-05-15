@@ -50,7 +50,7 @@ public class GroupsController implements Serializable {
 
     public AbstractPaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new AbstractPaginationHelper(10) {
+            pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
 
                 @Override
                 public int getItemsCount() {

@@ -6,6 +6,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ * CRUD账户类别SortAccount
+ */
 @Stateless
 public class SortAccountBean extends AbstractFacade<SortAccount> {
     @PersistenceContext(unitName = "bamsPU")
