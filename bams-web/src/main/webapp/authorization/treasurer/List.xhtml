@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/logined/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:outputText escape="false" value="#{bundle.ListTreasurerAuthorizationEmpty}" rendered="#{treasurerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{treasurerController.items.rowCount > 0}">
+                    <ul class="commandButtons">
+                        <li><h:commandLink action="#{treasurerController.previous}" value="#{bundle.Previous} #{treasurerController.pagination.pageSize}" rendered="#{treasurerController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{treasurerController.next}" value="#{bundle.Next} #{treasurerController.pagination.pageSize}" rendered="#{treasurerController.pagination.hasNextPage}"/></li>
+                    </ul>
+                    <h:dataTable value="#{treasurerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_organization}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.organization}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_generalAccount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.accountList}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{treasurerController.prepareEdit}" value="#{bundle.ListTreasurerAuthorizationEditLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
