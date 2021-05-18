@@ -9,6 +9,7 @@ public enum PageNavigation {
     INDEX("index"),
     SYSTEM_MANAGE_HOME("/admin/index"),
     ACCOUNT_MANAGE_HOME("/account/index"),
+    ACCOUNT_AUTHORIZATION("/authorization/treasurer/Authorization"),
     SETTING_HOME("/setting/index");
     private String text;
 

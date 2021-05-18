@@ -25,10 +25,6 @@
             <h:form styleClass="jsfcrud_list_form">
                 <h:outputText escape="false" value="#{bundle.ListTreasurerAuthorizationEmpty}" rendered="#{treasurerController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{treasurerController.items.rowCount > 0}">
-                    <ul class="commandButtons">
-                        <li><h:commandLink action="#{treasurerController.previous}" value="#{bundle.Previous} #{treasurerController.pagination.pageSize}" rendered="#{treasurerController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{treasurerController.next}" value="#{bundle.Next} #{treasurerController.pagination.pageSize}" rendered="#{treasurerController.pagination.hasNextPage}"/></li>
-                    </ul>
                     <h:dataTable value="#{treasurerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -58,13 +54,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_generalAccount}"/>
                             </f:facet>
-                            <h:outputText value="#{item.accountList}"/>
+                            <h:outputText value="#{item.accountList.size()> 0 ? item.accountList.get(0).name : '/'}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{treasurerController.prepareEdit}" value="#{bundle.ListTreasurerAuthorizationEditLink}"/>
+                            <h:commandLink action="#{treasurerController.prepareAccountAuthorization}" value="#{bundle.ListTreasurerAuthorizationEditLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

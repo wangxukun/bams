@@ -13,7 +13,7 @@ public class GeneralAccount extends Account{
 
     private static final long serialVersionUID = -2313957548533758458L;
 
-    @ManyToMany(mappedBy = "accountList")
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "accountList")
     @XmlTransient
     private List<Person> personList;
 
@@ -23,6 +23,22 @@ public class GeneralAccount extends Account{
     public GeneralAccount() {
         this.personList = new ArrayList<>();
         this.areaList = new ArrayList<>();
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
+    }
+
+    public List<Area> getAreaList() {
+        return areaList;
+    }
+
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
     }
 
     @Override

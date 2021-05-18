@@ -1,6 +1,9 @@
 package org.xkidea.bams.web;
 
+import org.xkidea.bams.ejb.GeneralAccountBean;
 import org.xkidea.bams.ejb.TreasurerBean;
+import org.xkidea.bams.entity.GeneralAccount;
+import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.entity.Treasurer;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -26,8 +29,13 @@ public class TreasurerController implements Serializable {
     private Treasurer current;
     private DataModel items = null;
 
+    // 授权的基本账户ID
+    private int accountId;
+
     @EJB
     private TreasurerBean ejbFacade;
+    @EJB
+    private GeneralAccountBean ejbGAFacade;
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -100,6 +108,36 @@ public class TreasurerController implements Serializable {
         current = (Treasurer) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem()+getItems().getRowIndex();
         return PageNavigation.EDIT;
+    }
+
+    /**
+     * 导航到选定用户的基本账户授权页面
+     * @return
+     */
+    public PageNavigation prepareAccountAuthorization() {
+        accountId = -1;
+        current = (Treasurer) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.ACCOUNT_AUTHORIZATION;
+    }
+
+    /**
+     * 为选定操作员授权基本账户
+     * @return
+     */
+    public PageNavigation accountAuthorization() {
+        try {
+            GeneralAccount generalAccount = ejbGAFacade.find(accountId);
+            current.getAccountList().add(generalAccount);
+            generalAccount.getPersonList().add(current);
+            ejbGAFacade.edit(generalAccount);
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("TreasurerAccountAuthorizationUpdated"));
+            return PageNavigation.LIST;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
+        }
     }
 
     public PageNavigation update() {
@@ -182,5 +220,13 @@ public class TreasurerController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 }
