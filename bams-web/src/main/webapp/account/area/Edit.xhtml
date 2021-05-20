@@ -23,7 +23,17 @@
             <h:outputText value="#{bundle.EditAreaTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h1>#{bundle.EditAreaTitle}</h1>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAreaLabel_id}" for="id"/>
+                    <h:inputText id="id" value="#{areaController.selected.id}" title="#{bundle.EditAreaTitle_id}" readonly="true"/>
+                    <h:outputLabel value="#{bundle.EditAreaLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{areaController.selected.name}" title="#{bundle.EditAreaTitle_name}" required="true" requiredMessage="#{bundle.EditAreaRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditAreaLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{areaController.selected.description}" title="#{bundle.EditAreaTitle_description}" />
+                </h:panelGrid>
+                <util:commandButtons bundleEntity="EditArea" controller="#{areaController}" type="edit" />
+            </h:form>
         </ui:define>
     </ui:composition>
 

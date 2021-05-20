@@ -19,14 +19,4 @@ public class AreaBean extends AbstractFacade<Area> {
     public EntityManager getEntityManager() {
         return em;
     }
-
-    @Override
-    public void create(Area entity) {
-        super.create(entity);
-    }
-
-    @Override
-    public void remove(Area entity) {
-        super.remove(entity);
-    }
 }

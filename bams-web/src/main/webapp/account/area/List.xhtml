@@ -19,66 +19,54 @@
 
     <ui:composition template="/logined/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListAdministratorTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListAreaTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="listAdministratorMessagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListAdministratorEmpty}" rendered="#{administratorController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{administratorController.items.rowCount > 0}">
+                <h:outputText escape="false" value="#{bundle.ListAreaEmpty}" rendered="#{areaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{areaController.items.rowCount > 0}">
                     <ul class="commandButtons">
-                        <li><h:commandLink action="#{administratorController.previous}" value="#{bundle.Previous} #{administratorController.pagination.pageSize}" rendered="#{administratorController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{administratorController.next}" value="#{bundle.Next} #{administratorController.pagination.pageSize}" rendered="#{administratorController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{administratorController.prepareCreate}" value="#{bundle.ListAdministratorCreateLink}"/></li>
+                        <li><h:commandLink action="#{areaController.previous}" value="#{bundle.Previous} #{areaController.pagination.pageSize}" rendered="#{areaController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{areaController.next}" value="#{bundle.Next} #{areaController.pagination.pageSize}" rendered="#{areaController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{areaController.prepareCreate}" value="#{bundle.ListAreaCreateLink}"/></li>
                     </ul>
-                    <h:dataTable value="#{administratorController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{areaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_id}"/>
+                                <h:outputText value="#{bundle.ListAreaTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_name}"/>
+                                <h:outputText value="#{bundle.ListAreaTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_email}"/>
+                                <h:outputText value="#{bundle.ListAreaTitle_description}"/>
                             </f:facet>
-                            <h:outputText value="#{item.email}"/>
+                            <h:outputText value="#{item.description}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_phone}"/>
+                                <h:outputText value="#{bundle.ListAreaTitle_generalAccount}"/>
                             </f:facet>
-                            <h:outputText value="#{item.phone}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_organization}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.organization}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdministratorTitle_dateCreated}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateCreated}"/>
+                            <h:outputText value="#{item.generalAccount.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{administratorController.prepareView}" value="#{bundle.ListAdministratorViewLink}"/>
+                            <h:commandLink action="#{areaController.prepareView}" value="#{bundle.ListAreaViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{administratorController.prepareEdit}" value="#{bundle.ListAdministratorEditLink}"/>
+                            <h:commandLink action="#{areaController.prepareEdit}" value="#{bundle.ListAreaEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{administratorController.destroy}" value="#{bundle.ListAdministratorDestroyLink}"/>
+                            <h:commandLink action="#{areaController.destroy}" value="#{bundle.ListAreaDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

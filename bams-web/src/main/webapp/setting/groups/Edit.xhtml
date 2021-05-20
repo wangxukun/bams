@@ -31,10 +31,7 @@
                     <h:outputLabel value="#{bundle.EditGroupsLabel_description}" for="description" />
                     <h:inputText id="description" value="#{groupsController.selected.description}" title="#{bundle.EditGroupsTitle_description}" />
                 </h:panelGrid>
-                
                 <util:commandButtons bundleEntity="EditGroups" controller="#{groupsController}" type="edit" />
-
-
             </h:form>
         </ui:define>
     </ui:composition>
