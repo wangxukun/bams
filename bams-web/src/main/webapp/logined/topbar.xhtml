@@ -10,9 +10,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:form rendered="#{userController.logged}">
-        <h:commandButton rendered="#{userController.admin}" action="#{userController.goAdmin}"  value="Administration" />
+        <h:outputText value=" #{bundle.Topbar_AuthenticateUser_Label} #{userController.authenticatedUser.organization} -- #{userController.authenticatedUser.name}"  styleClass="user"/>
         <h:commandButton action="#{userController.logout}" value="#{bundle.Topbar_Logout_Label}"/>
-        <h:outputText value=" #{bundle.Topbar_organization_Label} #{userController.authenticatedUser.organization} #{userController.authenticatedUser.name}"  styleClass="user"/>
     </h:form>
 
 </ui:composition>

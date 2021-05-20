@@ -48,17 +48,17 @@ public class UserController implements Serializable {
         try {
             request.login(this.getUsername(), this.getPassword());
 
-            JsfUtil.addSuccessMessage(JsfUtil.getStringFromBundle(BUNDLE, "Login_Success"));
+//            JsfUtil.addSuccessMessage(JsfUtil.getStringFromBundle(BUNDLE, "Login_Success"));
 
             this.user = ejbFacade.getUserByEmail(getUsername());
             this.getAuthenticatedUser();
 
             if (isAdmin()) {
-                result = "/admin/index";
+                result = "/admin/index?faces-redirect=true";
             } else if(isTreasurer()){
-                result = "/account/index";
+                result = "/bookkeeping/index?faces-redirect=true";
             } else{
-                result = "/logined/index";
+                result = "/query/index?faces-redirect=true";
             }
         } catch (ServletException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE,null,ex);
@@ -115,14 +115,6 @@ public class UserController implements Serializable {
             }
         }
         return false;
-    }
-
-    public String goAdmin() {
-        if (isAdmin()) {
-            return "/admin/index";
-        } else {
-            return "/logined/index";
-        }
     }
 
     public String getUsername() {
