@@ -26,7 +26,11 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{subsidiaryAccountController.selected.name}" title="#{bundle.CreateSubsidiaryAccountTitle_name}" required="true" requiredMessage="#{bundle.CreateSubsidiaryAccountRequiredMessage_name}"/>
+                    <h:inputText id="name"
+                                 value="#{subsidiaryAccountController.selected.name}"
+                                 title="#{bundle.CreateSubsidiaryAccountTitle_name}"
+                                 required="true"
+                                 requiredMessage="#{bundle.CreateSubsidiaryAccountRequiredMessage_name}"/>
                     <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_area}" for="area" />
                     <h:selectOneMenu id="area" required="true" value="1">
                         <f:selectItem itemValue="1" itemLabel="三岔河镇棠梨村委会"/>
@@ -34,6 +38,12 @@
                         <f:selectItem itemValue="3" itemLabel="三岔河镇棠梨村委会"/>
                         <f:selectItem itemValue="4" itemLabel="三岔河镇棠梨村委会"/>
                         <f:selectItem itemValue="5" itemLabel="三岔河镇棠梨村委会"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_category}" for="area" />
+                    <h:selectOneMenu id="category" required="true" value="2">
+                        <f:selectItem itemValue="1" itemLabel="村（居）委会"/>
+                        <f:selectItem itemValue="2" itemLabel="村（居）民小组"/>
+                        <f:selectItem itemValue="3" itemLabel="复耕保证金"/>
                     </h:selectOneMenu>
 
                 </h:panelGrid>
