@@ -11,46 +11,46 @@
 
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:util="http://java.sun.com/jsf/composite/components">
 
-    <ui:composition template="/logined/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateSubsidiaryAccountTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_name}" for="name" />
-                    <h:inputText id="name"
-                                 value="#{subsidiaryAccountController.selected.name}"
-                                 title="#{bundle.CreateSubsidiaryAccountTitle_name}"
-                                 required="true"
-                                 requiredMessage="#{bundle.CreateSubsidiaryAccountRequiredMessage_name}"/>
-                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_area}" for="area" />
-                    <h:selectOneMenu id="area" required="true" value="1">
-                        <f:selectItem itemValue="1" itemLabel="三岔河镇棠梨村委会"/>
-                        <f:selectItem itemValue="2" itemLabel="三岔河镇棠梨村委会"/>
-                        <f:selectItem itemValue="3" itemLabel="三岔河镇棠梨村委会"/>
-                        <f:selectItem itemValue="4" itemLabel="三岔河镇棠梨村委会"/>
-                        <f:selectItem itemValue="5" itemLabel="三岔河镇棠梨村委会"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_category}" for="area" />
-                    <h:selectOneMenu id="category" required="true" value="2">
-                        <f:selectItem itemValue="1" itemLabel="村（居）委会"/>
-                        <f:selectItem itemValue="2" itemLabel="村（居）民小组"/>
-                        <f:selectItem itemValue="3" itemLabel="复耕保证金"/>
-                    </h:selectOneMenu>
+<ui:composition template="/logined/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="#{bundle.CreateSubsidiaryAccountTitle}"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_name}" for="name"/>
+                <h:inputText id="name"
+                             value="#{subsidiaryAccountController.selected.name}"
+                             title="#{bundle.CreateSubsidiaryAccountTitle_name}"
+                             required="true"
+                             requiredMessage="#{bundle.CreateSubsidiaryAccountRequiredMessage_name}"/>
+                <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_area}" for="area"/>
+                <h:selectOneMenu id="area" required="true" value="#{subsidiaryAccountController.areaId}">
+                    <ui:repeat value="#{subsidiaryAccountController.areaList}" var="area">
+                        <f:selectItem itemValue="#{area.id}" itemLabel="#{area.name}"/>
+                    </ui:repeat>
+                </h:selectOneMenu>
+                <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_category}" for="area"/>
+                <h:selectOneMenu id="category" required="true" value="#{subsidiaryAccountController.categoryAccountId}">
+                    <ui:repeat value="#{subsidiaryAccountController.categoryAccountList}" var="categoryAccount">
+                        <f:selectItem itemValue="#{categoryAccount.id}" itemLabel="#{categoryAccount.name}"/>
+                    </ui:repeat>
+                </h:selectOneMenu>
 
-                </h:panelGrid>
-                
-                <util:commandButtons bundleEntity="CreateSubsidiaryAccount" controller="#{subsidiaryAccountController}" type="create" />
-            </h:form>
-        </ui:define>
-    </ui:composition>
+            </h:panelGrid>
+
+            <util:commandButtons bundleEntity="CreateSubsidiaryAccount" controller="#{subsidiaryAccountController}"
+                                 type="create"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
 
 </html>
