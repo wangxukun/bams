@@ -45,7 +45,7 @@ public class GeneralAccountController implements Serializable {
 
     public AbstractPaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new AbstractPaginationHelper(10) {
+            pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();
@@ -169,7 +169,7 @@ public class GeneralAccountController implements Serializable {
             current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("GeneralAccountCreated"));
-            return PageNavigation.VIEW;
+            return PageNavigation.LIST;
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));

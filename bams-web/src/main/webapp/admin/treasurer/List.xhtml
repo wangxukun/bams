@@ -65,7 +65,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCustomerTitle_dateCreated}"/>
                             </f:facet>
-                            <h:outputText value="#{item.dateCreated}"/>
+                            <h:outputText value="#{item.dateCreated}">
+                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="long" type="both" />
+                            </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

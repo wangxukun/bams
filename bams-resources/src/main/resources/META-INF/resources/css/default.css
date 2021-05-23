@@ -6,10 +6,7 @@ html, body {
     padding: 0;
     text-align: center;
 }
-* {
-    padding: 0;
-    margin: 0;
-}
+
 h1 {
     font-size: 300%;
     font-weight: bold;
@@ -21,7 +18,7 @@ h2 {
     font-size: 180%;
     font-weight: bold;
     color: black;
-    /*border-bottom: 2px #a6bf40 groove;*/
+    border-bottom: 2px #a6bf40 groove;
     text-align: left;
 }
 
@@ -137,9 +134,11 @@ header h2 {
     width: 600px;
     height: 100%;
     color: white;
-    line-height: 148px;
+    line-height: 140px;
     float: left;
     margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 header h1 {
@@ -149,8 +148,9 @@ header h1 {
 }
 
 header h3{
-    padding-left: 80px;
     line-height: 90px;
+    margin: 0;
+    padding: 0 0 0 80px;
 }
 
 #breadcrumb {
