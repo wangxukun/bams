@@ -83,6 +83,6 @@ public class CategoryAccount implements Serializable {
 
     @Override
     public String toString() {
-        return "SortAccount{" + "id=" + id + '}';
+        return this.name;
     }
 }

@@ -33,18 +33,13 @@
                              required="true"
                              requiredMessage="#{bundle.CreateSubsidiaryAccountRequiredMessage_name}"/>
                 <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_area}" for="area"/>
-                <h:selectOneMenu id="area" required="true" value="#{subsidiaryAccountController.areaId}">
-                    <ui:repeat value="#{subsidiaryAccountController.areaList}" var="area">
-                        <f:selectItem itemValue="#{area.id}" itemLabel="#{area.name}"/>
-                    </ui:repeat>
+                <h:selectOneMenu id="area" required="true" value="#{subsidiaryAccountController.selected.area}">
+                    <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
                 </h:selectOneMenu>
                 <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_category}" for="area"/>
-                <h:selectOneMenu id="category" required="true" value="#{subsidiaryAccountController.categoryAccountId}">
-                    <ui:repeat value="#{subsidiaryAccountController.categoryAccountList}" var="categoryAccount">
-                        <f:selectItem itemValue="#{categoryAccount.id}" itemLabel="#{categoryAccount.name}"/>
-                    </ui:repeat>
+                <h:selectOneMenu id="categoryAccount" required="true" value="#{subsidiaryAccountController.selected.categoryAccount}">
+                    <f:selectItems value="#{categoryAccountController.itemsAvailableSelectOne}"/>
                 </h:selectOneMenu>
-
             </h:panelGrid>
 
             <util:commandButtons bundleEntity="CreateSubsidiaryAccount" controller="#{subsidiaryAccountController}"
