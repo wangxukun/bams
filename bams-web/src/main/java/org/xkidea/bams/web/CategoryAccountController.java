@@ -2,6 +2,7 @@ package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.CategoryAccountBean;
 import org.xkidea.bams.ejb.SortAccountBean;
+import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.CategoryAccount;
 import org.xkidea.bams.entity.SortAccount;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
@@ -10,6 +11,10 @@ import org.xkidea.bams.web.util.PageNavigation;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -182,5 +187,43 @@ public class CategoryAccountController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(),true);
+    }
+
+    @FacesConverter(forClass = CategoryAccount.class)
+    public static class CategoryAccountControllerConverter implements Converter{
+
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            CategoryAccountController controller = (CategoryAccountController)context.getApplication().getELResolver().getValue(context.getELContext(),null,"categoryAccountController");
+            return controller.ejbFacade.find(getKey(value));
+        }
+
+        private Integer getKey(String value) {
+            Integer key;
+            key = Integer.valueOf(value);
+            return key;
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return null;
+            }
+            if (value instanceof CategoryAccount) {
+                CategoryAccount o = (CategoryAccount)value;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("value " + value + " is of type " + value.getClass().getName() + "; expected type: " + AreaController.class.getName());
+            }
+        }
+
+        private String getStringKey(Integer id) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(id);
+            return sb.toString();
+        }
     }
 }

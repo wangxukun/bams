@@ -10,6 +10,10 @@ import org.xkidea.bams.web.util.PageNavigation;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -188,5 +192,43 @@ public class AreaController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(),true);
+    }
+
+    @FacesConverter(forClass = Area.class)
+    public static class AreaControllerConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            AreaController controller = (AreaController) context.getApplication().getELResolver().getValue(context.getELContext(),null,"areaController");
+            return controller.ejbFacade.find(getKey(value));
+        }
+
+        private Integer getKey(String value) {
+            Integer key;
+            key = Integer.valueOf(value);
+            return key;
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return null;
+            }
+            if (value instanceof Area) {
+                Area o = (Area)value;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("value " + value + " is of type " + value.getClass().getName() + "; expected type: " + AreaController.class.getName());
+            }
+        }
+
+        private String getStringKey(Integer id) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(id);
+            return sb.toString();
+        }
     }
 }

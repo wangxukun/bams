@@ -12,6 +12,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 @Named(value = "subsidiaryAccountController")
@@ -69,6 +70,7 @@ public class SubsidiaryAccountController implements Serializable {
 
     public PageNavigation create() {
         try {
+            current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountCreated"));
             return PageNavigation.LIST;
