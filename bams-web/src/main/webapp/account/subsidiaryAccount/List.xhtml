@@ -19,60 +19,62 @@
 
     <ui:composition template="/logined/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListGeneralAccountTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListSubsidiaryAccountTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="listGeneralAccountMessagePanel" layout="block">
+                <h:panelGroup id="listSubsidiaryAccountMessagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListGeneralAccountEmpty}" rendered="#{generalAccountController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{generalAccountController.items.rowCount > 0}">
+                <h:outputText escape="false" value="#{bundle.ListSubsidiaryAccountEmpty}" rendered="#{subsidiaryAccountController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{subsidiaryAccountController.items.rowCount > 0}">
                     <ul class="commandButtons">
-                        <li><h:commandLink action="#{generalAccountController.previous}" value="#{bundle.Previous} #{generalAccountController.pagination.pageSize}" rendered="#{generalAccountController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{generalAccountController.next}" value="#{bundle.Next} #{generalAccountController.pagination.pageSize}" rendered="#{generalAccountController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{generalAccountController.prepareCreate}" value="#{bundle.ListGeneralAccountCreateLink}"/></li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.previous}" value="#{bundle.Previous} #{subsidiaryAccountController.pagination.pageSize}" rendered="#{subsidiaryAccountController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.next}" value="#{bundle.Next} #{subsidiaryAccountController.pagination.pageSize}" rendered="#{subsidiaryAccountController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.prepareCreate}" value="#{bundle.ListSubsidiaryAccountCreateLink}"/></li>
                     </ul>
-                    <h:dataTable value="#{generalAccountController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{subsidiaryAccountController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGeneralAccountTitle_id}"/>
+                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGeneralAccountTitle_name}"/>
+                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGeneralAccountTitle_groups}"/>
+                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_groups}"/>
                             </f:facet>
                             <h:outputText value="#{item.sortAccount.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGeneralAccountTitle_balance}"/>
+                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_balance}"/>
                             </f:facet>
                             <h:outputText value="#{item.balance}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGeneralAccountTitle_dateCreated}"/>
+                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_dateCreated}"/>
                             </f:facet>
-                            <h:outputText value="#{item.dateCreated}"/>
+                            <h:outputText value="#{item.dateCreated}">
+                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="long" type="both"/>
+                            </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{generalAccountController.prepareView}" value="#{bundle.ListGeneralAccountViewLink}"/>
+                            <h:commandLink action="#{subsidiaryAccountController.prepareView}" value="#{bundle.ListSubsidiaryAccountViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{generalAccountController.prepareEdit}" value="#{bundle.ListGeneralAccountEditLink}"/>
+                            <h:commandLink action="#{subsidiaryAccountController.prepareEdit}" value="#{bundle.ListSubsidiaryAccountEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{generalAccountController.destroy}" value="#{bundle.ListGeneralAccountDestroyLink}"/>
+                            <h:commandLink action="#{subsidiaryAccountController.destroy}" value="#{bundle.ListSubsidiaryAccountDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

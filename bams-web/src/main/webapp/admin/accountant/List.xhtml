@@ -11,76 +11,89 @@
 
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/logined/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListAccountantTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:outputText escape="false" value="#{bundle.ListCustomerEmpty}" rendered="#{accountantController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{accountantController.items.rowCount > 0}">
-                    <ul class="commandButtons">
-                        <li><h:commandLink action="#{accountantController.previous}" value="#{bundle.Previous} #{accountantController.pagination.pageSize}" rendered="#{accountantController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{accountantController.next}" value="#{bundle.Next} #{accountantController.pagination.pageSize}" rendered="#{accountantController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{accountantController.prepareCreate}" value="#{bundle.ListAccountantCreateLink}"/></li>
-                    </ul>
-                    <h:dataTable value="#{accountantController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerTitle_name}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerTitle_phone}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.phone}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerTitle_organization}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.organization}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerTitle_dateCreated}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateCreated}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{accountantController.prepareView}" value="#{bundle.ListCustomerViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{accountantController.prepareEdit}" value="#{bundle.ListCustomerEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{accountantController.destroy}" value="#{bundle.ListCustomerDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+<ui:composition template="/logined/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListAccountantTitle}"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:outputText escape="false" value="#{bundle.ListCustomerEmpty}"
+                          rendered="#{accountantController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{accountantController.items.rowCount > 0}">
+                <ul class="commandButtons">
+                    <li><h:commandLink action="#{accountantController.previous}"
+                                       value="#{bundle.Previous} #{accountantController.pagination.pageSize}"
+                                       rendered="#{accountantController.pagination.hasPreviousPage}"/></li>
+                    <li><h:commandLink action="#{accountantController.next}"
+                                       value="#{bundle.Next} #{accountantController.pagination.pageSize}"
+                                       rendered="#{accountantController.pagination.hasNextPage}"/></li>
+                    <li><h:commandLink action="#{accountantController.prepareCreate}"
+                                       value="#{bundle.ListAccountantCreateLink}"/></li>
+                </ul>
+                <h:dataTable value="#{accountantController.items}" var="item" border="0" cellpadding="2" cellspacing="0"
+                             rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCustomerTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCustomerTitle_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCustomerTitle_email}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.email}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCustomerTitle_phone}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.phone}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCustomerTitle_organization}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.organization}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCustomerTitle_dateCreated}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.dateCreated}">
+                            <f:convertDateTime dateStyle="full" locale="zh" timeZone="long" type="both"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{accountantController.prepareView}"
+                                       value="#{bundle.ListCustomerViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{accountantController.prepareEdit}"
+                                       value="#{bundle.ListCustomerEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{accountantController.destroy}"
+                                       value="#{bundle.ListCustomerDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>
 
 </html>
