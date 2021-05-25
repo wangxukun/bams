@@ -79,7 +79,7 @@ public class TreasurerController implements Serializable {
             current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("TreasurerCreated"));
-            return PageNavigation.VIEW;
+            return prepareList();
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));

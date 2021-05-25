@@ -25,13 +25,24 @@
         <ui:define name="body">
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditGeneralAccountLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{generalAccountController.selected.id}" title="#{bundle.EditGeneralAccountTitle_id}" required="true" readonly="true"/>
-                    <h:outputLabel value="#{bundle.EditGeneralAccountLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{generalAccountController.selected.name}" title="#{bundle.EditGeneralAccountTitle_name}" required="true" requiredMessage="#{bundle.EditGeneralAccountRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_name}" for="name"/>
+                    <h:inputText id="name"
+                                 value="#{subsidiaryAccountController.selected.name}"
+                                 title="#{bundle.CreateSubsidiaryAccountTitle_name}"
+                                 required="true"
+                                 requiredMessage="#{bundle.CreateSubsidiaryAccountRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_area}" for="area"/>
+                    <h:selectOneMenu id="area" required="true" value="#{subsidiaryAccountController.selected.area}">
+                        <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateSubsidiaryAccountLabel_category}" for="area"/>
+                    <h:selectOneMenu id="categoryAccount" required="true" value="#{subsidiaryAccountController.selected.categoryAccount}">
+                        <f:selectItems value="#{categoryAccountController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
 
-                <util:commandButtons bundleEntity="EditGeneralAccount" controller="#{generalAccountController}" type="edit" />
+                <util:commandButtons bundleEntity="EditSubsidiaryAccount" controller="#{subsidiaryAccountController}"
+                                     type="edit"/>
             </h:form>
         </ui:define>
     </ui:composition>

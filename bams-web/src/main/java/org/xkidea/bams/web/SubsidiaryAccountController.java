@@ -73,7 +73,7 @@ public class SubsidiaryAccountController implements Serializable {
             current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountCreated"));
-            return PageNavigation.LIST;
+            return prepareList();
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
@@ -84,6 +84,21 @@ public class SubsidiaryAccountController implements Serializable {
     public PageNavigation prepareList() {
         recreateModel();
         return PageNavigation.LIST;
+    }
+
+    public PageNavigation prepareCreate() {
+        current = new SubsidiaryAccount();
+        return PageNavigation.CREATE;
+    }
+
+    public PageNavigation prepareView() {
+        current = (SubsidiaryAccount) getItems().getRowData();
+        return PageNavigation.VIEW;
+    }
+
+    public PageNavigation prepareEdit() {
+        current = (SubsidiaryAccount) getItems().getRowData();
+        return PageNavigation.EDIT;
     }
 
     private void recreateModel() {

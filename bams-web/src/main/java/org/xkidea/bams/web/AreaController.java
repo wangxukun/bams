@@ -60,7 +60,7 @@ public class AreaController implements Serializable {
             current.setGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AreaCreated"));
-            return PageNavigation.VIEW;
+            return prepareList();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
             return null;

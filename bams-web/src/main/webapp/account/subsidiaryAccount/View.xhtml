@@ -20,24 +20,28 @@
 
     <ui:composition template="/logined/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewGeneralAccountTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ViewSubsidiaryAccountTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewGeneralAccountLabel_id}"/>
-                    <h:outputText value="#{generalAccountController.selected.id}" title="#{bundle.ViewGeneralAccountTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewGeneralAccountLabel_name}"/>
-                    <h:outputText value="#{generalAccountController.selected.name}" title="#{bundle.ViewGeneralAccountTitle_name}"/>
-                    <h:outputText value="#{bundle.ViewGeneralAccountLabel_groupsId}"/>
-                    <h:outputText value="#{generalAccountController.selected.sortAccount.id}" title="#{bundle.ViewGeneralAccountTitle_groupsId}"/>
-                    <h:outputText value="#{bundle.ViewGeneralAccountLabel_balance}"/>
-                    <h:outputText value="#{generalAccountController.selected.balance}" title="#{bundle.ViewGeneralAccountTitle_balance}"/>
-                    <h:outputText value="#{bundle.ViewGeneralAccountLabel_dateCreated}"/>
-                    <h:outputText value="#{generalAccountController.selected.dateCreated}" title="#{bundle.ViewGeneralAccountTitle_dateCreated}"/>
+                    <h:outputText value="#{bundle.ViewSubsidiaryAccountLabel_id}"/>
+                    <h:outputText value="#{subsidiaryAccountController.selected.id}" title="#{bundle.ViewSubsidiaryAccountTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewSubsidiaryAccountLabel_name}"/>
+                    <h:outputText value="#{subsidiaryAccountController.selected.name}" title="#{bundle.ViewSubsidiaryAccountTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewSubsidiaryAccountLabel_category}"/>
+                    <h:outputText value="#{subsidiaryAccountController.selected.categoryAccount.name}" title="#{bundle.ViewSubsidiaryAccountTitle_category}"/>
+                    <h:outputText value="#{bundle.ViewSubsidiaryAccountLabel_area}"/>
+                    <h:outputText value="#{subsidiaryAccountController.selected.area.name}" title="#{bundle.ViewSubsidiaryAccountTitle_area}"/>
+                    <h:outputText value="#{bundle.ViewSubsidiaryAccountLabel_balance}"/>
+                    <h:outputText value="#{subsidiaryAccountController.selected.balance}" title="#{bundle.ViewSubsidiaryAccountTitle_balance}"/>
+                    <h:outputText value="#{bundle.ViewSubsidiaryAccountLabel_dateCreated}"/>
+                    <h:outputText value="#{subsidiaryAccountController.selected.dateCreated}" title="#{bundle.ViewSubsidiaryAccountTitle_dateCreated}">
+                        <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>
+                    </h:outputText>
                 </h:panelGrid>
                 
-                <util:commandButtons bundleEntity="ViewGeneralAccount" controller="#{generalAccountController}" type="view" />
+                <util:commandButtons bundleEntity="ViewSubsidiaryAccount" controller="#{subsidiaryAccountController}" type="view" />
                 
             </h:form>
         </ui:define>
