@@ -1,5 +1,6 @@
 package org.xkidea.bams.ejb;
 
+import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.SortAccount;
 import org.xkidea.bams.entity.SubsidiaryAccount;
 
@@ -7,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Stateless
 public class SubsidiaryAccountBean extends AbstractFacade<SubsidiaryAccount> {
@@ -33,4 +35,8 @@ public class SubsidiaryAccountBean extends AbstractFacade<SubsidiaryAccount> {
         sortAccount.getAccountList().add(subsidiaryAccount);
         em.persist(subsidiaryAccount);
     }
+
+    /*public List<SubsidiaryAccount> findByGeneralAccount(int[] range, GeneralAccount generalAccount) {
+
+    }*/
 }

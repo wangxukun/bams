@@ -28,6 +28,7 @@ public class SubsidiaryAccountController implements Serializable {
     @EJB
     private SubsidiaryAccountBean ejbFacade;
     private AbstractPaginationHelper pagination;
+    private int selectedItemIndex;
 
     public SubsidiaryAccount getSelected() {
         if (current == null) {
@@ -81,6 +82,60 @@ public class SubsidiaryAccountController implements Serializable {
         }
     }
 
+    public PageNavigation update() {
+        try {
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountUpdated"));
+            return PageNavigation.VIEW;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+
+    public PageNavigation destroy() {
+        current = (SubsidiaryAccount) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    private void performDestroy() {
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+        }
+    }
+
+    public PageNavigation destroyAndView() {
+        performDestroy();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return PageNavigation.VIEW;
+        } else {
+            recreateModel();
+            return PageNavigation.LIST;
+        }
+    }
+
+    private void updateCurrentItem() {
+        int count = getFacade().count();
+        if (selectedItemIndex >= count) {
+            selectedItemIndex = count - 1;
+
+            if (pagination.getPageFirstItem() >= count) {
+                pagination.previousPage();
+            }
+        }
+        if (selectedItemIndex >= 0) {
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+        }
+    }
+
     public PageNavigation prepareList() {
         recreateModel();
         return PageNavigation.LIST;
@@ -88,20 +143,35 @@ public class SubsidiaryAccountController implements Serializable {
 
     public PageNavigation prepareCreate() {
         current = new SubsidiaryAccount();
+        selectedItemIndex = -1;
         return PageNavigation.CREATE;
     }
 
     public PageNavigation prepareView() {
         current = (SubsidiaryAccount) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.VIEW;
     }
 
     public PageNavigation prepareEdit() {
         current = (SubsidiaryAccount) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.EDIT;
     }
 
     private void recreateModel() {
         items = null;
+    }
+
+    public PageNavigation previous() {
+        getPagination().previousPage();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation next(){
+        pagination.nextPage();
+        recreateModel();
+        return PageNavigation.LIST;
     }
 }
