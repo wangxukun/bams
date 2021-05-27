@@ -13,7 +13,7 @@
         <h1>#{bundle.TopTitle}</h1>
         <h3>#{bundle.TopSubTitle}</h3>
     </div>
-    <h2>#{userController.authenticatedUser.accountList.get(0).name}</h2>
+    <h2>#{userController.admin?"系统管理员" : userController.authenticatedUser.accountList.get(0).name}</h2>
     <h:graphicImage alt="Bams's logo" library="img" name="logo-small.png" />
 
 </ui:composition>

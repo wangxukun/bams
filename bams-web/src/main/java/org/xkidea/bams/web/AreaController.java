@@ -85,13 +85,18 @@ public class AreaController implements Serializable {
             pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+//                    return getFacade().count();
+                    // 特定用户的账户下的Areas总数
+                    return getFacade().countByGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),
-                    getPageFirstItem() + getPageSize()}));
+                    /*return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),
+                    getPageFirstItem() + getPageSize()}));*/
+                    // 特定用户的账户下的Areas列表数据模型
+                    return new ListDataModel(getFacade().findByGeneralAccount(new int[]{getPageFirstItem(),
+                    getPageFirstItem() + getPageSize()},userController.getAuthenticatedUser().getAccountList().get(0)));
                 }
             };
         }
