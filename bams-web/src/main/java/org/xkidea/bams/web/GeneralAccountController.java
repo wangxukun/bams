@@ -169,7 +169,8 @@ public class GeneralAccountController implements Serializable {
             current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("GeneralAccountCreated"));
-            return PageNavigation.VIEW;
+            recreateModel();
+            return PageNavigation.LIST;
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
