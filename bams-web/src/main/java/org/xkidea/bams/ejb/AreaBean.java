@@ -43,6 +43,13 @@ public class AreaBean extends AbstractFacade<Area> {
         return result;
     }
 
+    public List<Area> getAreasByGeneralAccount(GeneralAccount generalAccount) {
+        Query createNamedQuery = getEntityManager().createNamedQuery("Area.findByGeneralAccount");
+        createNamedQuery.setParameter("generalAccount",generalAccount);
+
+        return (List<Area>) createNamedQuery.getResultList();
+    }
+
     public int countByGeneralAccount(GeneralAccount generalAccount) {
         CriteriaBuilder qb = em.getCriteriaBuilder();
         CriteriaQuery query = qb.createQuery();

@@ -10,7 +10,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "AREA")
-// TODO @NamedQueries
+@NamedQueries({
+        @NamedQuery(name = "Area.findByGeneralAccount", query = "SELECT a FROM Area a WHERE a.generalAccount = :generalAccount")
+})
 public class Area implements Serializable {
 
     private static final long serialVersionUID = -856821028349714874L;

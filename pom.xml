@@ -67,7 +67,7 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
+    <!--<build>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
@@ -94,12 +94,12 @@
                 <home>${glassfish.home}/glassfish/domains</home>
                 <properties>
                     <cargo.glassfish.domain.name>${glassfish.domain.name}</cargo.glassfish.domain.name>
-                    <!--cargo.remote.username></cargo.remote.username-->
+                    &lt;!&ndash;cargo.remote.username></cargo.remote.username&ndash;&gt;
                     <cargo.remote.password />
                 </properties>
                 </configuration>
             </configuration>
             </plugin>
         </plugins>
-        </build>
+        </build>-->
 </project>

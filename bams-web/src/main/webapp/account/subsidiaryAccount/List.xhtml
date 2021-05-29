@@ -22,6 +22,7 @@
             <h:outputText value="#{bundle.ListSubsidiaryAccountTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h2>#{bundle.ListSubsidiaryAccountTitle}</h2> <br/>
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="listSubsidiaryAccountMessagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -36,9 +37,9 @@
                     <h:dataTable value="#{subsidiaryAccountController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_id}"/>
+                                <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_number}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{subsidiaryAccountController.items.rowIndex + subsidiaryAccountController.pagination.pageFirstItem + 1}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

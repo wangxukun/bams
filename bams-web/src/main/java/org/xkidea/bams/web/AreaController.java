@@ -196,7 +196,8 @@ public class AreaController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(),true);
+//        return JsfUtil.getSelectItems(ejbFacade.findAll(),true);
+        return JsfUtil.getSelectItems(ejbFacade.getAreasByGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0)),true);
     }
 
     @FacesConverter(forClass = Area.class)

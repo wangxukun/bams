@@ -45,15 +45,15 @@ public class CustomerBean extends AbstractFacade<Customer> {
         em.merge(customerGroup);
     }
 
-//    public Person getUserByEmail(String email) {
-//        Query createNamedQuery = getEntityManager().createNamedQuery("Person.findByEmail");
-//
-//        createNamedQuery.setParameter("email", email);
-//
-//        if (createNamedQuery.getResultList().size() > 0) {
-//            return (Person) createNamedQuery.getSingleResult();
-//        } else {
-//            return null;
-//        }
-//    }
+    public Person getUserByEmail(String email) {
+        Query createNamedQuery = getEntityManager().createNamedQuery("Person.findByEmail");
+
+        createNamedQuery.setParameter("email", email);
+
+        if (createNamedQuery.getResultList().size() > 0) {
+            return (Person) createNamedQuery.getSingleResult();
+        } else {
+            return null;
+        }
+    }
 }
