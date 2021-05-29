@@ -56,9 +56,9 @@ public class AreaController implements Serializable {
 
     public PageNavigation create() {
         try {
-            current.getPersonList().add(userController.getAuthenticatedUser());
-            current.setGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
-            getFacade().create(current);
+//            current.getPersonList().add(userController.getAuthenticatedUser());
+//            current.setGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
+            getFacade().create(current, userController.getAuthenticatedUser());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AreaCreated"));
             return prepareList();
         } catch (Exception e) {

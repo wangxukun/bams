@@ -1,5 +1,6 @@
 package org.xkidea.bams.web;
 
+import org.xkidea.bams.ejb.AreaBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
 import org.xkidea.bams.entity.SubsidiaryAccount;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
@@ -10,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
@@ -27,8 +29,12 @@ public class SubsidiaryAccountController implements Serializable {
 
     @EJB
     private SubsidiaryAccountBean ejbFacade;
+    @EJB
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
+
+    @Inject
+    UserController userController;
 
     public SubsidiaryAccount getSelected() {
         if (current == null) {
@@ -51,7 +57,8 @@ public class SubsidiaryAccountController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),getPageFirstItem()+getPageSize()}));
+//                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),getPageFirstItem()+getPageSize()}));
+                    return new ListDataModel(getFacade().findByGeneralAccountAreas(new int[]{getPageFirstItem(),getPageFirstItem()+getPageSize()},userController.getAuthenticatedUser().getAccountList().get(0)));
                 }
             };
         }

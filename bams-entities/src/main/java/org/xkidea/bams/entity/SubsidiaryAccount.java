@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "SubsidiaryAccount.findByGeneralAccountAreas", query = "SELECT s FROM SubsidiaryAccount s WHERE s.area IN(SELECT a FROM Area a WHERE a.generalAccount =:generalAccount)")
+})
 public class SubsidiaryAccount extends Account{
 
     private static final long serialVersionUID = 905403751337815776L;

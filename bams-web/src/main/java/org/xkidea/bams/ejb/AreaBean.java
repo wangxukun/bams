@@ -2,6 +2,7 @@ package org.xkidea.bams.ejb;
 
 import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.GeneralAccount;
+import org.xkidea.bams.entity.Person;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,7 +31,17 @@ public class AreaBean extends AbstractFacade<Area> {
         return em;
     }
 
-    public List<Area> findByGeneralAccount(int[] range,GeneralAccount generalAccount){
+    public void create(Area area, Person person) {
+        Person p= (Person) em.createNamedQuery("Person.findByEmail")
+                .setParameter("email",person.getEmail())
+                .getSingleResult();
+        area.getPersonList().add(p);
+        area.setGeneralAccount(p.getAccountList().get(0));
+        p.getAreaList().add(area);
+        em.persist(area);
+    }
+
+    public List<Area> findByGeneralAccount(int[] range, GeneralAccount generalAccount){
         CriteriaBuilder qb = em.getCriteriaBuilder();
         CriteriaQuery<Area> query = qb.createQuery(Area.class);
         Root<Area> area = query.from(Area.class);
