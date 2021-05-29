@@ -6,7 +6,8 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "SubsidiaryAccount.findByGeneralAccountAreas", query = "SELECT s FROM SubsidiaryAccount s WHERE s.area IN(SELECT a FROM Area a WHERE a.generalAccount =:generalAccount)")
+        @NamedQuery(name = "SubsidiaryAccount.findByGeneralAccountAreas", query = "SELECT s FROM SubsidiaryAccount s WHERE s.area IN(SELECT a FROM Area a WHERE a.generalAccount =:generalAccount)"),
+        @NamedQuery(name = "SubsidiaryAccount.countByGeneralAccountAreas", query = "SELECT COUNt(s) FROM SubsidiaryAccount s WHERE s.area IN(SELECT a FROM Area a WHERE a.generalAccount =:generalAccount)")
 })
 public class SubsidiaryAccount extends Account{
 

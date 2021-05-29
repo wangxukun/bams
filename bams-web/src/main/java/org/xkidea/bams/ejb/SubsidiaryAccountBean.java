@@ -9,6 +9,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -42,5 +45,11 @@ public class SubsidiaryAccountBean extends AbstractFacade<SubsidiaryAccount> {
         Query createNamedQuery = getEntityManager().createNamedQuery("SubsidiaryAccount.findByGeneralAccountAreas");
         createNamedQuery.setParameter("generalAccount",generalAccount);
         return (List<SubsidiaryAccount>)createNamedQuery.setMaxResults(range[1]-range[0]).setFirstResult(range[0]).getResultList();
+    }
+
+    public int countByGeneralAccount(GeneralAccount generalAccount) {
+        Query createNamedQuery = getEntityManager().createNamedQuery("SubsidiaryAccount.countByGeneralAccountAreas");
+        createNamedQuery.setParameter("generalAccount",generalAccount);
+        return ((Long) createNamedQuery.getSingleResult()).intValue();
     }
 }
