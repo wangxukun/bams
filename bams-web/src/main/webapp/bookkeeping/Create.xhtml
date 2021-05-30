@@ -48,7 +48,7 @@
                     <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
                     <h:inputText id="summary" value="#{administratorController.selected.organization}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />
                     <h:outputLabel value="#{bundle.detailRecord_direction}" for="direction" />
-                    <h:selectOneRadio value="#" required="true" id="direction">
+                    <h:selectOneRadio value="#" required="true" id="direction" layout="pageDirection">
                         <f:selectItem itemValue="1" itemLabel="借"/>
                         <f:selectItem itemValue="1" itemLabel="贷"/>
                     </h:selectOneRadio>
