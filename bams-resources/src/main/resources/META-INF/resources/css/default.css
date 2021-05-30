@@ -569,39 +569,15 @@ option {
     font-weight: bold;
 }
 
-#shoppingCart {
-    padding-left: 10px;
-    width: 100%;
+.bookkeepingPanelHeader ul{
+    margin-left: 0px;
+    padding: 5px 15px;
+}
+.bookkeepingPanelHeader ul li{
+    list-style: none;
+    display: inline;
     float: left;
-    position: relative;
-    font-size: 20px;
-}
-
-#shoppingCart table {
-    width: 95%;
-    float: left;
-    position: relative;
-}
-
-#shoppingCart tr {
-    border-bottom: 1px dotted;
-}
-
-.productImgCol {
-    width: 10%;
-}
-
-.productDescriptionCol {
-    width: 60%;
-    text-align: left;
-}
-
-.productPriceCol td {
-    width: 30%;
-    text-align: left;
-}
-
-.productBtnCol td {
-    width: 10%;
-    text-align: left;
+    border-left: #dddddd 1px solid;
+    padding-left: 5px;
+    padding-right: 5px;
 }

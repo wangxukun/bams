@@ -94,7 +94,7 @@
                 <home>${glassfish.home}/glassfish/domains</home>
                 <properties>
                     <cargo.glassfish.domain.name>${glassfish.domain.name}</cargo.glassfish.domain.name>
-                    &lt;!&ndash;cargo.remote.username></cargo.remote.username&ndash;&gt;
+                    <cargo.remote.username></cargo.remote.username>
                     <cargo.remote.password />
                 </properties>
                 </configuration>

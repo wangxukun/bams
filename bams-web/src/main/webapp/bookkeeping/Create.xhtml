@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:util="http://java.sun.com/jsf/composite/components">
+
+    <ui:composition template="/logined/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDetailRecordTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h2>#{bundle.Menu_Account_Recode}</h2> <br/>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.detailRecord_area}" for="area" />
+                    <h:selectOneMenu value="#" required="true" id="area">
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.detailRecord_subsidiaryAccount}" for="subsidiaryAccount" />
+                    <h:selectOneMenu value="#" required="true" id="subsidiaryAccount">
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
+                    <input type="date" jsf:id="start_d" name="start_d" value="#" required="required"/>
+                    <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
+                    <h:inputText id="summary" value="#{administratorController.selected.organization}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />
+                    <h:outputLabel value="#{bundle.detailRecord_direction}" for="direction" />
+                    <h:selectOneRadio value="#" required="true" id="direction">
+                        <f:selectItem itemValue="1" itemLabel="借"/>
+                        <f:selectItem itemValue="1" itemLabel="贷"/>
+                    </h:selectOneRadio>
+                    <h:outputLabel value="#{bundle.detailRecord_amount}" for="amount" />
+                    <h:inputText id="amount" value="#" title="#{bundle.detailRecord_amount}"/>
+                </h:panelGrid>
+                
+                <util:commandButtons bundleEntity="CreateAdministrator" controller="#{administratorController}" type="create" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
