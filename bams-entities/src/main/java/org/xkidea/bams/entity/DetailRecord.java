@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DETAILRECODE")
+@Table(name = "DETAILRECORD")
 public class DetailRecord implements Serializable {
 
     private static final long serialVersionUID = -288504768855346786L;
@@ -34,7 +34,7 @@ public class DetailRecord implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "SUMMARY")
-    @Size(min = 2, max = 50, message = "{detailRecode.summary}")
+    @Size(min = 2, max = 50, message = "{detailRecord.summary}")
     private String summary;
 
     @Basic(optional = false)

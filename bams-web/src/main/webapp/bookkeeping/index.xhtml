@@ -17,8 +17,7 @@
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:jsf="http://xmlns.jcp.org/jsf"
-        template="/logined/template.xhtml"
-        xmlns:util="http://java.sun.com/jsf/composite/components">
+        template="/logined/template.xhtml">
 
     <ui:define name="title">
         <h:outputText value="${bundle.BookkeepingTitle}"/>
@@ -30,39 +29,31 @@
             <ul>
                 <li>
                     <h:form>
-                        <h:outputLabel value="开始日期" for="start_d"/>
-                        <input type="date" jsf:id="start_d" name="start_d" value="#" required="required"/>
-                        <h:outputLabel value="结束日期" for="end_d"/>
-                        <input type="date" jsf:id="end_d" name="end_d" value="#" required="required"/>
-                        <h:outputLabel value="区域" for="area"/>
+                        <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
+                        <h:selectOneMenu value="#{detailRecordController.accountQuery.queryCategory}" required="true" id="queryCategory">
+                            <f:convertNumber />
+                            <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
+                            <f:selectItem itemValue="2" itemLabel="#{bundle.BusinessTime}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{bundle.StartDate}" for="start_d"/>
+                        <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.accountQuery.startDate}" required="required">
+                            <f:convertDateTime dateStyle="default" locale="zh" type="date"/>
+                        </input>
+                        <h:outputLabel value="#{bundle.EndDate}" for="end_d"/>
+                        <input type="date" jsf:id="end_d" name="end_d" value="#{detailRecordController.accountQuery.endDate}" required="required">
+                            <f:convertDateTime dateStyle="default" locale="zh" type="date"/>
+                        </input>
+                        <h:outputLabel value="#{bundle.AreaName}" for="area"/>
                         <h:selectOneMenu value="#" required="true" id="area">
                             <f:selectItem itemValue="1" itemLabel="aaaaa"/>
                             <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
                         </h:selectOneMenu>
-                        <h:outputLabel value="账户" for="subsidiaryAccount"/>
+                        <h:outputLabel value="#{bundle.SubsidiaryAccountName}" for="subsidiaryAccount"/>
                         <h:selectOneMenu value="#" required="true" id="subsidiaryAccount">
                             <f:selectItem itemValue="1" itemLabel="aaaaa"/>
                             <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
                         </h:selectOneMenu>
-                        <h:commandButton action="Create" id="submit" value="查询"/>
+                        <h:commandButton action="Create" id="submit" value="#{bundle.Query}"/>
                     </h:form>
                 </li>
                 <li>
