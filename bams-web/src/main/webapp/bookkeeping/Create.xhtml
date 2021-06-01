@@ -58,6 +58,9 @@
                 
                 <util:commandButtons bundleEntity="CreateAdministrator" controller="#{administratorController}" type="create" />
             </h:form>
+            <h:outputText value="#{detailRecordController.selected.queryCategory}" />
+            <h:outputText value="#{detailRecordController.selected.startDate}" />
+            <h:outputText value="#{detailRecordController.selected.endDate}" />
         </ui:define>
     </ui:composition>
 

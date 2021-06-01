@@ -6,9 +6,9 @@ import java.util.Date;
 public class AccountQuery implements Serializable {
     private static final long serialVersionUID = -2342437016158734617L;
 
-    private Integer queryCategory = 2;
-    private Date startDate = new Date();
-    private Date endDate = new Date();
+    private Integer queryCategory = 1;
+    private Date startDate ;
+    private Date endDate ;
 
     public AccountQuery() {
     }

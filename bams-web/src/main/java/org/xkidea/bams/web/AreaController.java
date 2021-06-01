@@ -1,8 +1,6 @@
 package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.AreaBean;
-import org.xkidea.bams.ejb.AreaBean;
-import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;

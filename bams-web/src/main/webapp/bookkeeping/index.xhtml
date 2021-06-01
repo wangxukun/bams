@@ -30,18 +30,17 @@
                 <li>
                     <h:form>
                         <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
-                        <h:selectOneMenu value="#{detailRecordController.accountQuery.queryCategory}" required="true" id="queryCategory">
-                            <f:convertNumber />
+                        <h:selectOneMenu value="#{detailRecordController.selected.queryCategory}" converter="javax.faces.Integer" required="true" id="queryCategory">
                             <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
                             <f:selectItem itemValue="2" itemLabel="#{bundle.BusinessTime}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{bundle.StartDate}" for="start_d"/>
-                        <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.accountQuery.startDate}" required="required">
-                            <f:convertDateTime dateStyle="default" locale="zh" type="date"/>
+                        <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.selected.startDate}" required="required" title="#{bundle.StartDateTitle}">
+                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai" />
                         </input>
                         <h:outputLabel value="#{bundle.EndDate}" for="end_d"/>
-                        <input type="date" jsf:id="end_d" name="end_d" value="#{detailRecordController.accountQuery.endDate}" required="required">
-                            <f:convertDateTime dateStyle="default" locale="zh" type="date"/>
+                        <input type="date" jsf:id="end_d" name="end_d" value="#{detailRecordController.selected.endDate}" required="required">
+                            <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai" />
                         </input>
                         <h:outputLabel value="#{bundle.AreaName}" for="area"/>
                         <h:selectOneMenu value="#" required="true" id="area">
@@ -53,7 +52,7 @@
                             <f:selectItem itemValue="1" itemLabel="aaaaa"/>
                             <f:selectItem itemValue="1" itemLabel="aaaaa"/>
                         </h:selectOneMenu>
-                        <h:commandButton action="Create" id="submit" value="#{bundle.Query}"/>
+                        <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}"/>
                     </h:form>
                 </li>
                 <li>
