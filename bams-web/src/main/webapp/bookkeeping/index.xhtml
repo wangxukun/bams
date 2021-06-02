@@ -30,7 +30,7 @@
                 <li>
                     <h:form>
                         <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
-                        <h:selectOneMenu value="#{detailRecordController.selected.queryCategory}" converter="javax.faces.Integer" required="true" id="queryCategory">
+                        <h:selectOneMenu value="#{detailRecordController.selected.queryCategory}" required="true" id="queryCategory">
                             <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
                             <f:selectItem itemValue="2" itemLabel="#{bundle.BusinessTime}"/>
                         </h:selectOneMenu>

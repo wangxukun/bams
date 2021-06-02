@@ -1,39 +1,58 @@
 package org.xkidea.bams.model;
 
+import org.xkidea.bams.entity.Area;
+import org.xkidea.bams.entity.SubsidiaryAccount;
+
 import java.io.Serializable;
-import java.util.Date;
 
 public class AccountQuery implements Serializable {
     private static final long serialVersionUID = -2342437016158734617L;
-
-    private Integer queryCategory = 1;
-    private Date startDate ;
-    private Date endDate ;
+    String queryCategory = "1";
+    String startDate;
+    String endDate;
+    Area area;
+    SubsidiaryAccount subsidiaryAccount;
 
     public AccountQuery() {
     }
 
-    public Integer getQueryCategory() {
+    public String getQueryCategory() {
         return queryCategory;
     }
 
-    public void setQueryCategory(Integer queryCategory) {
+    public void setQueryCategory(String queryCategory) {
         this.queryCategory = queryCategory;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public SubsidiaryAccount getSubsidiaryAccount() {
+        return subsidiaryAccount;
+    }
+
+    public void setSubsidiaryAccount(SubsidiaryAccount subsidiaryAccount) {
+        this.subsidiaryAccount = subsidiaryAccount;
     }
 }
