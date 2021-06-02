@@ -41,6 +41,12 @@ public class AreaBean extends AbstractFacade<Area> {
         em.persist(area);
     }
 
+    /**
+     * 返回指定总账户下，特定范围的区域集合
+     * @param range
+     * @param generalAccount
+     * @return
+     */
     public List<Area> findByGeneralAccount(int[] range, GeneralAccount generalAccount){
         CriteriaBuilder qb = em.getCriteriaBuilder();
         CriteriaQuery<Area> query = qb.createQuery(Area.class);
@@ -54,6 +60,11 @@ public class AreaBean extends AbstractFacade<Area> {
         return result;
     }
 
+    /**
+     * 返回指定总账户下，所有的区域集合
+     * @param generalAccount
+     * @return
+     */
     public List<Area> getAreasByGeneralAccount(GeneralAccount generalAccount) {
         Query createNamedQuery = getEntityManager().createNamedQuery("Area.findByGeneralAccount");
         createNamedQuery.setParameter("generalAccount",generalAccount);
@@ -69,5 +80,15 @@ public class AreaBean extends AbstractFacade<Area> {
         query.where(qb.equal(area.get("generalAccount"),generalAccount));
         Query q = em.createQuery(query);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    /**
+     * 返回当前User有权限的所有区域集合
+     * @param user
+     * @return
+     */
+    public List<Area> getAreasByCurrentUser(Person user) {
+        // TODO ....
+        return null;
     }
 }
