@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,6 +31,10 @@ public class AccountantController implements Serializable {
     private AccountantBean ejbFacade;
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
+
+
+    @Inject
+    UserController userController;
 
     public AccountantController() {
     }
@@ -69,6 +74,8 @@ public class AccountantController implements Serializable {
         try {
             current.setPassword(MD5Util.generateMD5(current.getPassword()));
             current.setDateCreated(new Date());
+
+            current.getAccountList().add(userController.getAuthenticatedUser().getAccountList().get(0));
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AccountantCreated"));
             return PageNavigation.VIEW;

@@ -84,17 +84,15 @@ public class AreaController implements Serializable {
                 @Override
                 public int getItemsCount() {
 //                    return getFacade().count();
-                    // 特定用户的账户下的Areas总数
-                    return getFacade().countByGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
+                    return getFacade().getCountByCurrentUser(userController.getAuthenticatedUser());
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
                     /*return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),
                     getPageFirstItem() + getPageSize()}));*/
-                    // 特定用户的账户下的Areas列表数据模型
-                    return new ListDataModel(getFacade().findByGeneralAccount(new int[]{getPageFirstItem(),
-                    getPageFirstItem() + getPageSize()},userController.getAuthenticatedUser().getAccountList().get(0)));
+                    return new ListDataModel(getFacade().findByCurrentUser(new int[]{getPageFirstItem(),
+                            getPageFirstItem() + getPageSize()},userController.getAuthenticatedUser()));
                 }
             };
         }
@@ -195,7 +193,7 @@ public class AreaController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
 //        return JsfUtil.getSelectItems(ejbFacade.findAll(),true);
-        return JsfUtil.getSelectItems(ejbFacade.getAreasByGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0)),true);
+        return JsfUtil.getSelectItems(ejbFacade.getAreasByCurrentUser(userController.getAuthenticatedUser()),true);
     }
 
     @FacesConverter(forClass = Area.class)

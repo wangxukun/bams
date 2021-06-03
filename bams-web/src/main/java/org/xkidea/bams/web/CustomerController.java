@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
@@ -34,6 +35,9 @@ public class CustomerController implements Serializable {
 
     private AbstractPaginationHelper pagination;
     private int selectedItemIndex;
+
+    @Inject
+    UserController userController;
 
     public CustomerController() {
     }
@@ -93,6 +97,7 @@ public class CustomerController implements Serializable {
             if (!isUserDuplicated(current)) {
                 current.setPassword(MD5Util.generateMD5(current.getPassword()));
                 current.setDateCreated(new Date());
+                current.getAccountList().add(userController.getAuthenticatedUser().getAccountList().get(0));
                 getFacade().create(current);
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CustomerCreated"));
             } else {

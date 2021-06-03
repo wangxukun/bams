@@ -20,23 +20,30 @@
         xmlns:util="http://java.sun.com/jsf/composite/components">
 
     <ui:define name="title">
-        <h:outputText value="${bundle.ManageAccountTitle}" />
+        <h:outputText value="${bundle.ManageAccountTitle}"/>
     </ui:define>
 
     <ui:define name="body">
         <h:form>
             <ul class="adminItem">
-                <li><h2 >${bundle.ManageAccount}</h2></li>
-                <li><h:commandLink action="generalAccount/List" value="${bundle.ListAccountTitle}" /></li>
-                <li><h:commandLink action="generalAccount/Create" value="${bundle.CreateAccountTitle}" /></li>
+                <h:panelGroup rendered="#{userController.admin}">
+                    <li><h2>${bundle.ManageAccount}</h2></li>
+                    <li><h:commandLink action="generalAccount/List" value="${bundle.ListAccountTitle}"/></li>
+                    <li><h:commandLink action="generalAccount/Create" value="${bundle.CreateAccountTitle}"/></li>
+                </h:panelGroup>
 
-                <li><h2 >${bundle.ManageSubsidiaryAccount}</h2></li>
-                <li><h:commandLink action="subsidiaryAccount/List" value="${bundle.ListSubsidiaryAccountTitle}" /></li>
-                <li><h:commandLink action="subsidiaryAccount/Create" value="${bundle.CreateSubsidiaryAccountTitle}" /></li>
+                <h:panelGroup rendered="#{userController.treasurer}">
+                    <li><h2>${bundle.ManageSubsidiaryAccount}</h2></li>
+                    <li><h:commandLink action="subsidiaryAccount/List" value="${bundle.ListSubsidiaryAccountTitle}"/>
+                    </li>
+                    <li><h:commandLink action="subsidiaryAccount/Create"
+                                       value="${bundle.CreateSubsidiaryAccountTitle}"/>
+                    </li>
 
-                <li><h2 >${bundle.ManageArea}</h2></li>
-                <li><h:commandLink action="area/List" value="${bundle.ListAreaTitle}" /></li>
-                <li><h:commandLink action="area/Create" value="${bundle.CreateAreaTitle}" /></li>
+                    <li><h2>${bundle.ManageArea}</h2></li>
+                    <li><h:commandLink action="area/List" value="${bundle.ListAreaTitle}"/></li>
+                    <li><h:commandLink action="area/Create" value="${bundle.CreateAreaTitle}"/></li>
+                </h:panelGroup>
 
             </ul>
         </h:form>

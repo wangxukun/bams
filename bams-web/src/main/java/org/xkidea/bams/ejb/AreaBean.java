@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
@@ -41,37 +40,6 @@ public class AreaBean extends AbstractFacade<Area> {
         em.persist(area);
     }
 
-    /**
-     * 返回指定总账户下，特定范围的区域集合
-     * @param range
-     * @param generalAccount
-     * @return
-     */
-    public List<Area> findByGeneralAccount(int[] range, GeneralAccount generalAccount){
-        CriteriaBuilder qb = em.getCriteriaBuilder();
-        CriteriaQuery<Area> query = qb.createQuery(Area.class);
-        Root<Area> area = query.from(Area.class);
-        query.where(qb.equal(area.get("generalAccount"),generalAccount));
-
-        List<Area> result = this.findRange(range,query);
-
-        logger.log(Level.FINEST,"Area List size: {0}",result.size());
-
-        return result;
-    }
-
-    /**
-     * 返回指定总账户下，所有的区域集合
-     * @param generalAccount
-     * @return
-     */
-    public List<Area> getAreasByGeneralAccount(GeneralAccount generalAccount) {
-        Query createNamedQuery = getEntityManager().createNamedQuery("Area.findByGeneralAccount");
-        createNamedQuery.setParameter("generalAccount",generalAccount);
-
-        return (List<Area>) createNamedQuery.getResultList();
-    }
-
     public int countByGeneralAccount(GeneralAccount generalAccount) {
         CriteriaBuilder qb = em.getCriteriaBuilder();
         CriteriaQuery query = qb.createQuery();
@@ -84,11 +52,29 @@ public class AreaBean extends AbstractFacade<Area> {
 
     /**
      * 返回当前User有权限的所有区域集合
-     * @param user
+     * @param currentUser
      * @return
      */
-    public List<Area> getAreasByCurrentUser(Person user) {
-        // TODO ....
-        return null;
+    public List<Area> getAreasByCurrentUser(Person currentUser) {
+        List<Area> areas = em.createQuery("SELECT a FROM Area a, IN (a.personList) p WHERE p = :currentUser")
+                .setParameter("currentUser",currentUser)
+                .getResultList();
+        return areas;
+    }
+
+    public List<Area> findByCurrentUser(int[] range,Person currentUser) {
+        List<Area> areas = em.createQuery("SELECT a FROM Area a, IN (a.personList) p WHERE p = :currentUser")
+                .setParameter("currentUser",currentUser)
+                .setMaxResults(range[1] - range[0])
+                .setFirstResult(range[0])
+                .getResultList();
+        return areas;
+    }
+
+    public int getCountByCurrentUser(Person currentUser) {
+        Long count = (Long) em.createQuery("SELECT count(a) FROM Area a, IN (a.personList) p WHERE p = :currentUser")
+                .setParameter("currentUser",currentUser)
+                .getSingleResult();
+        return count.intValue();
     }
 }

@@ -20,25 +20,26 @@
         xmlns:comp="http://java.sun.com/jsf/composite/components">
 
     <ui:define name="title">
-        <h:outputText value="${bundle.SettingPageTitle}" />
+        <h:outputText value="${bundle.SettingPageTitle}"/>
     </ui:define>
 
     <ui:define name="body">
-        <comp:breadcrumbs />
+        <comp:breadcrumbs/>
         <h:form>
             <ul class="adminItem">
-                <li><h2 >${bundle.ManageSortAccount}</h2></li>
-                <li><h:commandLink action="sortAccount/List" value="${bundle.ListSortAccountTitle}" /></li>
-                <li><h:commandLink action="sortAccount/Create" value="${bundle.CreateSortAccountTitle}" /></li>
+                <h:panelGroup rendered="#{userController.admin}">
+                    <li><h2>${bundle.ManageSortAccount}</h2></li>
+                    <li><h:commandLink action="sortAccount/List" value="${bundle.ListSortAccountTitle}"/></li>
+                    <li><h:commandLink action="sortAccount/Create" value="${bundle.CreateSortAccountTitle}"/></li>
 
-                <li><h2 >${bundle.ManageCategoryAccount}</h2></li>
-                <li><h:commandLink action="categoryAccount/List" value="${bundle.ListCategoryAccountTitle}" /></li>
-                <li><h:commandLink action="categoryAccount/Create" value="${bundle.CreateCategoryAccountTitle}" /></li>
+                    <li><h2>${bundle.ManageGroups}</h2></li>
+                    <li><h:commandLink action="groups/List" value="${bundle.ListGroupsTitle}"/></li>
+                    <li><h:commandLink action="groups/Create" value="${bundle.CreateGroupsTitle}"/></li>
+                </h:panelGroup>
 
-                <li><h2 >${bundle.ManageGroups}</h2></li>
-                <li><h:commandLink action="groups/List" value="${bundle.ListGroupsTitle}" /></li>
-                <li><h:commandLink action="groups/Create" value="${bundle.CreateGroupsTitle}" /></li>
-
+                <li><h2>${bundle.ManageCategoryAccount}</h2></li>
+                <li><h:commandLink action="categoryAccount/List" value="${bundle.ListCategoryAccountTitle}"/></li>
+                <li><h:commandLink action="categoryAccount/Create" value="${bundle.CreateCategoryAccountTitle}"/></li>
             </ul>
         </h:form>
     </ui:define>

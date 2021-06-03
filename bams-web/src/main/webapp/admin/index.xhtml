@@ -20,28 +20,32 @@
         xmlns:comp="http://java.sun.com/jsf/composite/components">
 
     <ui:define name="title">
-        <h:outputText value="${bundle.AdminHomeTitle}" />
+        <h:outputText value="${bundle.AdminHomeTitle}"/>
     </ui:define>
 
     <ui:define name="body">
-        <comp:breadcrumbs />
+        <comp:breadcrumbs/>
         <h:form>
             <ul class="adminItem">
-                <li><h2 >${bundle.ManageCustomers}</h2></li>
-                <li><h:commandLink action="customer/List" value="${bundle.ListCustomerTitle}" /></li>
-                <li><h:commandLink action="customer/Create" value="${bundle.CreateCustomerTitle}" /></li>
+                <h:panelGroup rendered="#{userController.treasurer}">
+                    <li><h2>${bundle.ManageCustomers}</h2></li>
+                    <li><h:commandLink action="customer/List" value="${bundle.ListCustomerTitle}"/></li>
+                    <li><h:commandLink action="customer/Create" value="${bundle.CreateCustomerTitle}"/></li>
 
-                <li><h2 >${bundle.ManageAccountants}</h2></li>
-                <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantTitle}" /></li>
-                <li><h:commandLink action="accountant/Create" value="${bundle.CreateAccountantTitle}" /></li>
+                    <li><h2>${bundle.ManageAccountants}</h2></li>
+                    <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantTitle}"/></li>
+                    <li><h:commandLink action="accountant/Create" value="${bundle.CreateAccountantTitle}"/></li>
+                </h:panelGroup>
 
-                <li><h2 >${bundle.ManageTreasurers}</h2></li>
-                <li><h:commandLink action="treasurer/List" value="${bundle.ListTreasurerTitle}" /></li>
-                <li><h:commandLink action="treasurer/Create" value="${bundle.CreateTreasurerTitle}" /></li>
+                <h:panelGroup rendered="#{userController.admin}">
+                    <li><h2>${bundle.ManageTreasurers}</h2></li>
+                    <li><h:commandLink action="treasurer/List" value="${bundle.ListTreasurerTitle}"/></li>
+                    <li><h:commandLink action="treasurer/Create" value="${bundle.CreateTreasurerTitle}"/></li>
 
-                <li><h2 >${bundle.ManageAdministrators}</h2></li>
-                <li><h:commandLink action="administrator/List" value="${bundle.ListAdministratorTitle}" /></li>
-                <li><h:commandLink action="administrator/Create" value="${bundle.CreateAdministratorTitle}" /></li>
+                    <li><h2>${bundle.ManageAdministrators}</h2></li>
+                    <li><h:commandLink action="administrator/List" value="${bundle.ListAdministratorTitle}"/></li>
+                    <li><h:commandLink action="administrator/Create" value="${bundle.CreateAdministratorTitle}"/></li>
+                </h:panelGroup>
             </ul>
         </h:form>
     </ui:define>

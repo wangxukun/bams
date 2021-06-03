@@ -20,21 +20,25 @@
         xmlns:util="http://java.sun.com/jsf/composite/components">
 
     <ui:define name="title">
-        <h:outputText value="${bundle.AuthorizationTitle}" />
+        <h:outputText value="${bundle.AuthorizationTitle}"/>
     </ui:define>
 
     <ui:define name="body">
         <h:form>
             <ul class="adminItem">
-                <li><h2 >${bundle.TreasurerGeneralAccount_Authorization}</h2></li>
-                <li><h:commandLink action="treasurer/List" value="${bundle.ListTreasurerGeneralAccount_Authorization}" /></li>
+                <h:panelGroup rendered="#{userController.admin}">
+                    <li><h2>${bundle.TreasurerGeneralAccount_Authorization}</h2></li>
+                    <li><h:commandLink action="treasurer/List"
+                                       value="${bundle.ListTreasurerGeneralAccount_Authorization}"/></li>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{userController.treasurer}">
+                    <li><h2>${bundle.AccountantArea_Authorization}</h2></li>
+                    <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantArea_Authorization}"/>
+                    </li>
 
-                <li><h2 >${bundle.AccountantArea_Authorization}</h2></li>
-                <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantArea_Authorization}" /></li>
-
-                <li><h2 >${bundle.CustomerArea_Authorization}</h2></li>
-                <li><h:commandLink action="customer/List" value="${bundle.ListCustomerArea_Authorization}" /></li>
-
+                    <li><h2>${bundle.CustomerArea_Authorization}</h2></li>
+                    <li><h:commandLink action="customer/List" value="${bundle.ListCustomerArea_Authorization}"/></li>
+                </h:panelGroup>
             </ul>
         </h:form>
     </ui:define>
