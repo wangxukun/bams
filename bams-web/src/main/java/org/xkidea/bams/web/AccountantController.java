@@ -55,15 +55,20 @@ public class AccountantController implements Serializable {
             pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+//                    return getFacade().count();
+                    return getFacade().getCountByCurrentGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{
+                    /*return new ListDataModel(getFacade().findRange(new int[]{
                             getPageFirstItem(),
                             getPageFirstItem() + getPageSize()
-                    }));
+                    }));*/
+                    return new ListDataModel(getFacade().findByCurrentGeneralAccount(new int[]{
+                            getPageFirstItem(),
+                            getPageFirstItem() + getPageSize()
+                    },userController.getAuthenticatedUser().getAccountList().get(0)));
                 }
             };
         }
@@ -189,5 +194,18 @@ public class AccountantController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+
+    public PageNavigation prepareAreasAssign() {
+        current = (Accountant) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.ACCOUNTANT_AREAS_ASSIGN;
+    }
+    /**
+     * 为选定操作员分配区域
+     * @return
+     */
+    public PageNavigation areasAssign() {
+       return PageNavigation.LIST;
     }
 }

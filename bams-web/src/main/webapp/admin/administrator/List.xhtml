@@ -30,6 +30,7 @@
             <h:outputText escape="false" value="#{bundle.ListAdministratorEmpty}"
                           rendered="#{administratorController.items.rowCount == 0}"/>
             <h:panelGroup rendered="#{administratorController.items.rowCount > 0}">
+
                 <ul class="commandButtons">
                     <li><h:commandLink action="#{administratorController.previous}"
                                        value="#{bundle.Previous} #{administratorController.pagination.pageSize}"
@@ -40,6 +41,7 @@
                     <li><h:commandLink action="#{administratorController.prepareCreate}"
                                        value="#{bundle.ListAdministratorCreateLink}"/></li>
                 </ul>
+
                 <h:dataTable value="#{administratorController.items}" var="item" border="0" cellpadding="2"
                              cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
                              style="border:solid 1px">
