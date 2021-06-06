@@ -18,6 +18,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Named(value = "areaController")
@@ -28,6 +29,11 @@ public class AreaController implements Serializable {
 
     private Area current;
     private DataModel items = null;
+
+    // 分配的区域集合
+    List<Area> areaList;
+    // 全选Checkbox的选择状态
+    int selectAll = 0;
 
     @EJB
     private AreaBean ejbFacade;
@@ -232,5 +238,21 @@ public class AreaController implements Serializable {
             sb.append(id);
             return sb.toString();
         }
+    }
+
+    public List<Area> getAreaList() {
+        return areaList;
+    }
+
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
+    }
+
+    public int getSelectAll() {
+        return selectAll;
+    }
+
+    public void setSelectAll(int selectAll) {
+        this.selectAll = selectAll;
     }
 }

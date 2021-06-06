@@ -34,7 +34,6 @@
                 <ul class="commandButtons">
                     <li><h:commandLink action="#{areaController.previous}" value="#{bundle.Previous} #{areaController.pagination.pageSize}" rendered="#{areaController.pagination.hasPreviousPage}"/></li>
                     <li><h:commandLink action="#{areaController.next}" value="#{bundle.Next} #{areaController.pagination.pageSize}" rendered="#{areaController.pagination.hasNextPage}"/></li>
-                    <li><h:commandLink action="#{areaController.prepareCreate}" value="#{bundle.ListAreaCreateLink}"/></li>
                 </ul>
 
                 <h:dataTable value="#{areaController.items}" var="item" border="0" cellpadding="2"
@@ -43,14 +42,13 @@
                              style="border:solid 1px">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.SelectAll}"/>
+                            <h:outputFormat value="#{bundle.SelectAreaCount}" rendered="true">
+                                <f:param value="6"/>
+                            </h:outputFormat>
                         </f:facet>
-                        <h:selectOneRadio
-                                group="treasurer_account"
-                                value="#{areaController.selected.accountList.size() > 0 ? treasurerController.selected.accountList.get(0).id : treasurerController.accountId}"
-                                required="true">
-                            <f:selectItem itemValue="#{item.id}" />
-                        </h:selectOneRadio>
+                        <h:selectManyCheckbox id="areasCheckbox" value="#{areaController.areaList}" layout="pageDirection">
+                            <f:selectItem itemValue="#{item}" itemLabel="#{item.name}"/>
+                        </h:selectManyCheckbox>
                     </h:column>
 
                     <f:facet name="footer">
