@@ -52,9 +52,20 @@
                     </h:column>
 
                     <f:facet name="footer">
-                        <h:commandLink action="#{accountantController.areasAssign}"
+                        <h:commandLink action="#{areaController.areasAssign}"
                                        value="#{bundle.AssignAreaLink}"/>
                     </f:facet>
+                </h:dataTable>
+                <h:dataTable rendered="#{areaController.areaList.size() > 0}" value="#{areaController.areaList}" var="area" border="1" cellpadding="2"
+                             cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
+                             footerClass="align-content-sm-center" rules="all"
+                             style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="AREA"/>
+                        </f:facet>
+                        <h:outputText style="color: #D20005" value="#{area.name}" />
+                    </h:column>
                 </h:dataTable>
             </h:panelGroup>
         </h:form>

@@ -201,11 +201,4 @@ public class AccountantController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.ACCOUNTANT_AREAS_ASSIGN;
     }
-    /**
-     * 为选定操作员分配区域
-     * @return
-     */
-    public PageNavigation areasAssign() {
-       return PageNavigation.LIST;
-    }
 }

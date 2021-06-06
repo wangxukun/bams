@@ -1,6 +1,7 @@
 package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.AreaBean;
+import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -18,6 +19,8 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,8 +45,13 @@ public class AreaController implements Serializable {
 
     @Inject
     UserController userController;
+    @Inject
+    AccountantController accountantController;
 
     public AreaController() {
+        if (areaList == null) {
+            areaList = new ArrayList<>();
+        }
     }
 
     public Area getSelected() {
@@ -108,6 +116,10 @@ public class AreaController implements Serializable {
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
+            areaList = getFacade().findByCurrentUser(new int[]{
+                    getPagination().getPageFirstItem(),
+                    getPagination().getPageFirstItem()+getPagination().getPageSize()},
+                    accountantController.getSelected());
         }
         return items;
     }
@@ -202,6 +214,10 @@ public class AreaController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.getAreasByCurrentUser(userController.getAuthenticatedUser()),true);
     }
 
+    public SelectItem[] getItemsAvailableSelectMany() {
+        return JsfUtil.getSelectItems(ejbFacade.getAreasByCurrentUser(userController.getAuthenticatedUser()),false);
+    }
+
     @FacesConverter(forClass = Area.class)
     public static class AreaControllerConverter implements Converter {
 
@@ -238,6 +254,14 @@ public class AreaController implements Serializable {
             sb.append(id);
             return sb.toString();
         }
+    }
+
+    /**
+     * 为选定操作员分配区域
+     * @return
+     */
+    public PageNavigation areasAssign() {
+        return PageNavigation.LIST;
     }
 
     public List<Area> getAreaList() {
