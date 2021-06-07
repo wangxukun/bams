@@ -1,7 +1,6 @@
 package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.AreaBean;
-import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -20,7 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,8 +33,6 @@ public class AreaController implements Serializable {
 
     // 分配的区域集合
     List<Area> areaList;
-    // 全选Checkbox的选择状态
-    int selectAll = 0;
 
     @EJB
     private AreaBean ejbFacade;
@@ -261,6 +257,7 @@ public class AreaController implements Serializable {
      * @return
      */
     public PageNavigation areasAssign() {
+        System.out.println("-------------" + areaList.size());
         return PageNavigation.LIST;
     }
 
@@ -270,13 +267,5 @@ public class AreaController implements Serializable {
 
     public void setAreaList(List<Area> areaList) {
         this.areaList = areaList;
-    }
-
-    public int getSelectAll() {
-        return selectAll;
-    }
-
-    public void setSelectAll(int selectAll) {
-        this.selectAll = selectAll;
     }
 }
