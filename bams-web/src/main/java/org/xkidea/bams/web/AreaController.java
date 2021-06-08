@@ -112,10 +112,6 @@ public class AreaController implements Serializable {
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
-            areaList = getFacade().findByCurrentUser(new int[]{
-                    getPagination().getPageFirstItem(),
-                    getPagination().getPageFirstItem()+getPagination().getPageSize()},
-                    accountantController.getSelected());
         }
         return items;
     }
@@ -262,6 +258,10 @@ public class AreaController implements Serializable {
     }
 
     public List<Area> getAreaList() {
+        areaList = getFacade().findByCurrentUser(new int[]{
+                        getPagination().getPageFirstItem(),
+                        getPagination().getPageFirstItem()+getPagination().getPageSize()},
+                accountantController.getSelected());
         return areaList;
     }
 
