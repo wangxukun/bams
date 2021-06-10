@@ -6,6 +6,7 @@ import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.PageNavigation;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -18,7 +19,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,6 +35,8 @@ public class AreaController implements Serializable {
     // 分配的区域集合
     List<Area> areaList;
 
+    private Area[] selectedAreas;
+
     @EJB
     private AreaBean ejbFacade;
     private AbstractPaginationHelper pagination;
@@ -45,9 +48,14 @@ public class AreaController implements Serializable {
     AccountantController accountantController;
 
     public AreaController() {
-        if (areaList == null) {
-            areaList = new ArrayList<>();
-        }
+    }
+
+    @PostConstruct
+    public void init() {
+        areaList = getFacade().findByCurrentUser(new int[]{
+                        getPagination().getPageFirstItem(),
+                        getPagination().getPageFirstItem()+getPagination().getPageSize()},
+                accountantController.getSelected());
     }
 
     public Area getSelected() {
@@ -253,19 +261,26 @@ public class AreaController implements Serializable {
      * @return
      */
     public PageNavigation areasAssign() {
-        System.out.println("-------------" + areaList.size());
+        System.out.println("============== Area 1 = " + areaList);
+        areaList.stream().forEach(area -> {
+            System.out.println("=========== Area = " + area );
+        });
         return PageNavigation.LIST;
     }
 
     public List<Area> getAreaList() {
-        areaList = getFacade().findByCurrentUser(new int[]{
-                        getPagination().getPageFirstItem(),
-                        getPagination().getPageFirstItem()+getPagination().getPageSize()},
-                accountantController.getSelected());
         return areaList;
     }
 
     public void setAreaList(List<Area> areaList) {
         this.areaList = areaList;
+    }
+
+    public Area[] getSelectedAreas() {
+        return selectedAreas;
+    }
+
+    public void setSelectedAreas(Area[] selectedAreas) {
+        this.selectedAreas = selectedAreas;
     }
 }
