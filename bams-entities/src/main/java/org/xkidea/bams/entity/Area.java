@@ -22,7 +22,7 @@ public class Area implements Serializable {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "area")
     private List<SubsidiaryAccount> subsidiaryAccountList;
 
-    @ManyToMany(mappedBy = "areaList")
+    @ManyToMany(mappedBy = "areaList",cascade = CascadeType.ALL)
     @XmlTransient
     private List<Person> personList;
 
@@ -103,6 +103,14 @@ public class Area implements Serializable {
 
     public void setPersonList(List<Person> personList) {
         this.personList = personList;
+    }
+
+    public void addPerson(Person person) {
+        this.getPersonList().add(person);
+    }
+
+    public void dropPerson(Person person) {
+        this.getPersonList().remove(person);
     }
 
     @Override

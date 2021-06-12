@@ -1,16 +1,16 @@
 package org.xkidea.bams.ejb;
 
-import org.xkidea.bams.entity.Accountant;
-import org.xkidea.bams.entity.GeneralAccount;
-import org.xkidea.bams.entity.Groups;
+import org.xkidea.bams.entity.*;
 
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -46,6 +46,48 @@ public class AccountantBean extends AbstractFacade<Accountant> {
         accountantGroup.getPersonList().remove(accountant);
         em.remove(em.merge(accountant));
         em.merge(accountantGroup);
+    }
+
+    public void updateAreasFromPerson(List<Area> areas, Person person) {
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaUpdate<Person> update = cb.createCriteriaUpdate(Person.class);
+//
+//        Root<Person> root = update.from(Person.class);
+//        update
+//                .set(root.get("areaList"),areas)
+//                .where(cb.equal(root.get("email"),person.getEmail()));
+//        em.createQuery(update).executeUpdate();
+
+        try {
+            Person p = find(person.getId());
+            List<Area> a = p.getAreaList();
+            System.out.println("-------------(1)--------" + a);
+//            for (int i = 0; i < a.size(); i++) {
+//                System.out.println("-----------(2)-------" + a.get(i));
+//                p.dropArea(a.get(i));
+//                System.out.println("-----------(3)-------" + p);
+//                a.get(i).dropPerson(p);
+//                em.merge(p);
+//                em.merge(a.get(i));
+//            }
+
+            Area aa = em.find(Area.class,a.get(3).getId());
+            System.out.println("-----------------P --- " + p);
+            System.out.println("-----------------a--- " + aa);
+            p.dropArea(aa);
+            em.merge(p);
+
+//            for (int i = 0; i < areas.size(); i++) {
+//                a.add(areas.get(i));
+//                a.get(i).getPersonList().add(person);
+//                em.merge(a.get(i));
+//            }
+//            em.merge(person);
+//            System.out.println("-----------(2)-------" + person.getAreaList());
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+
     }
 
     /**

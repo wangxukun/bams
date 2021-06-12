@@ -1,10 +1,7 @@
 package org.xkidea.bams.ejb;
 
-import org.xkidea.bams.entity.Area;
-import org.xkidea.bams.entity.Person;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;

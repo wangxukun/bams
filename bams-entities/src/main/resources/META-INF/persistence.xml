@@ -24,6 +24,7 @@
 <!--            <property name="javax.persistence.schema-generation.drop-source" value="script"/>-->
 <!--            <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/sql/drop.sql"/>-->
 <!--            <property name="eclipselink.logging.level" value="info"/>-->
+            <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>

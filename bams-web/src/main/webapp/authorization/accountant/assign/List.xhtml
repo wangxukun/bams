@@ -41,13 +41,13 @@
                 </ul>
 
                 <h:outputFormat value="#{bundle.SelectAreaCount}" rendered="true">
-                    <f:param value="#{areaController.areaList.size()}"/>
+                    <f:param value="#{authAccountantController.areaList.size()}"/>
                 </h:outputFormat>
-                <h:selectManyCheckbox id="areasCheckbox" value="#{areaController.areaList}" layout="pageDirection">
+                <h:selectManyCheckbox id="areasCheckbox" value="#{authAccountantController.areaList}" layout="pageDirection">
                     <f:selectItems value="#{areaController.itemsAvailableSelectMany}" var="area" itemValue="#{area}"
                                    itemLabel="#{area.name}"/>
                 </h:selectManyCheckbox>
-                <h:commandLink value="#{bundle.AssignAreaLink}" action="#{areaController.areasAssign}"/>
+                <h:commandLink value="#{bundle.AssignAreaLink}" action="#{authAccountantController.areasAssign}"/>
             </h:panelGroup>
         </h:form>
     </ui:define>

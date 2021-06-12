@@ -45,7 +45,7 @@ public class Person implements Serializable {
             inverseJoinColumns=
             @JoinColumn(name="AREA_ID", referencedColumnName="ID")
     )
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     protected List<Area> areaList;
 
     @Id
@@ -190,6 +190,14 @@ public class Person implements Serializable {
         this.areaList = areaList;
     }
 
+    public void addArea(Area area) {
+        this.getAreaList().add(area);
+    }
+
+    public void dropArea(Area area) {
+        this.getAreaList().remove(area);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -205,8 +213,6 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "id=" + id +
-                '}';
+        return this.name;
     }
 }

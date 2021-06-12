@@ -6,7 +6,6 @@ import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.PageNavigation;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -19,8 +18,6 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @Named(value = "areaController")
@@ -32,10 +29,6 @@ public class AreaController implements Serializable {
     private Area current;
     private DataModel items = null;
 
-    // 分配的区域集合
-    List<Area> areaList;
-
-    private Area[] selectedAreas;
 
     @EJB
     private AreaBean ejbFacade;
@@ -44,18 +37,8 @@ public class AreaController implements Serializable {
 
     @Inject
     UserController userController;
-    @Inject
-    AccountantController accountantController;
 
     public AreaController() {
-    }
-
-    @PostConstruct
-    public void init() {
-        areaList = getFacade().findByCurrentUser(new int[]{
-                        getPagination().getPageFirstItem(),
-                        getPagination().getPageFirstItem()+getPagination().getPageSize()},
-                accountantController.getSelected());
     }
 
     public Area getSelected() {
@@ -256,31 +239,4 @@ public class AreaController implements Serializable {
         }
     }
 
-    /**
-     * 为选定操作员分配区域
-     * @return
-     */
-    public PageNavigation areasAssign() {
-        System.out.println("============== Area 1 = " + areaList);
-        areaList.stream().forEach(area -> {
-            System.out.println("=========== Area = " + area );
-        });
-        return PageNavigation.LIST;
-    }
-
-    public List<Area> getAreaList() {
-        return areaList;
-    }
-
-    public void setAreaList(List<Area> areaList) {
-        this.areaList = areaList;
-    }
-
-    public Area[] getSelectedAreas() {
-        return selectedAreas;
-    }
-
-    public void setSelectedAreas(Area[] selectedAreas) {
-        this.selectedAreas = selectedAreas;
-    }
 }
