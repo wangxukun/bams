@@ -7,7 +7,6 @@ import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.PageNavigation;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -58,12 +57,10 @@ public class AuthAccountantController implements Serializable {
      */
     public PageNavigation areasAssign() {
         try {
-            Accountant accountant = accountantController.getSelected();
             System.out.println("-----------(1)--old----------" + oldAreas);
             System.out.println("-----------(2)--new----------" + person.getAreaList());
-            personBean.updateAreasOfPerson(accountant, person.getAreaList(),oldAreas);
+            personBean.updateAreasOfPerson(person, person.getAreaList(),oldAreas);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AccountantUpdated"));
-            accountantController.recreateModel();
             return PageNavigation.LIST;
         } catch (Exception e) {
             e.printStackTrace();
