@@ -31,7 +31,7 @@ public class Person implements Serializable {
     @JoinTable(
             name="PERSON_GENERALACCOUNT",
             joinColumns=
-            @JoinColumn(name="EMAIL", referencedColumnName="EMAIL"),
+            @JoinColumn(name="PERSON_ID", referencedColumnName="ID"),
             inverseJoinColumns=
             @JoinColumn(name="ACCOUNT_ID", referencedColumnName="ID")
     )
@@ -41,7 +41,7 @@ public class Person implements Serializable {
     @JoinTable(
             name="PERSON_AREA",
             joinColumns=
-            @JoinColumn(name="EMAIL", referencedColumnName="EMAIL"),
+            @JoinColumn(name="PERSON_ID", referencedColumnName="ID"),
             inverseJoinColumns=
             @JoinColumn(name="AREA_ID", referencedColumnName="ID")
     )
@@ -199,17 +199,25 @@ public class Person implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id.equals(person.id);
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public boolean equals(Object object) {
+        if (!(object instanceof Person)) {
+            return false;
+        }
+        Person other = (Person) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
+
+
 
     @Override
     public String toString() {

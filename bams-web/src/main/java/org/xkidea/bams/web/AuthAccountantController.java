@@ -2,6 +2,7 @@ package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.AccountantBean;
 import org.xkidea.bams.ejb.AreaBean;
+import org.xkidea.bams.ejb.PersonBean;
 import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -29,7 +30,7 @@ public class AuthAccountantController implements Serializable {
     @EJB
     AccountantBean ejbAccountantFacade;
     @EJB
-    AreaBean ejbAreaFacade;
+    PersonBean personBean;
 
     private List<Area> areaList;
     private List<Area> oldAreas;
@@ -51,7 +52,7 @@ public class AuthAccountantController implements Serializable {
     public PageNavigation areasAssign() {
         try {
             Accountant accountant = accountantController.getSelected();
-            ejbAccountantFacade.updateAreasFromPerson(accountant.getAreaList(),accountant);
+            personBean.updateAreasOfPerson(accountant, areaList.get(0));
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AccountantUpdated"));
             return PageNavigation.LIST;
         } catch (Exception e) {
