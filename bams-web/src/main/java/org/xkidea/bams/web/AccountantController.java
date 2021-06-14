@@ -185,7 +185,7 @@ public class AccountantController implements Serializable {
         return PageNavigation.SYSTEM_MANAGE_HOME;
     }
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

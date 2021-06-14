@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class PersonBean extends AbstractFacade<Person> {
@@ -27,9 +28,16 @@ public class PersonBean extends AbstractFacade<Person> {
         return em;
     }
 
-    public void updateAreasOfPerson(Person person, Area area) {
-        // TODO......
-        dropArea(person,area);
+    public void updateAreasOfPerson(Person person, List<Area> areas, List<Area> oldAreas) {
+
+        for (Area old : oldAreas) {
+            dropArea(person,old);
+        }
+
+        for (Area ne : areas) {
+            addArea(person,ne);
+        }
+
     }
 
     public void addArea(Person person, Area area) {
