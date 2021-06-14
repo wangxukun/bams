@@ -10,7 +10,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ACCOUNT")
-// TODO @NamedQueries
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 4907786332920001037L;
@@ -101,8 +100,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                '}';
+        return name;
     }
 }

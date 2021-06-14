@@ -44,7 +44,7 @@
                         <f:selectItem itemValue="1" itemLabel="ddddd"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
-                    <input type="date" jsf:id="start_d" name="start_d" value="#" required="required"/>
+                    <input type="date" jsf:id="start_d" name="start_d" value="2021-01-01" required="required"/>
                     <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
                     <h:inputText id="summary" value="#{administratorController.selected.organization}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />
                     <h:outputLabel value="#{bundle.detailRecord_direction}" for="direction" />

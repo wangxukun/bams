@@ -1,23 +1,16 @@
 package org.xkidea.bams.ejb;
 
 import org.xkidea.bams.entity.Area;
-import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.Person;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Stateless
 public class AreaBean extends AbstractFacade<Area> {
 
-    private static final Logger logger = Logger.getLogger(AreaBean.class.getCanonicalName());
     @PersistenceContext(unitName = "bamsPU")
     private EntityManager em;
 
@@ -38,16 +31,6 @@ public class AreaBean extends AbstractFacade<Area> {
         area.setGeneralAccount(p.getAccountList().get(0));
         p.getAreaList().add(area);
         em.persist(area);
-    }
-
-    public int countByGeneralAccount(GeneralAccount generalAccount) {
-        CriteriaBuilder qb = em.getCriteriaBuilder();
-        CriteriaQuery query = qb.createQuery();
-        Root<Area> area = query.from(Area.class);
-        query.select(qb.count(area));
-        query.where(qb.equal(area.get("generalAccount"),generalAccount));
-        Query q = em.createQuery(query);
-        return ((Long) q.getSingleResult()).intValue();
     }
 
     /**

@@ -581,3 +581,9 @@ option {
     padding-left: 5px;
     padding-right: 5px;
 }
+.jsfcrud_odd_row{
+    background-color: #dddddd;
+}
+.jsfcrud_even_row{
+    background-color: #abcdef;
+}

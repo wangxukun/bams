@@ -44,13 +44,11 @@
                         </input>
                         <h:outputLabel value="#{bundle.AreaName}" for="area"/>
                         <h:selectOneMenu value="#" required="true" id="area">
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
+                            <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{bundle.SubsidiaryAccountName}" for="subsidiaryAccount"/>
-                        <h:selectOneMenu value="#" required="true" id="subsidiaryAccount">
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
-                            <f:selectItem itemValue="1" itemLabel="aaaaa"/>
+                        <h:selectOneMenu value="#" disabled="false" required="true" id="subsidiaryAccount">
+                            <f:selectItems value="#{subsidiaryAccountController.itemsAvailableSelectOne}"/>
                         </h:selectOneMenu>
                         <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}"/>
                     </h:form>

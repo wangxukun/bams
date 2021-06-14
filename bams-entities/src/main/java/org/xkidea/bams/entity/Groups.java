@@ -11,7 +11,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "GROUPZ")
-// TODO NamedQueries
 @NamedQueries({
         @NamedQuery(name = "Groups_findByName", query = "SELECT g FROM Groups g WHERE g.name = :name")
 })

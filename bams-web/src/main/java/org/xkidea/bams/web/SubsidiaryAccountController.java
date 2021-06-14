@@ -8,10 +8,12 @@ import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.PageNavigation;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -37,6 +39,13 @@ public class SubsidiaryAccountController implements Serializable {
 
     @Inject
     UserController userController;
+
+    @PostConstruct
+    public void init() {
+        // TODO ............
+        current = new SubsidiaryAccount();
+        current.setArea(userController.getAuthenticatedUser().getAreaList().get(1));
+    }
 
     public SubsidiaryAccount getSelected() {
         if (current == null) {
@@ -184,4 +193,9 @@ public class SubsidiaryAccountController implements Serializable {
         recreateModel();
         return PageNavigation.LIST;
     }
+
+    public SelectItem[] getItemsAvailableSelectOne() {
+        return JsfUtil.getSelectItems(ejbFacade.getSubsidiaryAccountByArea(current.getArea()),true);
+    }
+
 }

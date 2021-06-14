@@ -34,7 +34,15 @@
                         <li><h:commandLink action="#{subsidiaryAccountController.next}" value="#{bundle.Next} #{subsidiaryAccountController.pagination.pageSize}" rendered="#{subsidiaryAccountController.pagination.hasNextPage}"/></li>
                         <li><h:commandLink action="#{subsidiaryAccountController.prepareCreate}" value="#{bundle.ListSubsidiaryAccountCreateLink}"/></li>
                     </ul>
-                    <h:dataTable value="#{subsidiaryAccountController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{subsidiaryAccountController.items}"
+                                 var="item"
+                                 border="1"
+                                 cellpadding="2"
+                                 cellspacing="1"
+                                 rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
+                                 columnClasses="list-column-center,list-column-left,list-column-right,list-column-center"
+                                 rules="all"
+                                 style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubsidiaryAccountTitle_number}"/>

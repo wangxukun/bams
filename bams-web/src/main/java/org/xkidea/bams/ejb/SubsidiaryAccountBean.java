@@ -52,4 +52,11 @@ public class SubsidiaryAccountBean extends AbstractFacade<SubsidiaryAccount> {
         createNamedQuery.setParameter("generalAccount",generalAccount);
         return ((Long) createNamedQuery.getSingleResult()).intValue();
     }
+
+    public List<SubsidiaryAccount> getSubsidiaryAccountByArea(Area area) {
+        Query createNamedQuery = getEntityManager().createNamedQuery("SubsidiaryAccount.findByArea");
+        createNamedQuery.setParameter("area",area);
+        return (List<SubsidiaryAccount>)createNamedQuery.getResultList();
+    }
+
 }

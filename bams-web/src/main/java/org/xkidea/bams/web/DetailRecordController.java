@@ -1,10 +1,14 @@
 package org.xkidea.bams.web;
 
+import org.xkidea.bams.ejb.DetailRecordBean;
+import org.xkidea.bams.ejb.SubsidiaryAccountBean;
 import org.xkidea.bams.model.AccountQuery;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.PageNavigation;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -15,6 +19,12 @@ public class DetailRecordController implements Serializable {
     private static final String BUNDLE = "bundles.Bundle";
 
     private AccountQuery current;
+
+    @EJB
+    DetailRecordBean ejbFacade;
+
+    @EJB
+    SubsidiaryAccountBean ejbSubAccountFacade;
 
     public DetailRecordController() {
     }
@@ -31,4 +41,5 @@ public class DetailRecordController implements Serializable {
     public PageNavigation query() {
         return PageNavigation.CREATE;
     }
+
 }
