@@ -1,8 +1,6 @@
 package org.xkidea.bams.web;
 
-import org.xkidea.bams.ejb.AreaBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
-import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.SubsidiaryAccount;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -16,8 +14,6 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.ResourceBundle;
