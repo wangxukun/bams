@@ -4,8 +4,10 @@ import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.SortAccount;
 import org.xkidea.bams.entity.SubsidiaryAccount;
+import org.xkidea.bams.web.util.JsfUtil;
 
 import javax.ejb.Stateless;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -57,6 +59,10 @@ public class SubsidiaryAccountBean extends AbstractFacade<SubsidiaryAccount> {
         Query createNamedQuery = getEntityManager().createNamedQuery("SubsidiaryAccount.findByArea");
         createNamedQuery.setParameter("area",area);
         return (List<SubsidiaryAccount>)createNamedQuery.getResultList();
+    }
+
+    public SelectItem[] getSubsidiaryAccountItemsAvailableSelectOneByArea(Area area) {
+        return JsfUtil.getSelectItems(getSubsidiaryAccountByArea(area),true);
     }
 
 }

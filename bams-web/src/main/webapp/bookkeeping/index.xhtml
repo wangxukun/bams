@@ -43,13 +43,23 @@
                             <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai" />
                         </input>
                         <h:outputLabel value="#{bundle.AreaName}" for="area"/>
-                        <h:selectOneMenu value="#" required="true" id="area">
+
+
+
+                        <h:selectOneMenu value="#{detailRecordController.selected.area}" required="true" id="area">
+                            <f:ajax event="change" render="subsidiaryAccount" listener="#"/>
                             <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
                         </h:selectOneMenu>
+
+
                         <h:outputLabel value="#{bundle.SubsidiaryAccountName}" for="subsidiaryAccount"/>
+
+
                         <h:selectOneMenu value="#" disabled="false" required="true" id="subsidiaryAccount">
-                            <f:selectItems value="#{subsidiaryAccountController.itemsAvailableSelectOne}"/>
+                            <f:selectItems value="#{detailRecordController.subsidiaryAccountItemAvailableSelectOne}"/>
                         </h:selectOneMenu>
+
+
                         <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}"/>
                     </h:form>
                 </li>

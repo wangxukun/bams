@@ -1,6 +1,7 @@
 package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
+import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.SubsidiaryAccount;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -188,10 +189,6 @@ public class SubsidiaryAccountController implements Serializable {
         pagination.nextPage();
         recreateModel();
         return PageNavigation.LIST;
-    }
-
-    public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.getSubsidiaryAccountByArea(current.getArea()),true);
     }
 
 }
