@@ -44,7 +44,10 @@ public class DetailRecordController implements Serializable {
 
     public SelectItem[] getSubsidiaryAccountItemAvailableSelectOne(){
         System.out.println("---------------&*0----------" + current.getArea());
-        return ejbSubAccountFacade.getSubsidiaryAccountItemsAvailableSelectOneByArea(current.getArea());
+        SelectItem [] result;
+        result = ejbSubAccountFacade.getSubsidiaryAccountItemsAvailableSelectOneByArea(current.getArea());
+        current.setArea(null);
+        return result;
     }
 
 }

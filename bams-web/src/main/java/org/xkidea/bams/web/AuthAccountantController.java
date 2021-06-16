@@ -57,8 +57,6 @@ public class AuthAccountantController implements Serializable {
      */
     public PageNavigation areasAssign() {
         try {
-            System.out.println("-----------(1)--old----------" + oldAreas);
-            System.out.println("-----------(2)--new----------" + person.getAreaList());
             personBean.updateAreasOfPerson(person, person.getAreaList(),oldAreas);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AssignAreas"));
             return PageNavigation.LIST;
