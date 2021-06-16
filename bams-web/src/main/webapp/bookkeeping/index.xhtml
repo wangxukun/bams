@@ -30,24 +30,24 @@
                 <li>
                     <h:form>
                         <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
-                        <h:selectOneMenu value="#{detailRecordController.selected.queryCategory}" required="true" id="queryCategory">
+                        <h:selectOneMenu value="#{detailRecordController.selectedQuery.queryCategory}" required="true" id="queryCategory">
                             <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
                             <f:selectItem itemValue="2" itemLabel="#{bundle.BusinessTime}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{bundle.StartDate}" for="start_d"/>
-                        <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.selected.startDate}" required="required" title="#{bundle.StartDateTitle}">
+                        <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.selectedQuery.startDate}" required="required" title="#{bundle.StartDateTitle}">
                             <f:convertDateTime type="date" pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai" />
                         </input>
                         <h:outputLabel value="#{bundle.EndDate}" for="end_d"/>
-                        <input type="date" jsf:id="end_d" name="end_d" value="#{detailRecordController.selected.endDate}" required="required">
+                        <input type="date" jsf:id="end_d" name="end_d" value="#{detailRecordController.selectedQuery.endDate}" required="required">
                             <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai" />
                         </input>
                         <h:outputLabel value="#{bundle.AreaName}" for="area"/>
 
 
 
-                        <h:selectOneMenu value="#{detailRecordController.selected.area}" required="true" id="area">
-                            <f:ajax event="change" render="subsidiaryAccount" listener="#"/>
+                        <h:selectOneMenu value="#{detailRecordController.selectedQuery.area}" required="true" id="area">
+                            <f:ajax event="change" render="subsidiaryAccount" />
                             <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
                         </h:selectOneMenu>
 

@@ -28,39 +28,39 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.detailRecord_area}" for="area" />
-                    <h:selectOneMenu value="#" required="true" id="area">
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+
+
+                    <h:selectOneMenu value="#{detailRecordController.selectedQuery.area}" required="true" id="area">
+                        <f:ajax event="change" render="subsidiaryAccount"/>
+                        <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+
+
                     <h:outputLabel value="#{bundle.detailRecord_subsidiaryAccount}" for="subsidiaryAccount" />
-                    <h:selectOneMenu value="#" required="true" id="subsidiaryAccount">
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
-                        <f:selectItem itemValue="1" itemLabel="ddddd"/>
+
+
+                    <h:selectOneMenu value="#{detailRecordController.selectedSubsidiaryAccount.subsidiaryAccount}" required="true" id="subsidiaryAccount">
+                        <f:selectItems value="#{detailRecordController.subsidiaryAccountItemAvailableSelectOne}"/>
                     </h:selectOneMenu>
+
+
                     <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
-                    <input type="date" jsf:id="start_d" name="start_d" value="2021-01-01" required="required"/>
+                    <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.strOccurDate}" required="required">
+                        <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai" />
+                    </input>
                     <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
-                    <h:inputText id="summary" value="#{administratorController.selected.organization}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />
+                    <h:inputText id="summary" value="#{detailRecordController.selectedSubsidiaryAccount.summary}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />
                     <h:outputLabel value="#{bundle.detailRecord_direction}" for="direction" />
-                    <h:selectOneRadio value="#" required="true" id="direction" layout="pageDirection">
+                    <h:selectOneRadio value="#{detailRecordController.selectedSubsidiaryAccount.direction}" required="true" id="direction" layout="pageDirection">
                         <f:selectItem itemValue="1" itemLabel="借"/>
-                        <f:selectItem itemValue="1" itemLabel="贷"/>
+                        <f:selectItem itemValue="2" itemLabel="贷"/>
                     </h:selectOneRadio>
                     <h:outputLabel value="#{bundle.detailRecord_amount}" for="amount" />
-                    <h:inputText id="amount" value="#" title="#{bundle.detailRecord_amount}"/>
+                    <h:inputText id="amount" value="#{detailRecordController.selectedSubsidiaryAccount.amount}" title="#{bundle.detailRecord_amount}"/>
                 </h:panelGrid>
                 
-                <util:commandButtons bundleEntity="CreateAdministrator" controller="#{administratorController}" type="create" />
+                <util:commandButtons bundleEntity="CreateDetailRecord" controller="#{administratorController}" type="create" />
             </h:form>
-            <h:outputText value="#{detailRecordController.selected.queryCategory}" />
-            <h:outputText value="#{detailRecordController.selected.startDate}" />
-            <h:outputText value="#{detailRecordController.selected.endDate}" />
         </ui:define>
     </ui:composition>
 
