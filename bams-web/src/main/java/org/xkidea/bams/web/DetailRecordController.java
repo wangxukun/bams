@@ -3,7 +3,6 @@ package org.xkidea.bams.web;
 import org.xkidea.bams.ejb.DetailRecordBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
 import org.xkidea.bams.entity.DetailRecord;
-import org.xkidea.bams.entity.SubsidiaryAccount;
 import org.xkidea.bams.model.AccountQuery;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -16,11 +15,9 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 @Named(value = "detailRecordController")
@@ -31,6 +28,7 @@ public class DetailRecordController implements Serializable {
 
     private AccountQuery currentQuery;
     private DetailRecord currentDetailRecord;
+    private DataModel items = null;
 
     private String strOccurDate;
 
@@ -74,6 +72,17 @@ public class DetailRecordController implements Serializable {
         return currentDetailRecord;
     }
 
+    private void recreateModel() {
+        items = null;
+    }
+
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+
     public PageNavigation query() {
         return PageNavigation.CREATE;
     }
@@ -92,6 +101,7 @@ public class DetailRecordController implements Serializable {
             currentDetailRecord.setEnterTime(new Date());
             getFacade().create(currentDetailRecord);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("DetailRecordCreated"));
+            recreateModel();
             return PageNavigation.LIST;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -101,6 +111,15 @@ public class DetailRecordController implements Serializable {
     }
 
     public PageNavigation home() {
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation prepareEdit() {
+        return PageNavigation.EDIT;
+    }
+
+    public PageNavigation destroy() {
+        recreateModel();
         return PageNavigation.LIST;
     }
 

@@ -121,8 +121,6 @@ public class DetailRecord implements Serializable {
 
     @Override
     public String toString() {
-        return "DetailRecord{" +
-                "id=" + id +
-                '}';
+        return summary;
     }
 }

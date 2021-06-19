@@ -17,7 +17,6 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
     @PersistenceContext(unitName = "bamsPU")
     private EntityManager em;
 
-    private CriteriaBuilder cb;
 
     @Override
     public EntityManager getEntityManager() {
@@ -26,28 +25,29 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
 
     public DetailRecordBean() {
         super(DetailRecord.class);
-        this.cb = getEntityManager().getCriteriaBuilder();
     }
 
     public int count(Date begin, Date end) {
-        CriteriaQuery cq = this.cb.createQuery();
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
         Root<DetailRecord> recordRoot = cq.from(DetailRecord.class);
-        cq.select(this.cb.count(recordRoot));
-        cq.where(this.cb.between(recordRoot.get("enterTime"),begin,end));
+        cq.select(cb.count(recordRoot));
+        cq.where(cb.between(recordRoot.get("enterTime"),begin,end));
         Query query = getEntityManager().createQuery(cq);
         return ((Long)query.getSingleResult()).intValue();
     }
 
     public List<DetailRecord> getByEntryOrOccurDate(Date begin,Date end,boolean isEntryDate) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<DetailRecord> recordRoot = cq.from(DetailRecord.class);
-        cq.select(cb.count(recordRoot));
+        cq.select(recordRoot);
         if (isEntryDate) {
             cq.where(cb.between(recordRoot.get("enterTime"), begin, end));
         } else {
             cq.where(cb.between(recordRoot.get("occurDate"), begin, end));
         }
         Query query = getEntityManager().createQuery(cq);
-        return query.getResultList();
+        return (List<DetailRecord>) query.getResultList();
     }
 }

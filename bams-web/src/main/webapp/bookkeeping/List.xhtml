@@ -30,24 +30,27 @@
                 <li>
                     <h:form>
                         <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
-                        <h:selectOneMenu value="#{detailRecordController.selectedQuery.queryCategory}" required="true" id="queryCategory">
+                        <h:selectOneMenu value="#{detailRecordController.selectedQuery.queryCategory}" required="true"
+                                         id="queryCategory">
                             <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
                             <f:selectItem itemValue="2" itemLabel="#{bundle.BusinessTime}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{bundle.StartDate}" for="start_d"/>
-                        <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.selectedQuery.startDate}" required="required" title="#{bundle.StartDateTitle}">
-                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai" />
+                        <input type="date" jsf:id="start_d" name="start_d"
+                               value="#{detailRecordController.selectedQuery.startDate}" required="required"
+                               title="#{bundle.StartDateTitle}">
+                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai"/>
                         </input>
                         <h:outputLabel value="#{bundle.EndDate}" for="end_d"/>
-                        <input type="date" jsf:id="end_d" name="end_d" value="#{detailRecordController.selectedQuery.endDate}" required="required">
-                            <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai" />
+                        <input type="date" jsf:id="end_d" name="end_d"
+                               value="#{detailRecordController.selectedQuery.endDate}" required="required">
+                            <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai"/>
                         </input>
                         <h:outputLabel value="#{bundle.AreaName}" for="area"/>
 
 
-
                         <h:selectOneMenu value="#{detailRecordController.selectedQuery.area}" required="true" id="area">
-                            <f:ajax event="change" render="subsidiaryAccount" />
+                            <f:ajax event="change" render="subsidiaryAccount"/>
                             <f:selectItems value="#{areaController.itemsAvailableSelectOne}"/>
                         </h:selectOneMenu>
 
@@ -70,6 +73,105 @@
                 </li>
             </ul>
         </div>
+
+        <div class="bookkeepingPanelcontent">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="listDetailRecordMessagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDetailRecordEmpty}"
+                              rendered="#{detailRecordController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{detailRecordController.items.rowCount > 0}">
+
+                    <ul class="commandButtons">
+                        <li><h:commandLink action="#{detailRecordController.previous}"
+                                           value="#{bundle.Previous} #{detailRecordController.pagination.pageSize}"
+                                           rendered="#{detailRecordController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{detailRecordController.next}"
+                                           value="#{bundle.Next} #{detailRecordController.pagination.pageSize}"
+                                           rendered="#{detailRecordController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{detailRecordController.prepareCreate}"
+                                           value="#{bundle.ListDetailRecordCreateLink}"/></li>
+                    </ul>
+
+                    <h:dataTable value="#{detailRecordController.items}" var="item" border="0" cellpadding="2"
+                                 cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
+                                 style="border:solid 1px">
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_EnterTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.enterTime}">
+                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_OccurDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.occurDate}">
+                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_SubAccount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subsidiaryAccount.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_SubAccount_category}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subsidiaryAccount.categoryAccount.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_Area}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subsidiaryAccount.area.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_Summary}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.summary}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_Direction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direction}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetailRecord_Amount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amount}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value=""/>
+                            </f:facet>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailRecordController.prepareEdit}"
+                                           value="#{bundle.ListDetailRecordEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailRecordController.destroy}"
+                                           value="#{bundle.ListDetailRecordDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+            </h:form>
+        </div>
+
     </ui:define>
 
 </ui:composition>
