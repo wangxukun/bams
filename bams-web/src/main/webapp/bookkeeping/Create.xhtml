@@ -59,7 +59,7 @@
                     <h:inputText id="amount" value="#{detailRecordController.selectedSubsidiaryAccount.amount}" title="#{bundle.detailRecord_amount}"/>
                 </h:panelGrid>
                 
-                <util:commandButtons bundleEntity="CreateDetailRecord" controller="#{administratorController}" type="create" />
+                <util:commandButtons bundleEntity="CreateDetailRecord" controller="#{detailRecordController}" type="create" />
             </h:form>
         </ui:define>
     </ui:composition>

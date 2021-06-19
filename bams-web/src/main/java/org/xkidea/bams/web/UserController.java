@@ -56,7 +56,7 @@ public class UserController implements Serializable {
             if (isAdmin()) {
                 result = "/admin/index?faces-redirect=true";
             } else if(isTreasurer()){
-                result = "/bookkeeping/index?faces-redirect=true";
+                result = "/bookkeeping/List?faces-redirect=true";
             } else{
                 result = "/query/index?faces-redirect=true";
             }

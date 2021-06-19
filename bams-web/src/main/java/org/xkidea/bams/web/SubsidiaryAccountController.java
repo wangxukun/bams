@@ -10,6 +10,10 @@ import org.xkidea.bams.web.util.PageNavigation;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -189,6 +193,45 @@ public class SubsidiaryAccountController implements Serializable {
         pagination.nextPage();
         recreateModel();
         return PageNavigation.LIST;
+    }
+
+    @FacesConverter(forClass = SubsidiaryAccount.class)
+    public static class SubsidiaryAccountConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            SubsidiaryAccountController controller = (SubsidiaryAccountController) context.getApplication().getELResolver().getValue(context.getELContext(),null,"subsidiaryAccountController");
+            System.out.println("----------------------------(4444)-------" + controller.ejbFacade.find(getKey(value)));
+            return controller.ejbFacade.find(getKey(value));
+        }
+
+        private Integer getKey(String value) {
+            Integer key;
+            key = Integer.valueOf(value);
+            return key;
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return null;
+            }
+            if (value instanceof SubsidiaryAccount) {
+                SubsidiaryAccount o = (SubsidiaryAccount)value;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("value " + value + " is of type " + value.getClass().getName() + "; expected type: " + SubsidiaryAccountConverter.class.getName());
+            }
+        }
+
+        private String getStringKey(Integer id) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(id);
+            return sb.toString();
+        }
     }
 
 }
