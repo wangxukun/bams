@@ -326,9 +326,10 @@ header h3{
 
 
 #maincol {
-    height: 600px;
+    height: 760px;
     overflow: auto;
     border: 0px;
+    background-color: #A1D0DA;
 }
 
 .adminItem {
@@ -582,8 +583,8 @@ option {
     padding-right: 5px;
 }
 .jsfcrud_odd_row{
-    background-color: #dddddd;
+    background-color: #ffffff;
 }
 .jsfcrud_even_row{
-    background-color: #abcdef;
+    background-color: #dddddd;
 }

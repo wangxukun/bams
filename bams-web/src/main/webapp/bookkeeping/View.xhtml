@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:util="http://java.sun.com/jsf/composite/components">
+
+    <ui:composition template="/logined/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDetailRecordTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h2>#{bundle.DetailRecord_View}</h2> <br/>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.detailRecord_area}" for="area" />
+                    <h:outputText id="area" value="#{detailRecordController.selectedQuery.area.name}" />
+
+                    <h:outputLabel value="#{bundle.detailRecord_subsidiaryAccount}" for="subsidiaryAccount" />
+                    <h:outputText id="subsidiaryAccount" value="#{detailRecordController.selectedDetailRecord.subsidiaryAccount.name}"/>
+
+                    <h:outputLabel value="#{bundle.detailRecord_id}" for="detaiRecord_id" />
+                    <h:outputText id="detaiRecord_id" value="#{detailRecordController.selectedDetailRecord.id}" />
+
+                    <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
+                    <h:outputText value="#{detailRecordController.strOccurDate}" />
+
+                    <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
+                    <h:outputText id="summary" value="#{detailRecordController.selectedDetailRecord.summary}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />
+
+                    <h:outputLabel value="#{bundle.detailRecord_direction}" for="direction" />
+                    <h:outputText id="direction" value="#{detailRecordController.selectedDetailRecord.direction == O ? bundle.ListDetailRecord_Debit : bundle.ListDetailRecord_Credit}" />
+
+                    <h:outputLabel value="#{bundle.detailRecord_amount}" for="amount" />
+                    <h:outputText id="amount" value="#{detailRecordController.selectedDetailRecord.amount}" title="#{bundle.detailRecord_amount}"/>
+                </h:panelGrid>
+                
+                <util:commandButtons bundleEntity="ViewDetailRecord" controller="#{detailRecordController}" type="view" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

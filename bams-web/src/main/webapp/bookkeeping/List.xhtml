@@ -24,7 +24,7 @@
     </ui:define>
 
     <ui:define name="body">
-        <h2>#{bundle.Menu_Account_Recode}</h2> <br/>
+        <h2>#{bundle.Menu_Account_Recode}</h2>
         <div class="bookkeepingPanelHeader">
             <ul>
                 <li>
@@ -66,16 +66,14 @@
                         <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}"/>
                     </h:form>
                 </li>
-                <li>
-                    <h:form>
-                        <h:commandLink action="Create?faces-redirect=true" value="#{bundle.CreateDetailRecord}"/>
-                    </h:form>
-                </li>
+
             </ul>
         </div>
 
         <div class="bookkeepingPanelcontent">
             <h:form styleClass="jsfcrud_list_form">
+                <h:commandLink action="#{detailRecordController.prepareCreate}"
+                                   value="#{bundle.ListDetailRecordCreateLink}"/>
                 <h:panelGroup id="listDetailRecordMessagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
@@ -90,8 +88,6 @@
                         <li><h:commandLink action="#{detailRecordController.next}"
                                            value="#{bundle.Next} #{detailRecordController.pagination.pageSize}"
                                            rendered="#{detailRecordController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{detailRecordController.prepareCreate}"
-                                           value="#{bundle.ListDetailRecordCreateLink}"/></li>
                     </ul>
 
                     <h:dataTable value="#{detailRecordController.items}" var="item" border="0" cellpadding="2"
@@ -102,14 +98,15 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{detailRecordController.items.rowIndex + detailRecordController.pagination.pageFirstItem + 1}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_EnterTime}"/>
                             </f:facet>
                             <h:outputText value="#{item.enterTime}">
-                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>
+                                <f:convertDateTime type="date" dateStyle="medium" locale="zh" timeZone="Asia/Shanghai"/>
+<!--                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>-->
                             </h:outputText>
                         </h:column>
                         <h:column>
@@ -117,14 +114,15 @@
                                 <h:outputText value="#{bundle.ListDetailRecord_OccurDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.occurDate}">
-                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>
+                                <f:convertDateTime type="date" dateStyle="medium" locale="zh" timeZone="Asia/Shanghai"/>
+<!--                                <f:convertDateTime dateStyle="full" locale="zh" timeZone="Asia/Shanghai" type="both"/>-->
                             </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetailRecord_SubAccount}"/>
+                                <h:outputText value="#{bundle.ListDetailRecord_Area}"/>
                             </f:facet>
-                            <h:outputText value="#{item.subsidiaryAccount.name}"/>
+                            <h:outputText value="#{item.subsidiaryAccount.area.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -134,9 +132,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetailRecord_Area}"/>
+                                <h:outputText value="#{bundle.ListDetailRecord_SubAccount}"/>
                             </f:facet>
-                            <h:outputText value="#{item.subsidiaryAccount.area.name}"/>
+                            <h:outputText value="#{item.subsidiaryAccount.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -148,7 +146,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_Direction}"/>
                             </f:facet>
-                            <h:outputText value="#{item.direction}"/>
+                            <h:outputText value="#{item.direction == 0  ? bundle.ListDetailRecord_Debit : bundle.ListDetailRecord_Credit}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

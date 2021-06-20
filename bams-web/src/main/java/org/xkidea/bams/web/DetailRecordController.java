@@ -13,8 +13,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +39,8 @@ public class DetailRecordController implements Serializable {
     @EJB
     SubsidiaryAccountBean ejbSubAccountFacade;
     private AbstractPaginationHelper pagination;
+    @Inject
+    private UserController userController;
     private int selectedItemIndex;
 
 
@@ -64,7 +68,7 @@ public class DetailRecordController implements Serializable {
         return currentQuery;
     }
 
-    public DetailRecord getSelectedSubsidiaryAccount() {
+    public DetailRecord getSelectedDetailRecord() {
         if (currentDetailRecord == null) {
             currentDetailRecord = new DetailRecord();
             setStrOccurDate(JsfUtil.getToday());
@@ -74,6 +78,14 @@ public class DetailRecordController implements Serializable {
 
     private void recreateModel() {
         items = null;
+    }
+
+    private void recreateCurrentDetailRecord() {
+        currentDetailRecord = null;
+    }
+
+    private void recreateCurrentQuery() {
+        currentQuery = null;
     }
 
     public DataModel getItems() {
@@ -100,7 +112,8 @@ public class DetailRecordController implements Serializable {
             currentDetailRecord.setOccurDate(sdf.parse(this.getStrOccurDate()));
             currentDetailRecord.setEnterTime(new Date());
             getFacade().create(currentDetailRecord);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("DetailRecordCreated"));
+//            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("DetailRecordCreated"));
+            recreateCurrentQuery();
             recreateModel();
             return PageNavigation.LIST;
         } catch (Exception ex) {
@@ -115,12 +128,49 @@ public class DetailRecordController implements Serializable {
     }
 
     public PageNavigation prepareEdit() {
+        currentDetailRecord = (DetailRecord) getItems().getRowData();
+        currentQuery.setArea(currentDetailRecord.getSubsidiaryAccount().getArea());
+        currentQuery.setSubsidiaryAccount(currentDetailRecord.getSubsidiaryAccount());
+        DateFormat df =  new SimpleDateFormat("YYYY-MM-dd");
+        strOccurDate = df.format(currentDetailRecord.getOccurDate());
+
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.EDIT;
+    }
+
+    public PageNavigation update() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+            currentDetailRecord.setOccurDate(sdf.parse(this.getStrOccurDate()));
+            currentDetailRecord.setEnterTime(new Date());
+            getFacade().edit(currentDetailRecord);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("DetailRecordUpdated"));
+            recreateCurrentQuery();
+            recreateModel();
+            return PageNavigation.LIST;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+
+    public PageNavigation prepareList() {
+        recreateModel();
+        recreateCurrentQuery();
+        recreateCurrentDetailRecord();
+        return PageNavigation.LIST;
     }
 
     public PageNavigation destroy() {
         recreateModel();
         return PageNavigation.LIST;
+    }
+
+    public PageNavigation prepareCreate() {
+        recreateCurrentQuery();
+        recreateCurrentDetailRecord();
+        return PageNavigation.CREATE;
     }
 
     public AbstractPaginationHelper getPagination() {
@@ -129,24 +179,24 @@ public class DetailRecordController implements Serializable {
             Calendar end = Calendar.getInstance();
             Date today = new Date();
             begin.setTime(today);
-            begin.set(Calendar.HOUR,0);
+            begin.set(Calendar.HOUR_OF_DAY,0);
             begin.set(Calendar.MINUTE,0);
             begin.set(Calendar.SECOND,0);
             end.setTime(today);
-            end.set(Calendar.HOUR,23);
+            end.set(Calendar.HOUR_OF_DAY,23);
             end.set(Calendar.MINUTE,59);
             end.set(Calendar.SECOND,59);
 
             pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
-
-                    return ejbFacade.count(begin.getTime(),end.getTime());
+                    int count = ejbFacade.count(userController.getAuthenticatedUser(),begin.getTime(),end.getTime(),true);
+                    return  count;
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(begin.getTime(),end.getTime(),true));
+                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(userController.getAuthenticatedUser(),begin.getTime(),end.getTime(),true));
                 }
             };
         }
