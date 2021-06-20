@@ -60,7 +60,6 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
     }
 
     public List<DetailRecord> getByEntryOrOccurDate(Person user, Date begin, Date end, boolean isEnterDate) {
-        // TODO ORDER BY enterTime DESC/ASC
         StringBuilder dateTye = new StringBuilder();
         if (isEnterDate) {
             dateTye.append("detailRecord.enterTime");
@@ -71,12 +70,37 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 "FROM DetailRecord detailRecord " +
                 "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
                 "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
-                "WHERE " + dateTye.toString() + " BETWEEN :begin AND :end AND person = :user ";
+                "WHERE " + dateTye.toString() + " BETWEEN :begin AND :end AND person = :user " +
+                "ORDER BY " + dateTye.toString() + " ASC";
         Person p = em.find(Person.class,user.getId());
         List<DetailRecord> detailRecordList = em.createQuery(sql)
                 .setParameter("user", p)
                 .setParameter("begin", begin)
                 .setParameter("end", end)
+                .getResultList();
+        return detailRecordList;
+    }
+
+    public List<DetailRecord> getByEntryOrOccurDate(int[] range,Person user, Date begin, Date end, boolean isEnterDate) {
+        StringBuilder dateTye = new StringBuilder();
+        if (isEnterDate) {
+            dateTye.append("detailRecord.enterTime");
+        } else {
+            dateTye.append("detailRecord.occurDate");
+        }
+        String sql = "SELECT detailRecord " +
+                "FROM DetailRecord detailRecord " +
+                "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
+                "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
+                "WHERE " + dateTye.toString() + " BETWEEN :begin AND :end AND person = :user " +
+                "ORDER BY " + dateTye.toString() + " ASC";
+        Person p = em.find(Person.class,user.getId());
+        List<DetailRecord> detailRecordList = em.createQuery(sql)
+                .setParameter("user", p)
+                .setParameter("begin", begin)
+                .setParameter("end", end)
+                .setMaxResults(range[1] - range[0])
+                .setFirstResult(range[0])
                 .getResultList();
         return detailRecordList;
     }

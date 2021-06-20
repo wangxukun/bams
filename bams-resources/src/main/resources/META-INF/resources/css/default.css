@@ -28,18 +28,6 @@ h3 {
     color: white;
 }
 
-#pendingOrders nav {
-    width: 48%;
-    float: left;
-    position: inherit;
-    border: #dddddd 1px solid;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 0px;
-    overflow: auto;
-}
-
 nav ul {
     list-style: none;
     padding: 0px;
@@ -329,7 +317,6 @@ header h3{
     height: 760px;
     overflow: auto;
     border: 0px;
-    background-color: #A1D0DA;
 }
 
 .adminItem {
@@ -570,17 +557,19 @@ option {
     font-weight: bold;
 }
 
-.bookkeepingPanelHeader ul{
-    margin-left: 0px;
-    padding: 5px 15px;
-}
-.bookkeepingPanelHeader ul li{
-    list-style: none;
-    display: inline;
-    float: left;
-    border-left: #dddddd 1px solid;
-    padding-left: 5px;
+.bookkeepingPanelHeader {
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding-left: 15px;
     padding-right: 5px;
+}
+
+.bookkeepingPanelContent {
+    background-color: #cee573;
+}
+.bookkeepingPanelContent .jsfcrud_list_form{
+    background-color: antiquewhite;
 }
 .jsfcrud_odd_row{
     background-color: #ffffff;

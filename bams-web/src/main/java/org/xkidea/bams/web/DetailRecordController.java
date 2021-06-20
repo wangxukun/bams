@@ -123,6 +123,22 @@ public class DetailRecordController implements Serializable {
         }
     }
 
+    public PageNavigation next() {
+        pagination.nextPage();
+        recreateModel();
+        recreateCurrentQuery();
+        recreateCurrentDetailRecord();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation previous() {
+        pagination.previousPage();
+        recreateModel();
+        recreateCurrentQuery();
+        recreateCurrentDetailRecord();
+        return PageNavigation.LIST;
+    }
+
     public PageNavigation home() {
         return PageNavigation.LIST;
     }
@@ -196,7 +212,7 @@ public class DetailRecordController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(userController.getAuthenticatedUser(),begin.getTime(),end.getTime(),true));
+                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(new int[]{getPageFirstItem(),getPageFirstItem()+getPageSize()},userController.getAuthenticatedUser(),begin.getTime(),end.getTime(),true));
                 }
             };
         }
