@@ -23,7 +23,7 @@
         <h:outputText value="#{bundle.AssignAreaTitle}"></h:outputText>
     </ui:define>
     <ui:define name="body">
-        <h2>#{bundle.AssignAreaTitle}-#{customerController.selected.name}</h2> <br/>
+        <h2>#{bundle.AssignAreaTitle}-#{customerController.selected.name}</h2>
         <h:form styleClass="jsfcrud_list_form">
             <h:panelGroup id="ListAreaMessagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -31,14 +31,6 @@
             <h:outputText escape="false" value="#{bundle.ListAreaEmpty}"
                           rendered="#{areaController.items.rowCount == 0}"/>
             <h:panelGroup rendered="#{areaController.items.rowCount > 0}">
-                <ul class="commandButtons">
-                    <li><h:commandLink action="#{areaController.previous}"
-                                       value="#{bundle.Previous} #{areaController.pagination.pageSize}"
-                                       rendered="#{areaController.pagination.hasPreviousPage}"/></li>
-                    <li><h:commandLink action="#{areaController.next}"
-                                       value="#{bundle.Next} #{areaController.pagination.pageSize}"
-                                       rendered="#{areaController.pagination.hasNextPage}"/></li>
-                </ul>
 
                 <h:outputFormat value="#{bundle.SelectAreaCount}" rendered="true">
                     <f:param value="#{authAccountantController.selectedCustomer.areaList.size()}"/>

@@ -24,17 +24,19 @@
     </ui:define>
 
     <ui:define name="body">
+        <h2>#{bundle.Menu_Authorization}</h2>
         <h:form>
             <ul class="adminItem">
                 <h:panelGroup rendered="#{userController.admin}">
                     <li><h2>${bundle.TreasurerGeneralAccount_Authorization}</h2></li>
                     <li><h:commandLink action="treasurer/List"
                                        value="${bundle.ListTreasurerGeneralAccount_Authorization}"/></li>
+                    <li><h2>${bundle.TreasurerArea_Authorization}</h2></li>
+                    <li><h:commandLink action="treasurer_area/List" value="${bundle.ListTreasurerArea_Authorization}"/></li>
                 </h:panelGroup>
                 <h:panelGroup rendered="#{userController.treasurer}">
                     <li><h2>${bundle.AccountantArea_Authorization}</h2></li>
-                    <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantArea_Authorization}"/>
-                    </li>
+                    <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantArea_Authorization}"/></li>
 
                     <li><h2>${bundle.CustomerArea_Authorization}</h2></li>
                     <li><h:commandLink action="customer/List" value="${bundle.ListCustomerArea_Authorization}"/></li>

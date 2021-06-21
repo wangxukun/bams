@@ -14,7 +14,6 @@
     <packaging>war</packaging>
 
     <name>bams-web</name>
-    <!-- FIXME change it to the project's website -->
     <url>http://www.xkidea.org</url>
 
     <dependencies>

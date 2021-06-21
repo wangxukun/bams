@@ -23,23 +23,23 @@
         <h:outputText value="#{bundle.AssignAreaTitle}"></h:outputText>
     </ui:define>
     <ui:define name="body">
-        <h2>#{bundle.AssignAreaTitle}-#{accountantController.selected.name}</h2>
+        <h2>#{bundle.AssignAreaTitle}-#{treasurerController.selected.name}</h2> <br/>
         <h:form styleClass="jsfcrud_list_form">
             <h:panelGroup id="ListAreaMessagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:outputText escape="false" value="#{bundle.ListAreaEmpty}"
-                          rendered="#{areaController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{areaController.items.rowCount > 0}">
+                          rendered="#{areaController.itemsAll.rowCount == 0}"/>
+            <h:panelGroup rendered="#{areaController.itemsAll.rowCount > 0}">
 
                 <h:outputFormat value="#{bundle.SelectAreaCount}" rendered="true">
-                    <f:param value="#{authAccountantController.selectedAccountant.areaList.size()}"/>
+                    <f:param value="#{authAccountantController.selectedTreasurer.areaList.size()}"/>
                 </h:outputFormat>
-                <h:selectManyCheckbox id="areasCheckbox" value="#{authAccountantController.selectedAccountant.areaList}" layout="pageDirection">
-                    <f:selectItems value="#{areaController.itemsAvailableSelectMany}" var="area" itemValue="#{area}"
+                <h:selectManyCheckbox id="areasCheckbox" value="#{authAccountantController.selectedTreasurer.areaList}" layout="pageDirection">
+                    <f:selectItems value="#{areaController.allItemsAvailableSelectMany}" var="area" itemValue="#{area}"
                                    itemLabel="#{area.name}"/>
                 </h:selectManyCheckbox>
-                <h:commandLink value="#{bundle.AssignAreaLink}" action="#{authAccountantController.areasAssign}"/>
+                <h:commandLink value="#{bundle.AssignAreaLink}" action="#{authAccountantController.areasAssignOfTreasurer}"/>
             </h:panelGroup>
         </h:form>
     </ui:define>

@@ -29,8 +29,6 @@ public class AdministratorBean extends AbstractFacade<Administrator> {
         admin.getGroupsList().add(adminGroup);
         adminGroup.getPersonList().add(admin);
         em.persist(admin);
-        // TODO Java ee 7
-        // em.merge(adminGroup);
     }
 
     @Override

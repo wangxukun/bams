@@ -1,13 +1,16 @@
 package org.xkidea.bams.ejb;
 
-import org.xkidea.bams.entity.Customer;
-import org.xkidea.bams.entity.Groups;
-import org.xkidea.bams.entity.Person;
+import org.xkidea.bams.entity.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Stateless
 public class CustomerBean extends AbstractFacade<Customer> {
@@ -55,5 +58,29 @@ public class CustomerBean extends AbstractFacade<Customer> {
         } else {
             return null;
         }
+    }
+
+
+    /**
+     * 查找当前总账户下的报账员集合
+     * @param range
+     * @param currentAccount
+     * @return
+     */
+    public List<Customer> findByCurrentGeneralAccount(int[] range, GeneralAccount currentAccount) {
+        CriteriaBuilder qb = em.getCriteriaBuilder();
+        CriteriaQuery<Customer> query = qb.createQuery(Customer.class);
+        Root<Customer> customerRoot = query.from(Customer.class);
+        query.select(customerRoot).where(qb.isMember(currentAccount,customerRoot.get("accountList")));
+        TypedQuery<Customer> q = em.createQuery(query);
+        List<Customer> results = q.getResultList();
+        return results;
+    }
+
+    public int getCountByCurrentGeneralAccount(GeneralAccount currentAccount) {
+        Long count = (Long) em.createQuery("SELECT count(a) FROM Customer a, IN (a.accountList) ac WHERE ac = :currentAccount")
+                .setParameter("currentAccount",currentAccount)
+                .getSingleResult();
+        return count.intValue();
     }
 }

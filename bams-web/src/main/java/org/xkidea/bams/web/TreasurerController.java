@@ -2,6 +2,7 @@ package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.GeneralAccountBean;
 import org.xkidea.bams.ejb.TreasurerBean;
+import org.xkidea.bams.entity.Customer;
 import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.entity.Treasurer;
@@ -119,6 +120,12 @@ public class TreasurerController implements Serializable {
         current = (Treasurer) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.ACCOUNT_AUTHORIZATION;
+    }
+
+    public PageNavigation prepareAreasAssign() {
+        current = (Treasurer) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.TREASURER_AREAS_ASSIGN;
     }
 
     /**

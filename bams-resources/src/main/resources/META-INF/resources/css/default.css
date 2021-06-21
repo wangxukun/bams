@@ -450,7 +450,7 @@ header h3{
 .commandButtons li {
     list-style: none;
     display: inline;
-    border-left: 1px solid #dddddd;
+    /*border-left: 1px solid #dddddd;*/
 }
 
 table {

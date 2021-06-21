@@ -28,11 +28,13 @@ public class AreaController implements Serializable {
 
     private Area current;
     private DataModel items = null;
+    private DataModel itemsAll = null;
 
 
     @EJB
     private AreaBean ejbFacade;
     private AbstractPaginationHelper pagination;
+    private AbstractPaginationHelper paginationAll;
     private int selectedItemIndex;
 
     @Inject
@@ -100,11 +102,36 @@ public class AreaController implements Serializable {
         return pagination;
     }
 
+    public AbstractPaginationHelper getPaginationAll() {
+        if (paginationAll == null) {
+            paginationAll = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),
+                    getPageFirstItem() + getPageSize()}));
+                }
+            };
+        }
+        return paginationAll;
+    }
+
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+
+    public DataModel getItemsAll() {
+        if (itemsAll == null) {
+            itemsAll = getPaginationAll().createPageDataModel();
+        }
+        return itemsAll;
     }
 
     public PageNavigation next() {
@@ -199,6 +226,10 @@ public class AreaController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.getAreasByCurrentUser(userController.getAuthenticatedUser()),false);
+    }
+
+    public SelectItem[] getAllItemsAvailableSelectMany() {
+        return JsfUtil.getSelectItems(ejbFacade.findAll(),false);
     }
 
     @FacesConverter(forClass = Area.class)

@@ -42,7 +42,6 @@ public class SubsidiaryAccountController implements Serializable {
 
     @PostConstruct
     public void init() {
-        // TODO ............
 //        current = new SubsidiaryAccount();
 //        current.setArea(userController.getAuthenticatedUser().getAreaList().get(1));
     }

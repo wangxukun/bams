@@ -25,8 +25,6 @@ public class CustomerController implements Serializable {
     private static final long serialVersionUID = 3072888272035148071L;
     private static String BUNDLE = "bundles.Bundle";
 
-    // TODO @Inject @LoggedIn
-
     private Customer current;
     private DataModel items = null;
 
@@ -45,7 +43,7 @@ public class CustomerController implements Serializable {
     public Customer getSelected() {
         if (current == null) {
             current = new Customer();
-            selectedItemIndex = -1;
+//            selectedItemIndex = -1;
         }
         return current;
     }
@@ -71,13 +69,18 @@ public class CustomerController implements Serializable {
             pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
-                    return ejbFacade.count();
+//                    return ejbFacade.count();
+                    return getFacade().getCountByCurrentGeneralAccount(userController.getAuthenticatedUser().getAccountList().get(0));
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),getPageFirstItem() + getPageSize()}));
+//                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(),getPageFirstItem() + getPageSize()}));
                     //return new ListDataModel(getFacade().findAll());
+                    return new ListDataModel(getFacade().findByCurrentGeneralAccount(new int[]{
+                            getPageFirstItem(),
+                            getPageFirstItem() + getPageSize()
+                    },userController.getAuthenticatedUser().getAccountList().get(0)));
                 }
             };
         }
@@ -99,6 +102,7 @@ public class CustomerController implements Serializable {
                 current.setDateCreated(new Date());
                 current.getAccountList().add(userController.getAuthenticatedUser().getAccountList().get(0));
                 getFacade().create(current);
+                recreateModel();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("CustomerCreated"));
             } else {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("DuplicatedCustomerError"));
@@ -174,9 +178,39 @@ public class CustomerController implements Serializable {
     }
 
     public PageNavigation prepareAreasAssign() {
-        recreateModel();
         current = (Customer)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        System.out.println("---------------Current Customer-----" + current);
         return PageNavigation.CUSTOMER_AREAS_ASSIGN;
+    }
+
+    public PageNavigation destroyAndView() {
+        performDestroy();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return PageNavigation.VIEW;
+        } else {
+            recreateModel();
+            return PageNavigation.LIST;
+        }
+    }
+
+    /**
+     * 当当前条目被删除后，更新下一条为当前条目
+     */
+    private void updateCurrentItem() {
+        int count = getFacade().count(); //　获取条目总数
+        if (selectedItemIndex >= count) {
+            selectedItemIndex = count - 1;
+
+            // 如果变量--当前页面的第一条目 >= 总条目数
+            if (pagination.getPageFirstItem() >= count) {
+                pagination.previousPage();
+            }
+        }
+        if (selectedItemIndex >= 0) {
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+        }
     }
 }

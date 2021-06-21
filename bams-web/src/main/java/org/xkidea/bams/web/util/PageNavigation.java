@@ -12,6 +12,7 @@ public enum PageNavigation {
     ACCOUNT_AUTHORIZATION("/authorization/treasurer/Authorization"),
     ACCOUNTANT_AREAS_ASSIGN("/authorization/accountant/assign/List"),
     CUSTOMER_AREAS_ASSIGN("/authorization/customer/assign/List"),
+    TREASURER_AREAS_ASSIGN("/authorization/treasurer_area/assign/List"),
     SETTING_HOME("/setting/index");
     private String text;
 

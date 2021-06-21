@@ -197,7 +197,6 @@ public class AccountantController implements Serializable {
     }
 
     public PageNavigation prepareAreasAssign() {
-        recreateModel();
         current = (Accountant) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return PageNavigation.ACCOUNTANT_AREAS_ASSIGN;

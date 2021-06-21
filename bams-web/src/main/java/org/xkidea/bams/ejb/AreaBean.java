@@ -60,4 +60,5 @@ public class AreaBean extends AbstractFacade<Area> {
                 .getSingleResult();
         return count.intValue();
     }
+
 }

@@ -26,6 +26,8 @@ public class AuthAccountantController implements Serializable {
     AccountantController accountantController;
     @Inject
     CustomerController customerController;
+    @Inject
+    TreasurerController treasurerController;
     @EJB
     PersonBean personBean;
 
@@ -34,6 +36,17 @@ public class AuthAccountantController implements Serializable {
 
     public AuthAccountantController() {
         oldAreas = new ArrayList<>();
+    }
+
+    public Person getSelectedTreasurer() {
+        person = treasurerController.getSelected();
+        oldAreas.clear();
+        if (person.getAreaList() != null && person.getAreaList().size() > 0) {
+            person.getAreaList().stream().forEach(area -> {
+                oldAreas.add(area);
+            });
+        }
+        return person;
     }
 
 
@@ -69,6 +82,19 @@ public class AuthAccountantController implements Serializable {
      * select p.ID,p.NAME,a.ID,a.NAME from PERSON as p,AREA as a,PERSON_AREA as pa where p.ID=pa.PERSON_ID and a.ID=pa.AREA_ID;
      */
     public PageNavigation areasAssign() {
+        try {
+            personBean.updateAreasOfPerson(person, person.getAreaList(),oldAreas);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AssignAreas"));
+            return PageNavigation.LIST;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+
+    public PageNavigation areasAssignOfTreasurer() {
+        // TODO 为出纳员分配区域，区域所属的总账也要相应的改变为出纳员所属的总账。
         try {
             personBean.updateAreasOfPerson(person, person.getAreaList(),oldAreas);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AssignAreas"));

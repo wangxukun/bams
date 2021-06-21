@@ -19,41 +19,41 @@
 
     <ui:composition template="/logined/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CustomerArea_Authorization}"></h:outputText>
+            <h:outputText value="#{bundle.TreasurerArea_Authorization}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h2>#{bundle.CustomerArea_Authorization}</h2>
+            <h2>#{bundle.TreasurerArea_Authorization}</h2> <br/>
             <h:form styleClass="jsfcrud_list_form">
-                <h:outputText escape="false" value="#{bundle.ListCustomerAuthorizationEmpty}" rendered="#{customerController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{customerController.items.rowCount > 0}">
-                    <h:dataTable value="#{customerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                <h:outputText escape="false" value="#{bundle.ListTreasurerAuthorizationEmpty}" rendered="#{treasurerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{treasurerController.items.rowCount > 0}">
+                    <h:dataTable value="#{treasurerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerAuthorizationTitle_id}"/>
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerAuthorizationTitle_name}"/>
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerAuthorizationTitle_email}"/>
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_email}"/>
                             </f:facet>
                             <h:outputText value="#{item.email}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerAuthorizationTitle_organization}"/>
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_organization}"/>
                             </f:facet>
                             <h:outputText value="#{item.organization}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCustomerAuthorizationTitle_generalAccount}"/>
+                                <h:outputText value="#{bundle.ListTreasurerAuthorizationTitle_generalAccount}"/>
                             </f:facet>
                             <h:outputText value="#{item.accountList.size()> 0 ? item.accountList.get(0).name : '/'}"/>
                         </h:column>
@@ -61,7 +61,7 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{customerController.prepareAreasAssign}" value="#{bundle.ListCustomerAuthorizationEditLink}"/>
+                            <h:commandLink action="#{treasurerController.prepareAreasAssign}" value="#{bundle.ListTreasurerAuthorizationEditLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
