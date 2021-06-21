@@ -172,4 +172,11 @@ public class CustomerController implements Serializable {
             JsfUtil.addErrorMessage(e,ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
         }
     }
+
+    public PageNavigation prepareAreasAssign() {
+        recreateModel();
+        current = (Customer)getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return PageNavigation.CUSTOMER_AREAS_ASSIGN;
+    }
 }

@@ -41,9 +41,9 @@
                 </ul>
 
                 <h:outputFormat value="#{bundle.SelectAreaCount}" rendered="true">
-                    <f:param value="#{authAccountantController.selectedAccountant.areaList.size()}"/>
+                    <f:param value="#{authAccountantController.selectedCustomer.areaList.size()}"/>
                 </h:outputFormat>
-                <h:selectManyCheckbox id="areasCheckbox" value="#{authAccountantController.selectedAccountant.areaList}" layout="pageDirection">
+                <h:selectManyCheckbox id="areasCheckbox" value="#{authAccountantController.selectedCustomer.areaList}" layout="pageDirection">
                     <f:selectItems value="#{areaController.itemsAvailableSelectMany}" var="area" itemValue="#{area}"
                                    itemLabel="#{area.name}"/>
                 </h:selectManyCheckbox>

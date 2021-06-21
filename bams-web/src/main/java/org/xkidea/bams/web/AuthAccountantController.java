@@ -24,6 +24,8 @@ public class AuthAccountantController implements Serializable {
 
     @Inject
     AccountantController accountantController;
+    @Inject
+    CustomerController customerController;
     @EJB
     PersonBean personBean;
 
@@ -35,8 +37,19 @@ public class AuthAccountantController implements Serializable {
     }
 
 
-    public Person getSelectedPerson() {
+    public Person getSelectedAccountant() {
         person = accountantController.getSelected();
+        oldAreas.clear();
+        if (person.getAreaList() != null && person.getAreaList().size() > 0) {
+            person.getAreaList().stream().forEach(area -> {
+                oldAreas.add(area);
+            });
+        }
+        return person;
+    }
+
+    public Person getSelectedCustomer() {
+        person = customerController.getSelected();
         oldAreas.clear();
         if (person.getAreaList() != null && person.getAreaList().size() > 0) {
             person.getAreaList().stream().forEach(area -> {
