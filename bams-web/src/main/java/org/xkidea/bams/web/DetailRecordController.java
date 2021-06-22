@@ -39,6 +39,7 @@ public class DetailRecordController implements Serializable {
     @EJB
     SubsidiaryAccountBean ejbSubAccountFacade;
     private AbstractPaginationHelper pagination;
+    private AbstractPaginationHelper paginationByQueryResult;
     @Inject
     private UserController userController;
     private int selectedItemIndex;
@@ -95,8 +96,8 @@ public class DetailRecordController implements Serializable {
         return items;
     }
 
-    public PageNavigation query() {
-        return PageNavigation.CREATE;
+    public void query() {
+        items = getPaginationByQueryResult().createPageDataModel();
     }
 
     public SelectItem[] getSubsidiaryAccountItemAvailableSelectOne() {
@@ -217,5 +218,21 @@ public class DetailRecordController implements Serializable {
             };
         }
         return pagination;
+    }
+
+    public AbstractPaginationHelper getPaginationByQueryResult() {
+        // TODO QueryDetailRecord...
+        paginationByQueryResult = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
+            @Override
+            public int getItemsCount() {
+                return 0;
+            }
+
+            @Override
+            public DataModel createPageDataModel() {
+                return null;
+            }
+        };
+        return paginationByQueryResult;
     }
 }

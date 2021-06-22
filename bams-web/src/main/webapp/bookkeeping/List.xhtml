@@ -51,7 +51,9 @@
                         </h:selectOneMenu>
 
 
-                        <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}"/>
+                        <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}">
+                            <f:ajax render="detailTable" />
+                        </h:commandButton>
                     </h:form>
 
         </div>
@@ -60,7 +62,7 @@
             <h:form styleClass="jsfcrud_list_form">
 
                 <h:outputText escape="false" value="#{bundle.ListDetailRecordEmpty}" rendered="#{detailRecordController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{detailRecordController.items.rowCount > 0}">
+                <h:panelGroup id="detailTable" rendered="#{detailRecordController.items.rowCount > 0}">
                     <ul class="commandButtons">
                         <li><h:outputText value="账户：陆良县三岔河镇农村经济服务中心-A"/></li>
                         <li><h:commandLink action="#{detailRecordController.previous}"
