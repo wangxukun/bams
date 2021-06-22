@@ -1,5 +1,6 @@
 package org.xkidea.bams.web;
 
+import org.xkidea.bams.ejb.AreaBean;
 import org.xkidea.bams.ejb.PersonBean;
 import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Area;
@@ -30,6 +31,8 @@ public class AuthAccountantController implements Serializable {
     TreasurerController treasurerController;
     @EJB
     PersonBean personBean;
+    @EJB
+    AreaBean areaBean;
 
     private List<Area> oldAreas;
     private Person person;
@@ -95,8 +98,20 @@ public class AuthAccountantController implements Serializable {
 
     public PageNavigation areasAssignOfTreasurer() {
         // TODO 为出纳员分配区域，区域所属的总账也要相应的改变为出纳员所属的总账。
+        //  对区域拥有权限的所有Persons的所属总账，也要以分配区域的出纳员保持一致。
         try {
             personBean.updateAreasOfPerson(person, person.getAreaList(),oldAreas);
+            //　设置出纳员中每个新增的区域的GENERALACCOUNT_ID与出纳员所属ACCOUNT_ID一致
+            for (Area a : person.getAreaList()) {
+                Area temp = areaBean.find(a.getId());
+                temp.setGeneralAccount(person.getAccountList().get(0));
+                for (Person p : temp.getPersonList()) {
+                    if (!"TREASURER".equals(p.getGroupsList().get(0).getName())){
+                        p.setAccountList(person.getAccountList());
+                    }
+                }
+                areaBean.edit(temp);
+            }
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("AssignAreas"));
             return PageNavigation.LIST;
         } catch (Exception e) {
