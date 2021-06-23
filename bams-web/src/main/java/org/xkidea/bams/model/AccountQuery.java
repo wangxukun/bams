@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class AccountQuery implements Serializable {
     private static final long serialVersionUID = -2342437016158734617L;
-    String queryCategory = "1";
+    boolean queryByEnterDate;
     String startDate;
     String endDate;
     Area area;
@@ -16,12 +16,12 @@ public class AccountQuery implements Serializable {
     public AccountQuery() {
     }
 
-    public String getQueryCategory() {
-        return queryCategory;
+    public boolean isQueryByEnterDate() {
+        return queryByEnterDate;
     }
 
-    public void setQueryCategory(String queryCategory) {
-        this.queryCategory = queryCategory;
+    public void setQueryByEnterDate(boolean queryByEnterDate) {
+        this.queryByEnterDate = queryByEnterDate;
     }
 
     public String getStartDate() {

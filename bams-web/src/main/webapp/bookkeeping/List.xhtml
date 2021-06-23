@@ -18,10 +18,10 @@
                     <h:form>
                         <h:commandLink action="#{detailRecordController.prepareCreate}" value="#{bundle.ListDetailRecordCreateLink}"/>
                         <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
-                        <h:selectOneMenu value="#{detailRecordController.selectedQuery.queryCategory}" required="true"
+                        <h:selectOneMenu converter="javax.faces.Boolean" value="#{detailRecordController.selectedQuery.queryByEnterDate}" required="true"
                                          id="queryCategory">
                             <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
-                            <f:selectItem itemValue="2" itemLabel="#{bundle.BusinessTime}"/>
+                            <f:selectItem itemValue="0" itemLabel="#{bundle.BusinessTime}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{bundle.StartDate}" for="start_d"/>
                         <input type="date" jsf:id="start_d" name="start_d"
@@ -46,13 +46,13 @@
                         <h:outputLabel value="#{bundle.SubsidiaryAccountName}" for="subsidiaryAccount"/>
 
 
-                        <h:selectOneMenu value="#" disabled="false" id="subsidiaryAccount">
+                        <h:selectOneMenu value="#{detailRecordController.selectedQuery.subsidiaryAccount}" disabled="false" id="subsidiaryAccount">
                             <f:selectItems value="#{detailRecordController.subsidiaryAccountItemAvailableSelectOne}"/>
                         </h:selectOneMenu>
 
 
                         <h:commandButton action="#{detailRecordController.query}" id="submit" value="#{bundle.Query}">
-                            <f:ajax render="detailTable" />
+<!--                            <f:ajax render="detailTable" />-->
                         </h:commandButton>
                     </h:form>
 

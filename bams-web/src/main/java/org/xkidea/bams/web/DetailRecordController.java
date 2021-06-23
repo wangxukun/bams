@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +40,6 @@ public class DetailRecordController implements Serializable {
     @EJB
     SubsidiaryAccountBean ejbSubAccountFacade;
     private AbstractPaginationHelper pagination;
-    private AbstractPaginationHelper paginationByQueryResult;
     @Inject
     private UserController userController;
     private int selectedItemIndex;
@@ -97,6 +97,11 @@ public class DetailRecordController implements Serializable {
     }
 
     public void query() {
+        System.out.println("---q---queryEnterDate-----" + currentQuery.isQueryByEnterDate());
+        System.out.println("---q---startDate-----" + currentQuery.getStartDate());
+        System.out.println("---q---endDate-----" + currentQuery.getEndDate());
+        System.out.println("---q---area-----" + currentQuery.getArea());
+        System.out.println("---q---subsidiaryAccount-----" + currentQuery.getSubsidiaryAccount());
         items = getPaginationByQueryResult().createPageDataModel();
     }
 
@@ -148,7 +153,7 @@ public class DetailRecordController implements Serializable {
         currentDetailRecord = (DetailRecord) getItems().getRowData();
         currentQuery.setArea(currentDetailRecord.getSubsidiaryAccount().getArea());
         currentQuery.setSubsidiaryAccount(currentDetailRecord.getSubsidiaryAccount());
-        DateFormat df =  new SimpleDateFormat("YYYY-MM-dd");
+        DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
         strOccurDate = df.format(currentDetailRecord.getOccurDate());
 
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -196,24 +201,24 @@ public class DetailRecordController implements Serializable {
             Calendar end = Calendar.getInstance();
             Date today = new Date();
             begin.setTime(today);
-            begin.set(Calendar.HOUR_OF_DAY,0);
-            begin.set(Calendar.MINUTE,0);
-            begin.set(Calendar.SECOND,0);
+            begin.set(Calendar.HOUR_OF_DAY, 0);
+            begin.set(Calendar.MINUTE, 0);
+            begin.set(Calendar.SECOND, 0);
             end.setTime(today);
-            end.set(Calendar.HOUR_OF_DAY,23);
-            end.set(Calendar.MINUTE,59);
-            end.set(Calendar.SECOND,59);
+            end.set(Calendar.HOUR_OF_DAY, 23);
+            end.set(Calendar.MINUTE, 59);
+            end.set(Calendar.SECOND, 59);
 
             pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
                 @Override
                 public int getItemsCount() {
-                    int count = ejbFacade.count(userController.getAuthenticatedUser(),begin.getTime(),end.getTime(),true);
-                    return  count;
+                    int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), true);
+                    return count;
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(new int[]{getPageFirstItem(),getPageFirstItem()+getPageSize()},userController.getAuthenticatedUser(),begin.getTime(),end.getTime(),true));
+                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), true));
                 }
             };
         }
@@ -222,17 +227,46 @@ public class DetailRecordController implements Serializable {
 
     public AbstractPaginationHelper getPaginationByQueryResult() {
         // TODO QueryDetailRecord...
-        paginationByQueryResult = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
+        Calendar begin = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        Date beginDate, endDate;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+        try {
+            beginDate = sdf.parse(currentQuery.getStartDate());
+            endDate = sdf.parse(currentQuery.getEndDate());
+
+            begin.setTime(beginDate);
+            end.setTime(endDate);
+
+            begin.set(Calendar.HOUR_OF_DAY, 0);
+            begin.set(Calendar.MINUTE, 0);
+            begin.set(Calendar.SECOND, 0);
+
+            end.set(Calendar.HOUR_OF_DAY, 23);
+            end.set(Calendar.MINUTE, 59);
+            end.set(Calendar.SECOND, 59);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
             @Override
             public int getItemsCount() {
-                return 0;
+                int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), true, currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                System.out.println("----------count------" + count);
+                return count;
             }
 
             @Override
             public DataModel createPageDataModel() {
-                return null;
+                return new ListDataModel(ejbFacade.getByEntryOrOccurDate(
+                        new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
+                        begin.getTime(),
+                        end.getTime(),
+                        currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount()));
             }
         };
-        return paginationByQueryResult;
+        return pagination;
     }
 }
