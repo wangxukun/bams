@@ -20,19 +20,19 @@
                         <h:outputLabel value="#{bundle.QueryCategory}" for="queryCategory"/>
                         <h:selectOneMenu converter="javax.faces.Boolean" value="#{detailRecordController.selectedQuery.queryByEnterDate}" required="true"
                                          id="queryCategory">
-                            <f:selectItem itemValue="1" itemLabel="#{bundle.DataEntryTime}"/>
-                            <f:selectItem itemValue="0" itemLabel="#{bundle.BusinessTime}"/>
+                            <f:selectItem itemValue="true" itemLabel="#{bundle.DataEntryTime}"/>
+                            <f:selectItem itemValue="false" itemLabel="#{bundle.BusinessTime}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{bundle.StartDate}" for="start_d"/>
                         <input type="date" jsf:id="start_d" name="start_d"
-                               value="#{detailRecordController.selectedQuery.startDate}" required="required"
+                               jsf:value="#{detailRecordController.selectedQuery.beginDate}" required="required"
                                title="#{bundle.StartDateTitle}">
-                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai"/>
+                            <f:convertDateTime pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai"/>
                         </input>
                         <h:outputLabel value="#{bundle.EndDate}" for="end_d"/>
                         <input type="date" jsf:id="end_d" name="end_d"
-                               value="#{detailRecordController.selectedQuery.endDate}" required="required">
-                            <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai"/>
+                               jsf:value="#{detailRecordController.selectedQuery.endDate}" required="required">
+                            <f:convertDateTime pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai"/>
                         </input>
                         <h:outputLabel value="#{bundle.AreaName}" for="area"/>
 
@@ -64,7 +64,7 @@
                 <h:outputText escape="false" value="#{bundle.ListDetailRecordEmpty}" rendered="#{detailRecordController.items.rowCount == 0}"/>
                 <h:panelGroup id="detailTable" rendered="#{detailRecordController.items.rowCount > 0}">
                     <ul class="commandButtons">
-                        <li><h:outputText value="账户：陆良县三岔河镇农村经济服务中心-A"/></li>
+                        <li><h:outputText value="范围：#{detailRecordController.selectedQuery.description} 共有#{detailRecordController.pagination.itemsCount}条记录　" /></li>
                         <li><h:commandLink action="#{detailRecordController.previous}"
                                            value="#{bundle.Previous} #{detailRecordController.pagination.pageSize}"
                                            rendered="#{detailRecordController.pagination.hasPreviousPage}"/></li>

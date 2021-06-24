@@ -4,12 +4,13 @@ import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.SubsidiaryAccount;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AccountQuery implements Serializable {
     private static final long serialVersionUID = -2342437016158734617L;
     boolean queryByEnterDate;
-    String startDate;
-    String endDate;
+    Date beginDate;
+    Date endDate;
     Area area;
     SubsidiaryAccount subsidiaryAccount;
 
@@ -24,19 +25,19 @@ public class AccountQuery implements Serializable {
         this.queryByEnterDate = queryByEnterDate;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public Date getBeginDate() {
+        return beginDate;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setBeginDate(Date beginDate) {
+        this.beginDate = beginDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -54,5 +55,17 @@ public class AccountQuery implements Serializable {
 
     public void setSubsidiaryAccount(SubsidiaryAccount subsidiaryAccount) {
         this.subsidiaryAccount = subsidiaryAccount;
+    }
+
+    public String getDescription() {
+        if (area == null) {
+            return "总账户";
+        }else{
+            if (subsidiaryAccount == null) {
+                return area.getDescription();
+            } else {
+                return subsidiaryAccount.getName();
+            }
+        }
     }
 }

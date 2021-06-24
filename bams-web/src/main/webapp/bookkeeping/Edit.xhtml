@@ -31,8 +31,8 @@
                     <h:outputText id="detaiRecord_id" value="#{detailRecordController.selectedDetailRecord.id}" />
 
                     <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
-                    <input type="date" jsf:id="start_d" name="start_d" value="#{detailRecordController.strOccurDate}" required="required">
-                        <f:convertDateTime type="date" dateStyle="short" locale="zh" timeZone="Asia/Shanghai" />
+                    <input type="date" jsf:id="start_d" name="start_d" jsf:value="#{detailRecordController.selectedDetailRecord.occurDate}" required="required">
+                        <f:convertDateTime pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai" />
                     </input>
                     <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
                     <h:inputText id="summary" value="#{detailRecordController.selectedDetailRecord.summary}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />

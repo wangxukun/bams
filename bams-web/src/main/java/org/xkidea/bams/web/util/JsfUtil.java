@@ -11,35 +11,6 @@ public final class JsfUtil {
     private JsfUtil() {
     }
 
-    public static String getFirstDayOfThisYear() {
-        Calendar rightNow = Calendar.getInstance(Locale.CHINA);
-        int year = rightNow.get(Calendar.YEAR);
-        StringBuilder builder = new StringBuilder();
-        builder.append(year);
-        builder.append("-01-01");
-        return builder.toString();
-    }
-
-    public static String getToday() {
-        Calendar rightNow = Calendar.getInstance(Locale.CHINA);
-        int year = rightNow.get(Calendar.YEAR);
-        int month = rightNow.get(Calendar.MONTH)+1;
-        int day = rightNow.get(Calendar.DAY_OF_MONTH);
-        StringBuilder builder = new StringBuilder();
-        builder.append(year);
-        builder.append("-");
-        if (month < 10) {
-            builder.append("0");
-        }
-        builder.append(month);
-        builder.append("-");
-        if (day < 10) {
-            builder.append("0");
-        }
-        builder.append(day);
-        return builder.toString();
-    }
-
     public static String getStringFromBundle(String bundle, String message) {
         return ResourceBundle.getBundle(bundle).getString(message);
     }

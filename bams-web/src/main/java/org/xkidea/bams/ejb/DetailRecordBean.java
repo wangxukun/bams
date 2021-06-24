@@ -74,9 +74,8 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
                 "WHERE " + dateType.toString() + " BETWEEN :begin AND :end AND person = :user " +
                 "ORDER BY " + dateType.toString() + " ASC";
-        Person p = em.find(Person.class,user.getId());
         List<DetailRecord> detailRecordList = em.createQuery(sql)
-                .setParameter("user", p)
+                .setParameter("user", user)
                 .setParameter("begin", begin)
                 .setParameter("end", end)
                 .getResultList();
@@ -87,9 +86,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
         StringBuilder dateType = new StringBuilder();
         if (isEnterDate) {
             dateType.append("detailRecord.enterTime");
-            System.out.println("---NO area-----IS EnterTime-----" + isEnterDate);
         } else {
-            System.out.println("---NO area-----IS OccurDate-----" + isEnterDate);
             dateType.append("detailRecord.occurDate");
         }
         String sql = "SELECT detailRecord " +
@@ -105,7 +102,6 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 .setMaxResults(range[1] - range[0])
                 .setFirstResult(range[0])
                 .getResultList();
-        System.out.println("--------NO area----------ResultList--"+detailRecordList);
         return detailRecordList;
     }
 
@@ -140,9 +136,9 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
             StringBuilder sqlAS = new StringBuilder();
             StringBuilder sql = new StringBuilder();
 
-            String sql1 = "SELECT count(detailRecord) FROM DetailRecord detailRecord JOIN detailRecord.subsidiaryAccount subsidiaryAccount ";
+            /*String sql1 = "SELECT count(detailRecord) FROM DetailRecord detailRecord JOIN detailRecord.subsidiaryAccount subsidiaryAccount ";
             String sqlNoSubsidiaryAccount = "JOIN subsidiaryAccount.area area ";
-            String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end " + sqlAS.toString() + " ORDER BY " + dateType.toString() + " ASC";
+            String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end " + sqlAS.toString() + " ORDER BY " + dateType.toString() + " ASC";*/
 
             if (queryByEnterDate) {
                 // 按录入时间查找
@@ -155,8 +151,9 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
             // 如果未指明明细账户，则返回当前loginUser下选定区域下的内容
             if (subsidiaryAccount == null) {
                 sqlAS.append("AND area = :area ");
-                sql.append(sql1).append(sqlNoSubsidiaryAccount).append(sql2);
-
+                String sql1 = "SELECT count(detailRecord) FROM DetailRecord detailRecord JOIN detailRecord.subsidiaryAccount subsidiaryAccount ";
+                String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end AND subsidiaryAccount.area = :area ORDER BY " + dateType.toString() + " ASC";
+                sql.append(sql1).append(sql2);
                 Query query = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
                         .setParameter("end", end)
@@ -164,7 +161,8 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 return ((Long)query.getSingleResult()).intValue();
                 // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
             } else {
-                sqlAS.append("AND subsidiaryAccount = :subsidiaryAccount ");
+                String sql1 = "SELECT count(detailRecord) FROM DetailRecord detailRecord ";
+                String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end AND detailRecord.subsidiaryAccount = :subsidiaryAccount ORDER BY " + dateType.toString() + " ASC";
                 sql.append(sql1).append(sql2);
                 Query query = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
@@ -199,14 +197,13 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 dateType.append("detailRecord.occurDate");
             }
 
-            String sql1 = "SELECT detailRecord FROM DetailRecord detailRecord JOIN detailRecord.subsidiaryAccount subsidiaryAccount ";
-            String sqlNoSubsidiaryAccount = "JOIN subsidiaryAccount.area area ";
+//            String sqlNoSubsidiaryAccount = "JOIN subsidiaryAccount.area area ";
 
             // 如果未指明明细账户，则返回当前loginUser下选定区域下的内容
             if (subsidiaryAccount == null) {
-                sqlAS.append("AND area = :area ");
-                String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end " + sqlAS.toString() + " ORDER BY " + dateType.toString() + " ASC";
-                sql.append(sql1).append(sqlNoSubsidiaryAccount).append(sql2);
+                String sql1 = "SELECT detailRecord FROM DetailRecord detailRecord JOIN detailRecord.subsidiaryAccount subsidiaryAccount ";
+                String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end AND subsidiaryAccount.area = :area ORDER BY " + dateType.toString() + " ASC";
+                sql.append(sql1).append(sql2);
                 detailRecordList = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
                         .setParameter("end", end)
@@ -219,8 +216,8 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
 
                 // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
             } else {
-                sqlAS.append("AND subsidiaryAccount = :subsidiaryAccount ");
-                String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end " + sqlAS.toString() + " ORDER BY " + dateType.toString() + " ASC";
+                String sql1 = "SELECT detailRecord FROM DetailRecord detailRecord ";
+                String sql2 = "WHERE " + dateType.toString() + " BETWEEN :begin AND :end AND detailRecord.subsidiaryAccount = :subsidiaryAccount ORDER BY " + dateType.toString() + " ASC";
                 sql.append(sql1).append(sql2);
                 detailRecordList = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
