@@ -4,6 +4,8 @@ import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.DetailRecord;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.entity.SubsidiaryAccount;
+import org.xkidea.bams.model.AccountBook;
+import org.xkidea.bams.model.DebitCreditTotailRow;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,11 +14,14 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Stateless
-public class DetailRecordBean extends AbstractFacade<DetailRecord>{
+public class DetailRecordBean extends AbstractFacade<DetailRecord> {
     @PersistenceContext(unitName = "bamsPU")
     private EntityManager em;
 
@@ -42,12 +47,12 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
         CriteriaQuery cq = cb.createQuery();
         Root<DetailRecord> recordRoot = cq.from(DetailRecord.class);
         cq.select(cb.count(recordRoot));
-        cq.where(cb.between(recordRoot.get(dateType.toString()),begin,end));
+        cq.where(cb.between(recordRoot.get(dateType.toString()), begin, end));
         Query query = getEntityManager().createQuery(cq);
-        return ((Long)query.getSingleResult()).intValue();
+        return ((Long) query.getSingleResult()).intValue();
     }
 
-    public List<DetailRecord> getByEntryOrOccurDate(Date begin,Date end,boolean isEntryDate) {
+    public List<DetailRecord> getByEntryOrOccurDate(Date begin, Date end, boolean isEntryDate) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<DetailRecord> recordRoot = cq.from(DetailRecord.class);
@@ -82,7 +87,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
         return detailRecordList;
     }
 
-    public List<DetailRecord> getByEntryOrOccurDate(int[] range,Person user, Date begin, Date end, boolean isEnterDate) {
+    public List<DetailRecord> getByEntryOrOccurDate(int[] range, Person user, Date begin, Date end, boolean isEnterDate) {
         StringBuilder dateType = new StringBuilder();
         if (isEnterDate) {
             dateType.append("detailRecord.enterTime");
@@ -117,12 +122,12 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
                 "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
                 "WHERE " + dateType.toString() + " BETWEEN :begin AND :end AND person = :user ";
-        Person p = em.find(Person.class,user.getId());
+        Person p = em.find(Person.class, user.getId());
         Query query = em.createQuery(sql)
                 .setParameter("user", p)
                 .setParameter("begin", begin)
                 .setParameter("end", end);
-        return ((Long)query.getSingleResult()).intValue();
+        return ((Long) query.getSingleResult()).intValue();
     }
 
     public int count(Person authenticatedUser, Date begin, Date end, boolean queryByEnterDate, Area area, SubsidiaryAccount subsidiaryAccount) {
@@ -157,8 +162,8 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 Query query = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
                         .setParameter("end", end)
-                        .setParameter("area",area);
-                return ((Long)query.getSingleResult()).intValue();
+                        .setParameter("area", area);
+                return ((Long) query.getSingleResult()).intValue();
                 // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
             } else {
                 String sql1 = "SELECT count(detailRecord) FROM DetailRecord detailRecord ";
@@ -167,8 +172,8 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 Query query = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
                         .setParameter("end", end)
-                        .setParameter("subsidiaryAccount",subsidiaryAccount);
-                return ((Long)query.getSingleResult()).intValue();
+                        .setParameter("subsidiaryAccount", subsidiaryAccount);
+                return ((Long) query.getSingleResult()).intValue();
             }
 
         }
@@ -207,7 +212,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 detailRecordList = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
                         .setParameter("end", end)
-                        .setParameter("area",area)
+                        .setParameter("area", area)
                         .setMaxResults(range[1] - range[0])
                         .setFirstResult(range[0])
                         .getResultList();
@@ -222,7 +227,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
                 detailRecordList = em.createQuery(sql.toString())
                         .setParameter("begin", begin)
                         .setParameter("end", end)
-                        .setParameter("subsidiaryAccount",subsidiaryAccount)
+                        .setParameter("subsidiaryAccount", subsidiaryAccount)
                         .setMaxResults(range[1] - range[0])
                         .setFirstResult(range[0])
                         .getResultList();
@@ -232,5 +237,82 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord>{
 
         }
 
+    }
+
+    public BigDecimal getBeginningBalance(int[] range, Person authenticatedUser, Date begin, Area area, SubsidiaryAccount subsidiaryAccount) {
+        List<DebitCreditTotailRow> debitCreditTotailRowList = new ArrayList<>();
+        List<Object[]> results;
+
+        // 如果未指明区域，则返回当前loginUser下的所有区域下的内容
+        if (area == null) {
+            String sql = "SELECT detailRecord.direction,sum(detailRecord.amount) as totail " +
+                    "FROM DetailRecord detailRecord " +
+                    "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
+                    "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
+                    "WHERE detailRecord.occurDate < :begin AND person = :user " +
+                    "GROUP BY detailRecord.direction " +
+                    "ORDER BY detailRecord.direction ASC";
+            results = em.createQuery(sql)
+                    .setParameter("begin", begin)
+                    .setParameter("user", authenticatedUser)
+                    .setMaxResults(range[1] - range[0])
+                    .setFirstResult(range[0])
+                    .getResultList();
+        } else {
+
+            // 如果未指明明细账户，则返回当前loginUser下选定区域下的内容
+            if (subsidiaryAccount == null) {
+                String sql = "SELECT detailRecord.direction,sum(detailRecord.amount) as totail " +
+                        "FROM DetailRecord detailRecord " +
+                        "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
+                        "WHERE detailRecord.occurDate < :begin AND subsidiaryAccount.area = :area " +
+                        "GROUP BY detailRecord.direction " +
+                        "ORDER BY detailRecord.direction ASC";
+                results = em.createQuery(sql)
+                        .setParameter("begin", begin)
+                        .setParameter("area", area)
+                        .setMaxResults(range[1] - range[0])
+                        .setFirstResult(range[0])
+                        .getResultList();
+
+
+                // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
+            } else {
+                String sql = "SELECT detailRecord.direction,sum(detailRecord.amount) as totail " +
+                        "FROM DetailRecord detailRecord " +
+                        "WHERE detailRecord.occurDate < :begin AND detailRecord.subsidiaryAccount = :subsidiaryAccount " +
+                        "GROUP BY detailRecord.direction " +
+                        "ORDER BY detailRecord.direction ASC";
+                results = em.createQuery(sql)
+                        .setParameter("begin", begin)
+                        .setParameter("subsidiaryAccount", subsidiaryAccount)
+                        .setMaxResults(range[1] - range[0])
+                        .setFirstResult(range[0])
+                        .getResultList();
+
+            }
+
+        }
+        for (Object[] record : results) {
+            DebitCreditTotailRow row = new DebitCreditTotailRow();
+            row.setDirection((int) record[0]);
+            row.setTotail((BigDecimal) record[1]);
+            debitCreditTotailRowList.add(row);
+        }
+        return debitCreditTotailRowList.get(0).getTotail().subtract(debitCreditTotailRowList.get(1).getTotail());
+    }
+
+    /**
+     * 返回一个账簿，根据期初日期，及发生额集体
+     *
+     * @param beginDate
+     * @param detailRecordList
+     * @return
+     */
+    public AccountBook getAccountBookByDetailRecords(Date beginDate, List<DetailRecord> detailRecordList) {
+        AccountBook book = null;
+
+
+        return book;
     }
 }

@@ -4,6 +4,7 @@ import org.xkidea.bams.ejb.DetailRecordBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.model.AccountQuery;
+import org.xkidea.bams.model.DebitCreditTotailRow;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.PageNavigation;
 
@@ -15,8 +16,11 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Named(value = "accountQueryController")
 @SessionScoped
@@ -51,11 +55,9 @@ public class AccountQueryController implements Serializable {
                     return userController.getAuthenticatedUser();
                 }
             };
-//            currentQuery.setBeginDate(new Date());
             currentQuery.setEndDate(new Date());
             currentQuery.setQueryByEnterDate(false);
         }
-        System.out.println("=========(2)====== currentQuery === " + currentQuery);
         return currentQuery;
     }
 
@@ -88,7 +90,6 @@ public class AccountQueryController implements Serializable {
         recreateModel();
         recreateCurrentQuery();
         pagination = null;
-        System.out.println("=========(1)====== currentQuery === " + currentQuery);
         return PageNavigation.QUERY_ACCOUNT_LIST;
     }
 
@@ -142,6 +143,10 @@ public class AccountQueryController implements Serializable {
                     if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
                         return null;
                     }
+                    BigDecimal beginningBalance = ejbFacade.getBeginningBalance(new int[]{getPageFirstItem(),getPageFirstItem() + getPageSize()},
+                            userController.getAuthenticatedUser(), begin.getTime(),currentQuery.getArea(),currentQuery.getSubsidiaryAccount());
+                    System.out.println("Beginning List--------1--------- " + beginningBalance);
+
                     return new ListDataModel(ejbFacade.getByEntryOrOccurDate(
                             new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
                             begin.getTime(),
@@ -186,6 +191,11 @@ public class AccountQueryController implements Serializable {
 
             @Override
             public DataModel createPageDataModel() {
+
+                BigDecimal beginningBalance = ejbFacade.getBeginningBalance(new int[]{getPageFirstItem(),getPageFirstItem() + getPageSize()},
+                        userController.getAuthenticatedUser(), begin.getTime(),currentQuery.getArea(),currentQuery.getSubsidiaryAccount());
+                System.out.println("Beginning List--------2--------- " + beginningBalance);
+
                 return new ListDataModel(ejbFacade.getByEntryOrOccurDate(
                         new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
                         begin.getTime(),

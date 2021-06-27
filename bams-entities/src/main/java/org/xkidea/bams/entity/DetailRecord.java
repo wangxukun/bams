@@ -47,6 +47,9 @@ public class DetailRecord implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date occurDate;
 
+    @Transient
+    private BigDecimal balance;
+
     public DetailRecord() {
     }
 
@@ -104,6 +107,14 @@ public class DetailRecord implements Serializable {
 
     public void setSubsidiaryAccount(SubsidiaryAccount subsidiaryAccount) {
         this.subsidiaryAccount = subsidiaryAccount;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     @Override
