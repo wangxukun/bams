@@ -3,6 +3,7 @@ package org.xkidea.bams.web;
 import org.xkidea.bams.ejb.DetailRecordBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
 import org.xkidea.bams.entity.DetailRecord;
+import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.model.AccountQuery;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -51,7 +52,13 @@ public class DetailRecordController implements Serializable {
 
     public AccountQuery getSelectedQuery() {
         if (currentQuery == null) {
-            currentQuery = new AccountQuery();
+            currentQuery = new AccountQuery() {
+                @Override
+                protected Person getCurrentUser() {
+                    return userController.getAuthenticatedUser();
+                }
+            };
+
             currentQuery.setBeginDate(new Date());
             currentQuery.setEndDate(new Date());
             currentQuery.setQueryByEnterDate(true);
@@ -164,12 +171,25 @@ public class DetailRecordController implements Serializable {
         recreateModel();
         recreateCurrentQuery();
         recreateCurrentDetailRecord();
-        return PageNavigation.LIST;
+        pagination = null;
+        return PageNavigation.MENU_BOOKKEEPING_LIST;
     }
 
     public PageNavigation destroy() {
+        currentDetailRecord = (DetailRecord) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
         recreateModel();
         return PageNavigation.LIST;
+    }
+
+    private void performDestroy() {
+        try {
+            getFacade().remove(currentDetailRecord);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("DetailRecordDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
+        }
     }
 
     public PageNavigation prepareCreate() {
@@ -213,7 +233,6 @@ public class DetailRecordController implements Serializable {
         Calendar begin = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
         Date beginDate, endDate;
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
         try {
             beginDate = currentQuery.getBeginDate();
             endDate = currentQuery.getEndDate();
@@ -236,7 +255,7 @@ public class DetailRecordController implements Serializable {
         pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
             @Override
             public int getItemsCount() {
-                int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), true, currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
                 return count;
             }
 

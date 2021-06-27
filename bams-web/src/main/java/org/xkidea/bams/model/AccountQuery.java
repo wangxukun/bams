@@ -1,18 +1,21 @@
 package org.xkidea.bams.model;
 
 import org.xkidea.bams.entity.Area;
+import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.entity.SubsidiaryAccount;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class AccountQuery implements Serializable {
+public abstract class AccountQuery implements Serializable {
     private static final long serialVersionUID = -2342437016158734617L;
     boolean queryByEnterDate;
     Date beginDate;
     Date endDate;
     Area area;
     SubsidiaryAccount subsidiaryAccount;
+
+    protected abstract Person getCurrentUser();
 
     public AccountQuery() {
     }
@@ -59,7 +62,7 @@ public class AccountQuery implements Serializable {
 
     public String getDescription() {
         if (area == null) {
-            return "总账户";
+            return getCurrentUser().getAccountList().get(0).toString();
         }else{
             if (subsidiaryAccount == null) {
                 return area.getDescription();

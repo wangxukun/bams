@@ -17,14 +17,23 @@
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         template="/logined/template.xhtml"
-        xmlns:util="http://java.sun.com/jsf/composite/components">
+        xmlns:comp="http://java.sun.com/jsf/composite/components">
 
     <ui:define name="title">
-        <h:outputText value="${bundle.AdminHomeTitle}" />
+        <h:outputText value="${bundle.Menu_Account_Query}"/>
     </ui:define>
 
     <ui:define name="body">
-        <h1 style="color: #7c9934">QUERY DATA</h1>
+        <h2>#{bundle.Menu_Account_Query}</h2>
+        <h:form>
+            <ul class="adminItem">
+                <li><h2>${bundle.AccountQueryTitle}</h2></li>
+                <li><h:commandLink action="#{accountQueryController.prepareList}" value="${bundle.SubsidiaryAccountQuery}"/></li>
+
+                <li><h2>${bundle.CollectionQuery}</h2></li>
+                <li><h:commandLink action="collection/List" value="${bundle.AccountCollectionQuery}"/></li>
+            </ul>
+        </h:form>
     </ui:define>
 
 </ui:composition>

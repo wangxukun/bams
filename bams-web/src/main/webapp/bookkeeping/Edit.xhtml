@@ -27,9 +27,6 @@
                         <f:selectItems value="#{detailRecordController.subsidiaryAccountItemAvailableSelectOne}"/>
                     </h:selectOneMenu>
 
-                    <h:outputLabel value="#{bundle.detailRecord_id}" for="detaiRecord_id" />
-                    <h:outputText id="detaiRecord_id" value="#{detailRecordController.selectedDetailRecord.id}" />
-
                     <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
                     <input type="date" jsf:id="start_d" name="start_d" jsf:value="#{detailRecordController.selectedDetailRecord.occurDate}" required="required">
                         <f:convertDateTime pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai" />

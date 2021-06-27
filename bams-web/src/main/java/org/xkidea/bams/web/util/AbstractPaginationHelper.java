@@ -63,4 +63,16 @@ public abstract class AbstractPaginationHelper {
     public int getPageSize() {
         return pageSize;
     }
+
+    public int getCurrentPage() {
+        return page+1;
+    }
+
+    public int getPageCount() {
+        if (getItemsCount() % pageSize == 0) {
+            return getItemsCount() / pageSize;
+        } else {
+            return getItemsCount() / pageSize + 1;
+        }
+    }
 }

@@ -6,13 +6,14 @@ public enum PageNavigation {
     LIST("List"),
     EDIT("Edit"),
     VIEW("View"),
-    INDEX("index"),
     SYSTEM_MANAGE_HOME("/admin/index"),
     ACCOUNT_MANAGE_HOME("/account/index"),
     ACCOUNT_AUTHORIZATION("/authorization/treasurer/Authorization"),
     ACCOUNTANT_AREAS_ASSIGN("/authorization/accountant/assign/List"),
     CUSTOMER_AREAS_ASSIGN("/authorization/customer/assign/List"),
     TREASURER_AREAS_ASSIGN("/authorization/treasurer_area/assign/List"),
+    MENU_BOOKKEEPING_LIST("/bookkeeping/List?faces-redirect=true"),
+    QUERY_ACCOUNT_LIST("/query/account/List"),
     SETTING_HOME("/setting/index");
     private String text;
 
