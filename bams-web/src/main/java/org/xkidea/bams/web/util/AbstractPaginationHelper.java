@@ -4,7 +4,7 @@ import javax.faces.model.DataModel;
 
 public abstract class AbstractPaginationHelper {
 
-    public static final int DEFAULT_SIZE = 18;
+    public static final int DEFAULT_SIZE = 19;
     private transient int pageSize;
     private transient int page;
 
@@ -52,6 +52,14 @@ public abstract class AbstractPaginationHelper {
 
     public boolean isHasPreviousPage() {
         return page > 0;
+    }
+
+    public void firstPage() {
+        page = 0;
+    }
+
+    public void lastPage() {
+        page = getPageCount() - 1;
     }
 
     public void previousPage() {

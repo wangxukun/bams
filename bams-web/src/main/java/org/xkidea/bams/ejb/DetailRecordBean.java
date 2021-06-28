@@ -4,8 +4,7 @@ import org.xkidea.bams.entity.Area;
 import org.xkidea.bams.entity.DetailRecord;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.entity.SubsidiaryAccount;
-import org.xkidea.bams.model.AccountBook;
-import org.xkidea.bams.model.DebitCreditTotailRow;
+import org.xkidea.bams.model.FirstBalance;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,9 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @Stateless
@@ -186,7 +183,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
         // 如果未指明区域，则返回当前loginUser下的所有区域下的内容
         if (area == null) {
             detailRecordList = getByEntryOrOccurDate(range, authenticatedUser, begin, end, queryByEnterDate);
-            return detailRecordList;
+//            return detailRecordList;
         } else {
 
             StringBuilder dateType = new StringBuilder();
@@ -216,7 +213,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
                         .setMaxResults(range[1] - range[0])
                         .setFirstResult(range[0])
                         .getResultList();
-                return detailRecordList;
+//                return detailRecordList;
 
 
                 // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
@@ -231,21 +228,19 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
                         .setMaxResults(range[1] - range[0])
                         .setFirstResult(range[0])
                         .getResultList();
-                return detailRecordList;
+//                return detailRecordList;
 
             }
-
         }
-
+        return detailRecordList;
     }
 
-    public BigDecimal getBeginningBalance(int[] range, Person authenticatedUser, Date begin, Area area, SubsidiaryAccount subsidiaryAccount) {
-        List<DebitCreditTotailRow> debitCreditTotailRowList = new ArrayList<>();
-        List<Object[]> results;
+    public FirstBalance getBeginningBalance(Person authenticatedUser, Date begin, Area area, SubsidiaryAccount subsidiaryAccount) {
+        List<Object> results;
 
         // 如果未指明区域，则返回当前loginUser下的所有区域下的内容
         if (area == null) {
-            String sql = "SELECT detailRecord.direction,sum(detailRecord.amount) as totail " +
+            String sql = "SELECT sum(detailRecord.amount) as totail " +
                     "FROM DetailRecord detailRecord " +
                     "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
                     "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
@@ -255,14 +250,13 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
             results = em.createQuery(sql)
                     .setParameter("begin", begin)
                     .setParameter("user", authenticatedUser)
-                    .setMaxResults(range[1] - range[0])
-                    .setFirstResult(range[0])
                     .getResultList();
+            System.out.println("--------------object[if one]-----" + results.size());
         } else {
 
             // 如果未指明明细账户，则返回当前loginUser下选定区域下的内容
             if (subsidiaryAccount == null) {
-                String sql = "SELECT detailRecord.direction,sum(detailRecord.amount) as totail " +
+                String sql = "SELECT sum(detailRecord.amount) as totail " +
                         "FROM DetailRecord detailRecord " +
                         "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
                         "WHERE detailRecord.occurDate < :begin AND subsidiaryAccount.area = :area " +
@@ -271,14 +265,12 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
                 results = em.createQuery(sql)
                         .setParameter("begin", begin)
                         .setParameter("area", area)
-                        .setMaxResults(range[1] - range[0])
-                        .setFirstResult(range[0])
                         .getResultList();
 
 
                 // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
             } else {
-                String sql = "SELECT detailRecord.direction,sum(detailRecord.amount) as totail " +
+                String sql = "SELECT sum(detailRecord.amount) as totail " +
                         "FROM DetailRecord detailRecord " +
                         "WHERE detailRecord.occurDate < :begin AND detailRecord.subsidiaryAccount = :subsidiaryAccount " +
                         "GROUP BY detailRecord.direction " +
@@ -286,33 +278,30 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
                 results = em.createQuery(sql)
                         .setParameter("begin", begin)
                         .setParameter("subsidiaryAccount", subsidiaryAccount)
-                        .setMaxResults(range[1] - range[0])
-                        .setFirstResult(range[0])
                         .getResultList();
 
             }
 
         }
-        for (Object[] record : results) {
-            DebitCreditTotailRow row = new DebitCreditTotailRow();
-            row.setDirection((int) record[0]);
-            row.setTotail((BigDecimal) record[1]);
-            debitCreditTotailRowList.add(row);
+        System.out.println("--------------object[]-----" + results.size());
+        if (results.size() == 0) {
+            return null;
         }
-        return debitCreditTotailRowList.get(0).getTotail().subtract(debitCreditTotailRowList.get(1).getTotail());
+        FirstBalance firstBalance = new FirstBalance();
+        firstBalance.setDebitTotail((BigDecimal) results.get(0));
+        firstBalance.setCreditTotail((BigDecimal) results.get(1));
+        return firstBalance;
     }
 
     /**
-     * 返回一个账簿，根据期初日期，及发生额集体
-     *
-     * @param beginDate
-     * @param detailRecordList
-     * @return
+     * 封装账簿数据
+     * @param firstBalance　期初余额
+     * @param detailRecordList　发生额集合
+     * @return 包含期初余额、发生额（包含余额）、本月合计、累计的DetailRecord对象集合
      */
-    public AccountBook getAccountBookByDetailRecords(Date beginDate, List<DetailRecord> detailRecordList) {
-        AccountBook book = null;
-
-
-        return book;
+    public List<DetailRecord> setBalanceForDetailRecord(FirstBalance firstBalance, List<DetailRecord> detailRecordList) {
+        // TODO .....
+        return null;
     }
+
 }

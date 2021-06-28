@@ -4,7 +4,7 @@ import org.xkidea.bams.ejb.DetailRecordBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.model.AccountQuery;
-import org.xkidea.bams.model.DebitCreditTotailRow;
+import org.xkidea.bams.model.FirstBalance;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.PageNavigation;
 
@@ -19,8 +19,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 @Named(value = "accountQueryController")
 @SessionScoped
@@ -83,7 +81,8 @@ public class AccountQueryController implements Serializable {
     }
 
     public void query() {
-        items = getPaginationByQueryResult().createPageDataModel();
+        pagination = null;
+        items = getPagination().createPageDataModel();
     }
 
     public PageNavigation prepareList() {
@@ -91,6 +90,18 @@ public class AccountQueryController implements Serializable {
         recreateCurrentQuery();
         pagination = null;
         return PageNavigation.QUERY_ACCOUNT_LIST;
+    }
+
+    public PageNavigation first() {
+        pagination.firstPage();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
+    public PageNavigation last() {
+        pagination.lastPage();
+        recreateModel();
+        return  PageNavigation.LIST;
     }
 
     public PageNavigation previous() {
@@ -114,13 +125,14 @@ public class AccountQueryController implements Serializable {
                 beginDate = currentQuery.getBeginDate();
                 endDate = currentQuery.getEndDate();
 
-                begin.setTime(beginDate);
+                if (beginDate != null) {
+                    begin.setTime(beginDate);
+                    begin.set(Calendar.HOUR_OF_DAY, 0);
+                    begin.set(Calendar.MINUTE, 0);
+                    begin.set(Calendar.SECOND, 0);
+                }
+
                 end.setTime(endDate);
-
-                begin.set(Calendar.HOUR_OF_DAY, 0);
-                begin.set(Calendar.MINUTE, 0);
-                begin.set(Calendar.SECOND, 0);
-
                 end.set(Calendar.HOUR_OF_DAY, 23);
                 end.set(Calendar.MINUTE, 59);
                 end.set(Calendar.SECOND, 59);
@@ -141,12 +153,17 @@ public class AccountQueryController implements Serializable {
                 @Override
                 public DataModel createPageDataModel() {
                     if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
+                        pagination = null;
                         return null;
                     }
-                    BigDecimal beginningBalance = ejbFacade.getBeginningBalance(new int[]{getPageFirstItem(),getPageFirstItem() + getPageSize()},
-                            userController.getAuthenticatedUser(), begin.getTime(),currentQuery.getArea(),currentQuery.getSubsidiaryAccount());
-                    System.out.println("Beginning List--------1--------- " + beginningBalance);
-
+                    FirstBalance beginningBalance = ejbFacade.getBeginningBalance(
+                            userController.getAuthenticatedUser(),
+                            begin.getTime(),
+                            currentQuery.getArea(),
+                            currentQuery.getSubsidiaryAccount());
+                    System.out.println("--------------beginningDebitTotail----" + beginningBalance.getDebitTotail());
+                    System.out.println("--------------beginningCreditTotail----" + beginningBalance.getCreditTotail());
+                    System.out.println("--------------beginningBalance----" + beginningBalance.getBalance());
                     return new ListDataModel(ejbFacade.getByEntryOrOccurDate(
                             new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
                             begin.getTime(),
@@ -155,54 +172,6 @@ public class AccountQueryController implements Serializable {
                 }
             };
         }
-        return pagination;
-    }
-
-    public AbstractPaginationHelper getPaginationByQueryResult() {
-        Calendar begin = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        Date beginDate, endDate;
-        try {
-            beginDate = currentQuery.getBeginDate();
-            endDate = currentQuery.getEndDate();
-
-            begin.setTime(beginDate);
-            end.setTime(endDate);
-
-            begin.set(Calendar.HOUR_OF_DAY, 0);
-            begin.set(Calendar.MINUTE, 0);
-            begin.set(Calendar.SECOND, 0);
-
-            end.set(Calendar.HOUR_OF_DAY, 23);
-            end.set(Calendar.MINUTE, 59);
-            end.set(Calendar.SECOND, 59);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
-            @Override
-            public int getItemsCount() {
-                int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
-                return count;
-            }
-
-            @Override
-            public DataModel createPageDataModel() {
-
-                BigDecimal beginningBalance = ejbFacade.getBeginningBalance(new int[]{getPageFirstItem(),getPageFirstItem() + getPageSize()},
-                        userController.getAuthenticatedUser(), begin.getTime(),currentQuery.getArea(),currentQuery.getSubsidiaryAccount());
-                System.out.println("Beginning List--------2--------- " + beginningBalance);
-
-                return new ListDataModel(ejbFacade.getByEntryOrOccurDate(
-                        new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
-                        begin.getTime(),
-                        end.getTime(),
-                        currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount()));
-            }
-        };
         return pagination;
     }
 }
