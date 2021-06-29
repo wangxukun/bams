@@ -50,6 +50,9 @@ public class DetailRecord implements Serializable {
     @Transient
     private BigDecimal balance;
 
+    @Transient
+    private int balanceDirection;
+
     public DetailRecord() {
     }
 
@@ -115,6 +118,14 @@ public class DetailRecord implements Serializable {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public int getBalanceDirection() {
+        return balanceDirection;
+    }
+
+    public void setBalanceDirection(int balanceDirection) {
+        this.balanceDirection = balanceDirection;
     }
 
     @Override

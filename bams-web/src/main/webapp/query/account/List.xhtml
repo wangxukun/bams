@@ -128,13 +128,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_Direction}"/>
                             </f:facet>
-                            <h:outputText value="#{item.direction == 0  ? bundle.ListDetailRecord_Debit : bundle.ListDetailRecord_Credit}"/>
+                            <h:outputText value="#{item.balanceDirection == 0  ? bundle.ListDetailRecord_Debit : bundle.ListDetailRecord_Credit}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.Query_ListDetailRecord_Balance}"/>
                             </f:facet>
-                            <h:outputText value="#{item.amount}"/>
+                            <h:outputText value="#{item.balance}"/>
                         </h:column>
 
                     </h:dataTable>

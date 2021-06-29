@@ -14,11 +14,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Stateless
 public class DetailRecordBean extends AbstractFacade<DetailRecord> {
+    private static final String BUNDLE = "bundles.Bundle";
+
     @PersistenceContext(unitName = "bamsPU")
     private EntityManager em;
 
@@ -295,13 +299,38 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
 
     /**
      * 封装账簿数据
-     * @param firstBalance　期初余额
-     * @param detailRecordList　发生额集合
+     *
+     * @param firstBalance     　期初余额
+     * @param detailRecordList 　发生额集合
      * @return 包含期初余额、发生额（包含余额）、本月合计、累计的DetailRecord对象集合
      */
     public List<DetailRecord> setBalanceForDetailRecord(FirstBalance firstBalance, List<DetailRecord> detailRecordList) {
-        // TODO .....
-        return null;
-    }
+        List<DetailRecord> detailRecords = new ArrayList<>();
+        BigDecimal previousBalance = BigDecimal.ZERO;
+        if (firstBalance != null) {
+            DetailRecord first = new DetailRecord();
+            first.setSummary(ResourceBundle.getBundle(BUNDLE).getString("FirstBalance_Summary"));
+            first.setBalance(firstBalance.getBalance());
+            detailRecords.add(first);
+            previousBalance = previousBalance.add(firstBalance.getBalance());
+        }
 
+        for (DetailRecord d : detailRecordList) {
+            if (d.getDirection() == 0) {
+                d.setBalance(previousBalance.add(d.getAmount()));
+            } else {
+                d.setBalance(previousBalance.subtract(d.getAmount()));
+            }
+            previousBalance = d.getBalance();
+            if (d.getBalance().compareTo(BigDecimal.ZERO) == -1) {
+                d.setBalanceDirection(1);
+                d.setBalance(d.getBalance().abs());
+            } else {
+                d.setBalanceDirection(0);
+            }
+        }
+
+        detailRecords.addAll(detailRecordList);
+        return detailRecords;
+    }
 }

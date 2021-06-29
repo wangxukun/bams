@@ -2,6 +2,7 @@ package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.DetailRecordBean;
 import org.xkidea.bams.ejb.SubsidiaryAccountBean;
+import org.xkidea.bams.entity.DetailRecord;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.model.AccountQuery;
 import org.xkidea.bams.model.FirstBalance;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Named(value = "accountQueryController")
 @SessionScoped
@@ -161,14 +163,13 @@ public class AccountQueryController implements Serializable {
                             begin.getTime(),
                             currentQuery.getArea(),
                             currentQuery.getSubsidiaryAccount());
-                    System.out.println("--------------beginningDebitTotail----" + beginningBalance.getDebitTotail());
-                    System.out.println("--------------beginningCreditTotail----" + beginningBalance.getCreditTotail());
-                    System.out.println("--------------beginningBalance----" + beginningBalance.getBalance());
-                    return new ListDataModel(ejbFacade.getByEntryOrOccurDate(
+                    List<DetailRecord> detailRecordList = ejbFacade.getByEntryOrOccurDate(
                             new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
                             begin.getTime(),
                             end.getTime(),
-                            currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount()));
+                            currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                    List<DetailRecord> pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance,detailRecordList);
+                    return new ListDataModel(pageData);
                 }
             };
         }
