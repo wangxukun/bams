@@ -164,15 +164,78 @@ public class AccountQueryController implements Serializable {
                             currentQuery.getArea(),
                             currentQuery.getSubsidiaryAccount());
                     List<DetailRecord> detailRecordList = ejbFacade.getByEntryOrOccurDate(
-                            new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
+                            userController.getAuthenticatedUser(),
                             begin.getTime(),
                             end.getTime(),
                             currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
                     List<DetailRecord> pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance,detailRecordList);
-                    return new ListDataModel(pageData);
+                    System.out.println("-------------count---------------" + getItemsCount());
+                    System.out.println("-------------pageData---------------" + pageData.size());
+                    int lastItem = (getPageFirstItem()+getPageSize()) < (pageData.size()) ? (getPageFirstItem()+getPageSize()) : (pageData.size());
+                    return new ListDataModel(pageData.subList(getPageFirstItem(),lastItem));
                 }
             };
         }
         return pagination;
     }
+
+/*    public AbstractPaginationHelper getPagination2(){
+        {
+            if (pagination == null) {
+                Calendar begin = Calendar.getInstance();
+                Calendar end = Calendar.getInstance();
+                Date beginDate, endDate;
+                try {
+                    beginDate = currentQuery.getBeginDate();
+                    endDate = currentQuery.getEndDate();
+
+                    if (beginDate != null) {
+                        begin.setTime(beginDate);
+                        begin.set(Calendar.HOUR_OF_DAY, 0);
+                        begin.set(Calendar.MINUTE, 0);
+                        begin.set(Calendar.SECOND, 0);
+                    }
+
+                    end.setTime(endDate);
+                    end.set(Calendar.HOUR_OF_DAY, 23);
+                    end.set(Calendar.MINUTE, 59);
+                    end.set(Calendar.SECOND, 59);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
+                    @Override
+                    public int getItemsCount() {
+                        if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
+                            return 0;
+                        }
+                        int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                        return count;
+                    }
+
+                    @Override
+                    public DataModel createPageDataModel() {
+                        if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
+                            pagination = null;
+                            return null;
+                        }
+                        FirstBalance beginningBalance = ejbFacade.getBeginningBalance(
+                                userController.getAuthenticatedUser(),
+                                begin.getTime(),
+                                currentQuery.getArea(),
+                                currentQuery.getSubsidiaryAccount());
+                        List<DetailRecord> detailRecordList = ejbFacade.getByEntryOrOccurDate(
+                                new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
+                                begin.getTime(),
+                                end.getTime(),
+                                currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                        List<DetailRecord> pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance,detailRecordList);
+                        return new ListDataModel(pageData);
+                    }
+                };
+            }
+            return pagination;
+        }
+    }*/
 }

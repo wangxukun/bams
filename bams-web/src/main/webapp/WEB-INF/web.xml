@@ -33,15 +33,18 @@
             <form-error-page>/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-    <!--<security-constraint>
+
+    <security-constraint>
         <web-resource-collection>
             <web-resource-name>management account page</web-resource-name>
             <url-pattern>/account/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
+            <role-name>ADMINISTRATOR</role-name>
             <role-name>TREASURER</role-name>
         </auth-constraint>
     </security-constraint>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>main page</web-resource-name>
@@ -49,13 +52,64 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>ADMINISTRATOR</role-name>
+            <role-name>TREASURER</role-name>
         </auth-constraint>
-    </security-constraint>-->
-<!--    <security-role>-->
-<!--        <role-name>ADMINISTRATOR</role-name>-->
-<!--    </security-role>-->
-<!--    <security-role>-->
-<!--        <role-name>CUSTOMER</role-name>-->
-<!--    </security-role>-->
+    </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>setting page</web-resource-name>
+            <url-pattern>/setting/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMINISTRATOR</role-name>
+            <role-name>TREASURER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>authorization page</web-resource-name>
+            <url-pattern>/authorization/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMINISTRATOR</role-name>
+            <role-name>TREASURER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>bookkeeping page</web-resource-name>
+            <url-pattern>/bookkeeping/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>TREASURER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>query page</web-resource-name>
+            <url-pattern>/query/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>TREASURER</role-name>
+            <role-name>ACCOUNTANT</role-name>
+            <role-name>CUSTOMER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+        <role-name>ADMINISTRATOR</role-name>
+    </security-role>
+    <security-role>
+        <role-name>TREASURER</role-name>
+    </security-role>
+    <security-role>
+        <role-name>ACCOUNTANT</role-name>
+    </security-role>
+    <security-role>
+        <role-name>CUSTOMER</role-name>
+    </security-role>
 </web-app>

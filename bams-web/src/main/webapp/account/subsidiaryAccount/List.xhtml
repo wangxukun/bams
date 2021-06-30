@@ -29,11 +29,27 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListSubsidiaryAccountEmpty}" rendered="#{subsidiaryAccountController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{subsidiaryAccountController.items.rowCount > 0}">
+
                     <ul class="commandButtons">
-                        <li><h:commandLink action="#{subsidiaryAccountController.previous}" value="#{bundle.Previous} #{subsidiaryAccountController.pagination.pageSize}" rendered="#{subsidiaryAccountController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{subsidiaryAccountController.next}" value="#{bundle.Next} #{subsidiaryAccountController.pagination.pageSize}" rendered="#{subsidiaryAccountController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{subsidiaryAccountController.prepareCreate}" value="#{bundle.ListSubsidiaryAccountCreateLink}"/></li>
-                    </ul>
+                        <li><h:outputText value="共#{subsidiaryAccountController.pagination.pageCount}页" rendered="#{subsidiaryAccountController.pagination.pageSize > 0}"/> </li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.first}"
+                                           value="#{bundle.first}"
+                                           rendered="#{subsidiaryAccountController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.previous}"
+                                           value="#{bundle.Previous}"
+                                           disabled="#{!subsidiaryAccountController.pagination.hasPreviousPage}"/></li>
+                        <li><h:outputText value="第#{subsidiaryAccountController.pagination.currentPage}页" rendered="#{subsidiaryAccountController.pagination.pageSize > 0}"/> </li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.next}"
+                                           value="#{bundle.Next}"
+                                           disabled="#{!subsidiaryAccountController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.last}"
+                                           value="#{bundle.last}"
+                                           rendered="#{subsidiaryAccountController.pagination.hasNextPage}"/></li>
+                        <li><h:outputText value="共有#{subsidiaryAccountController.pagination.itemsCount}条记录" /></li>
+                        <li><h:commandLink action="#{subsidiaryAccountController.prepareCreate}"
+                                           value="#{bundle.ListSubsidiaryAccountCreateLink}"/></li>
+                </ul>
+
                     <h:dataTable value="#{subsidiaryAccountController.items}"
                                  var="item"
                                  border="1"

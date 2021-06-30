@@ -92,6 +92,7 @@ public class SubsidiaryAccountController implements Serializable {
             current.setDateCreated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountCreated"));
+            recreateModel();
             return prepareList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,6 +182,12 @@ public class SubsidiaryAccountController implements Serializable {
         items = null;
     }
 
+    public PageNavigation first() {
+        pagination.firstPage();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
     public PageNavigation previous() {
         getPagination().previousPage();
         recreateModel();
@@ -191,6 +198,12 @@ public class SubsidiaryAccountController implements Serializable {
         pagination.nextPage();
         recreateModel();
         return PageNavigation.LIST;
+    }
+
+    public PageNavigation last() {
+        pagination.lastPage();
+        recreateModel();
+        return  PageNavigation.LIST;
     }
 
     @FacesConverter(forClass = SubsidiaryAccount.class)
