@@ -2,10 +2,7 @@ package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.GeneralAccountBean;
 import org.xkidea.bams.ejb.TreasurerBean;
-import org.xkidea.bams.entity.Customer;
-import org.xkidea.bams.entity.GeneralAccount;
-import org.xkidea.bams.entity.Person;
-import org.xkidea.bams.entity.Treasurer;
+import org.xkidea.bams.entity.*;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.MD5Util;
@@ -92,6 +89,12 @@ public class TreasurerController implements Serializable {
         current = new Treasurer();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation parentPrepareCreate() {
+        current = new Treasurer();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_TREASURER;
     }
 
     public PageNavigation prepareList() {

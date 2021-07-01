@@ -22,6 +22,7 @@
             <h:outputText value="#{bundle.ListGroupsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h2>#{bundle.Menu_Setting} - #{bundle.ListGroupsTitle}</h2>
             <h:form styleClass="jsfcrud_list_form">
                 <h:outputText escape="false" value="#{bundle.ListGroupsEmpty}" rendered="#{groupsController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{groupsController.items.rowCount > 0}">

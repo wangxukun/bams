@@ -22,6 +22,7 @@
             <h:outputText value="#{bundle.ListTreasurerTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h2>#{bundle.UserManagement} - #{bundle.ListTreasurerTitle}</h2>
             <h:form styleClass="jsfcrud_list_form">
                 <h:outputText escape="false" value="#{bundle.ListCustomerEmpty}" rendered="#{treasurerController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{treasurerController.items.rowCount > 0}">

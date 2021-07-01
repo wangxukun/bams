@@ -88,6 +88,12 @@ public class GeneralAccountController implements Serializable {
         return PageNavigation.CREATE;
     }
 
+    public PageNavigation parentPrepareCreate() {
+        current = new GeneralAccount();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_GENERALACCOUNT;
+    }
+
     public PageNavigation prepareEdit() {
         current = (GeneralAccount) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();

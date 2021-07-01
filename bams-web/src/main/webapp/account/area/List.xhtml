@@ -22,17 +22,32 @@
             <h:outputText value="#{bundle.ListAreaTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h2>#{bundle.Menu_Account_Manager} - #{bundle.ListAreaTitle}</h2>
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="listAdministratorMessagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListAreaEmpty}" rendered="#{areaController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{areaController.items.rowCount > 0}">
+
                     <ul class="commandButtons">
-                        <li><h:commandLink action="#{areaController.previous}" value="#{bundle.Previous} #{areaController.pagination.pageSize}" rendered="#{areaController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{areaController.next}" value="#{bundle.Next} #{areaController.pagination.pageSize}" rendered="#{areaController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{areaController.prepareCreate}" value="#{bundle.ListAreaCreateLink}"/></li>
+                        <li><h:outputText value="共#{areaController.pagination.pageCount}页" rendered="#{areaController.pagination.pageSize > 0}"/> </li>
+                        <li><h:commandLink action="#{areaController.first}"
+                                           value="#{bundle.first}"
+                                           rendered="#{areaController.pagination.hasPreviousPage}"/></li>
+                        <li><h:commandLink action="#{areaController.previous}"
+                                           value="#{bundle.Previous}"
+                                           disabled="#{!areaController.pagination.hasPreviousPage}"/></li>
+                        <li><h:outputText value="第#{areaController.pagination.currentPage}页" rendered="#{areaController.pagination.pageSize > 0}"/> </li>
+                        <li><h:commandLink action="#{areaController.next}"
+                                           value="#{bundle.Next}"
+                                           disabled="#{!areaController.pagination.hasNextPage}"/></li>
+                        <li><h:commandLink action="#{areaController.last}"
+                                           value="#{bundle.last}"
+                                           rendered="#{areaController.pagination.hasNextPage}"/></li>
+                        <li><h:outputText value="共有#{areaController.pagination.itemsCount}条记录" /></li>
                     </ul>
+
                     <h:dataTable value="#{areaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">

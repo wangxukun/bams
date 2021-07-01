@@ -39,6 +39,13 @@ public class AccountQueryController implements Serializable {
     @Inject
     UserController userController;
 
+    // 保存每次查询的期初余额对象
+    FirstBalance beginningBalance;
+    // 保存每次查询的发生额
+    List<DetailRecord> detailRecordList;
+    // 保存每次查询的所有记录（期初余额、发生额、本月合计、累计）
+    List<DetailRecord> pageData;
+
 
     public AccountQueryController() {
     }
@@ -84,6 +91,9 @@ public class AccountQueryController implements Serializable {
 
     public void query() {
         pagination = null;
+        beginningBalance = null;
+        detailRecordList = null;
+        pageData = null;
         items = getPagination().createPageDataModel();
     }
 
@@ -91,6 +101,7 @@ public class AccountQueryController implements Serializable {
         recreateModel();
         recreateCurrentQuery();
         pagination = null;
+        pageData = null;
         return PageNavigation.QUERY_ACCOUNT_LIST;
     }
 
@@ -103,7 +114,7 @@ public class AccountQueryController implements Serializable {
     public PageNavigation last() {
         pagination.lastPage();
         recreateModel();
-        return  PageNavigation.LIST;
+        return PageNavigation.LIST;
     }
 
     public PageNavigation previous() {
@@ -158,21 +169,21 @@ public class AccountQueryController implements Serializable {
                         pagination = null;
                         return null;
                     }
-                    FirstBalance beginningBalance = ejbFacade.getBeginningBalance(
-                            userController.getAuthenticatedUser(),
-                            begin.getTime(),
-                            currentQuery.getArea(),
-                            currentQuery.getSubsidiaryAccount());
-                    List<DetailRecord> detailRecordList = ejbFacade.getByEntryOrOccurDate(
-                            userController.getAuthenticatedUser(),
-                            begin.getTime(),
-                            end.getTime(),
-                            currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
-                    List<DetailRecord> pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance,detailRecordList);
-                    System.out.println("-------------count---------------" + getItemsCount());
-                    System.out.println("-------------pageData---------------" + pageData.size());
-                    int lastItem = (getPageFirstItem()+getPageSize()) < (pageData.size()) ? (getPageFirstItem()+getPageSize()) : (pageData.size());
-                    return new ListDataModel(pageData.subList(getPageFirstItem(),lastItem));
+                    if (pageData == null) {
+                        beginningBalance = ejbFacade.getBeginningBalance(
+                                userController.getAuthenticatedUser(),
+                                begin.getTime(),
+                                currentQuery.getArea(),
+                                currentQuery.getSubsidiaryAccount());
+                        detailRecordList = ejbFacade.getByEntryOrOccurDate(
+                                userController.getAuthenticatedUser(),
+                                begin.getTime(),
+                                end.getTime(),
+                                currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                        pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance, detailRecordList);
+                    }
+                    int lastItem = (getPageFirstItem() + getPageSize()) < (pageData.size()) ? (getPageFirstItem() + getPageSize()) : (pageData.size());
+                    return new ListDataModel(pageData.subList(getPageFirstItem(), lastItem));
                 }
             };
         }

@@ -443,14 +443,14 @@ header h3{
 }
 
 .commandButtons {
-    margin-left: 0px;
+    margin: 0px;
     padding: 3px 15px;
 }
 
 .commandButtons li {
     list-style: none;
     display: inline;
-    /*border-left: 1px solid #dddddd;*/
+    border-left: 1px solid #dddddd;
 }
 
 table {
@@ -566,10 +566,10 @@ option {
 }
 
 .bookkeepingPanelContent {
-    background-color: #cee573;
+    /*background-color: #cee573;*/
 }
 .bookkeepingPanelContent .jsfcrud_list_form{
-    background-color: antiquewhite;
+    /*background-color: antiquewhite;*/
 }
 .jsfcrud_odd_row{
     background-color: #ffffff;

@@ -22,7 +22,7 @@
             <h:outputText value="#{bundle.CustomerArea_Authorization}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h2>#{bundle.CustomerArea_Authorization}</h2>
+            <h2>#{bundle.Menu_Authorization} - #{bundle.CustomerArea_Authorization}</h2>
             <h:form styleClass="jsfcrud_list_form">
                 <h:outputText escape="false" value="#{bundle.ListCustomerAuthorizationEmpty}" rendered="#{customerController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{customerController.items.rowCount > 0}">

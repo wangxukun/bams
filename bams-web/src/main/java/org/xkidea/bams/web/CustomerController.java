@@ -1,6 +1,7 @@
 package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.CustomerBean;
+import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Customer;
 import org.xkidea.bams.entity.Person;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
@@ -140,6 +141,12 @@ public class CustomerController implements Serializable {
         current = new Customer();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation parentPrepareCreate() {
+        current = new Customer();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_CUSTOMER;
     }
 
     public PageNavigation prepareEdit() {

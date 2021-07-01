@@ -30,21 +30,21 @@
                 <h:panelGroup rendered="#{userController.treasurer}">
                     <li><h2>${bundle.ManageCustomers}</h2></li>
                     <li><h:commandLink action="customer/List" value="${bundle.ListCustomerTitle}"/></li>
-                    <li><h:commandLink action="customer/Create" value="${bundle.CreateCustomerTitle}"/></li>
+                    <li><h:commandLink action="#{customerController.parentPrepareCreate}" value="${bundle.CreateCustomerTitle}"/></li>
 
                     <li><h2>${bundle.ManageAccountants}</h2></li>
                     <li><h:commandLink action="accountant/List" value="${bundle.ListAccountantTitle}"/></li>
-                    <li><h:commandLink action="accountant/Create" value="${bundle.CreateAccountantTitle}"/></li>
+                    <li><h:commandLink action="#{accountantController.parentPrepareCreate}" value="${bundle.CreateAccountantTitle}"/></li>
                 </h:panelGroup>
 
                 <h:panelGroup rendered="#{userController.admin}">
                     <li><h2>${bundle.ManageTreasurers}</h2></li>
                     <li><h:commandLink action="treasurer/List" value="${bundle.ListTreasurerTitle}"/></li>
-                    <li><h:commandLink action="treasurer/Create" value="${bundle.CreateTreasurerTitle}"/></li>
+                    <li><h:commandLink action="#{treasurerController.parentPrepareCreate}" value="${bundle.CreateTreasurerTitle}"/></li>
 
                     <li><h2>${bundle.ManageAdministrators}</h2></li>
                     <li><h:commandLink action="administrator/List" value="${bundle.ListAdministratorTitle}"/></li>
-                    <li><h:commandLink action="administrator/Create" value="${bundle.CreateAdministratorTitle}"/></li>
+                    <li><h:commandLink action="#{administratorController.parentPrepareCreate}" value="${bundle.CreateAdministratorTitle}"/></li>
                 </h:panelGroup>
             </ul>
         </h:form>

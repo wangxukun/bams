@@ -1,6 +1,7 @@
 package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.AdministratorBean;
+import org.xkidea.bams.entity.Accountant;
 import org.xkidea.bams.entity.Administrator;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
@@ -86,6 +87,12 @@ public class AdministratorController implements Serializable {
         current = new Administrator();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation parentPrepareCreate() {
+        current = new Administrator();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_ADMINISTRATOR;
     }
 
     public PageNavigation prepareEdit() {

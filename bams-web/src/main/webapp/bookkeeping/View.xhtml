@@ -26,7 +26,9 @@
                     <h:outputText id="detaiRecord_id" value="#{detailRecordController.selectedDetailRecord.id}" />
 
                     <h:outputLabel value="#{bundle.detailRecord_occurdate}" />
-                    <h:outputText value="#{detailRecordController.strOccurDate}" />
+                    <h:outputText value="#{detailRecordController.selectedDetailRecord.occurDate}">
+                        <f:convertDateTime pattern="yyyy-MM-dd" locale="zh" timeZone="Asia/Shanghai"/>
+                    </h:outputText>
 
                     <h:outputLabel value="#{bundle.detailRecord_summary}" for="summary"/>
                     <h:outputText id="summary" value="#{detailRecordController.selectedDetailRecord.summary}" title="#{bundle.detailRecord_summary}" required="true" requiredMessage="#{bundle.detailRecord_summary_requiredMessage}" />

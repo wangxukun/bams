@@ -166,6 +166,12 @@ public class SubsidiaryAccountController implements Serializable {
         return PageNavigation.CREATE;
     }
 
+    public PageNavigation parentPrepareCreate() {
+        current = new SubsidiaryAccount();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_SUBSIDIARYACCOUNT;
+    }
+
     public PageNavigation prepareView() {
         current = (SubsidiaryAccount) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -215,7 +221,6 @@ public class SubsidiaryAccountController implements Serializable {
                 return null;
             }
             SubsidiaryAccountController controller = (SubsidiaryAccountController) context.getApplication().getELResolver().getValue(context.getELContext(),null,"subsidiaryAccountController");
-            System.out.println("----------------------------(4444)-------" + controller.ejbFacade.find(getKey(value)));
             return controller.ejbFacade.find(getKey(value));
         }
 

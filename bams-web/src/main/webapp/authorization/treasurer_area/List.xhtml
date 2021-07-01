@@ -22,7 +22,7 @@
             <h:outputText value="#{bundle.TreasurerArea_Authorization}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h2>#{bundle.TreasurerArea_Authorization}</h2> <br/>
+            <h2>#{bundle.Menu_Authorization} - #{bundle.TreasurerArea_Authorization}</h2> <br/>
             <h:form styleClass="jsfcrud_list_form">
                 <h:outputText escape="false" value="#{bundle.ListTreasurerAuthorizationEmpty}" rendered="#{treasurerController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{treasurerController.items.rowCount > 0}">

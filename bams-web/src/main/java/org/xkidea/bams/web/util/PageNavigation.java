@@ -14,6 +14,13 @@ public enum PageNavigation {
     TREASURER_AREAS_ASSIGN("/authorization/treasurer_area/assign/List"),
     MENU_BOOKKEEPING_LIST("/bookkeeping/List?faces-redirect=true"),
     QUERY_ACCOUNT_LIST("/query/account/List"),
+    CREATE_GENERALACCOUNT("/account/generalAccount/Create"),
+    CREATE_SUBSIDIARYACCOUNT("/account/subsidiaryAccount/Create"),
+    CREATE_AREA("/account/area/Create"),
+    CREATE_ACCOUNTANT("/admin/accountant/Create"),
+    CREATE_ADMINISTRATOR("/admin/administrator/Create"),
+    CREATE_CUSTOMER("/admin/customer/Create"),
+    CREATE_TREASURER("/admin/treasurer/Create"),
     SETTING_HOME("/setting/index");
     private String text;
 

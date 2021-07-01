@@ -340,7 +340,6 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
                     .setParameter("begin", begin)
                     .setParameter("user", authenticatedUser)
                     .getResultList();
-            System.out.println("--------------object[if one]-----" + results.size());
         } else {
 
             // 如果未指明明细账户，则返回当前loginUser下选定区域下的内容
@@ -372,7 +371,6 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
             }
 
         }
-        System.out.println("--------------object[]-----" + results.size());
         if (results.size() == 0) {
             return null;
         }
@@ -400,7 +398,59 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
             previousBalance = previousBalance.add(firstBalance.getBalance());
         }
 
+        // TODO ------------begin--------------------------------------------------------------
+        /*int prevYear = -1;
+        int prevMonth = -1;
+        BigDecimal debitTotal = BigDecimal.ZERO;
+        BigDecimal creditTotal = BigDecimal.ZERO;*/
+        // TODO ---------------end-----------------------------------------------------------
         for (DetailRecord d : detailRecordList) {
+
+            // TODO ------------begin--------------------------------------------------------------
+          /*  System.out.println("--------------OccurDate-------" + d.getOccurDate());
+            Calendar cal = new Calendar.Builder().setInstant(d.getOccurDate()).build();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+
+            if (d.getDirection() == 0){
+                debitTotal.add(d.getAmount());
+            }else{
+                creditTotal.add(d.getAmount());
+            }
+
+            if (prevYear == -1) {
+                prevYear = year;
+                prevMonth = month;
+            }else{
+                if (prevYear == year && prevMonth == month){
+                    if (d.getDirection() == 0){
+                        debitTotal.add(d.getAmount());
+                    }else{
+                        creditTotal.add(d.getAmount());
+                    }
+                    prevYear = year;
+                    prevMonth = month;
+                }else{
+                    // 设置本月合计、累计
+                    DetailRecord  totalThisMonth = new DetailRecord();
+                    totalThisMonth.setSummary("本月合计");
+                    totalThisMonth.setAmount(debitTotal);
+
+                    DetailRecord  cumulative = new DetailRecord();
+                    totalThisMonth.setSummary("累计");
+                    if (firstBalance != null) {
+                        cumulative.setAmount(debitTotal.add(firstBalance.getDebitTotail()));
+                    }else {
+                        cumulative.setAmount(debitTotal);
+                    }
+                    detailRecords.add(totalThisMonth);
+                    detailRecords.add(cumulative);
+                    prevYear = year;
+                    prevMonth = month;
+                }
+            }*/
+            // TODO -------------end-------------------------------------------------------------
+
             if (d.getDirection() == 0) {
                 d.setBalance(previousBalance.add(d.getAmount()));
             } else {

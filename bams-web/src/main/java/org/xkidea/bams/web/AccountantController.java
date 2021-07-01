@@ -2,6 +2,7 @@ package org.xkidea.bams.web;
 
 import org.xkidea.bams.ejb.AccountantBean;
 import org.xkidea.bams.entity.Accountant;
+import org.xkidea.bams.entity.GeneralAccount;
 import org.xkidea.bams.web.util.AbstractPaginationHelper;
 import org.xkidea.bams.web.util.JsfUtil;
 import org.xkidea.bams.web.util.MD5Util;
@@ -95,6 +96,12 @@ public class AccountantController implements Serializable {
         current = new Accountant();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation parentPrepareCreate() {
+        current = new Accountant();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_ACCOUNTANT;
     }
 
     public PageNavigation prepareList() {

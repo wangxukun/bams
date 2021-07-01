@@ -134,6 +134,12 @@ public class AreaController implements Serializable {
         return itemsAll;
     }
 
+    public PageNavigation first() {
+        pagination.firstPage();
+        recreateModel();
+        return PageNavigation.LIST;
+    }
+
     public PageNavigation next() {
         getPagination().nextPage();
         recreateModel();
@@ -146,10 +152,22 @@ public class AreaController implements Serializable {
         return PageNavigation.LIST;
     }
 
+    public PageNavigation last() {
+        pagination.lastPage();
+        recreateModel();
+        return  PageNavigation.LIST;
+    }
+
     public PageNavigation prepareCreate() {
         current = new Area();
         selectedItemIndex = -1;
         return PageNavigation.CREATE;
+    }
+
+    public PageNavigation parentPrepareCreate() {
+        current = new Area();
+        selectedItemIndex = -1;
+        return PageNavigation.CREATE_AREA;
     }
 
     public PageNavigation prepareView() {
