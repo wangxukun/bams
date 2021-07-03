@@ -53,6 +53,12 @@ public class DetailRecord implements Serializable {
     @Transient
     private int balanceDirection;
 
+    @Transient
+    private BigDecimal debitAmount;
+
+    @Transient
+    private BigDecimal creditAmount;
+
     public DetailRecord() {
     }
 
@@ -126,6 +132,22 @@ public class DetailRecord implements Serializable {
 
     public void setBalanceDirection(int balanceDirection) {
         this.balanceDirection = balanceDirection;
+    }
+
+    public BigDecimal getDebitAmount() {
+        return debitAmount;
+    }
+
+    public void setDebitAmount(BigDecimal debitAmount) {
+        this.debitAmount = debitAmount;
+    }
+
+    public BigDecimal getCreditAmount() {
+        return creditAmount;
+    }
+
+    public void setCreditAmount(BigDecimal creditAmount) {
+        this.creditAmount = creditAmount;
     }
 
     @Override

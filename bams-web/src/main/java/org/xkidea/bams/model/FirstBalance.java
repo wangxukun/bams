@@ -3,34 +3,34 @@ package org.xkidea.bams.model;
 import java.math.BigDecimal;
 
 public class FirstBalance {
-    private BigDecimal debitTotail;
-    private BigDecimal creditTotail;
+    private BigDecimal debitTotal;
+    private BigDecimal creditTotal;
 
     public FirstBalance() {
     }
 
-    public FirstBalance(BigDecimal debitTotail, BigDecimal creditTotail) {
-        this.debitTotail = debitTotail;
-        this.creditTotail = creditTotail;
+    public FirstBalance(BigDecimal debitTotal, BigDecimal creditTotal) {
+        this.debitTotal = debitTotal;
+        this.creditTotal = creditTotal;
     }
 
-    public BigDecimal getDebitTotail() {
-        return debitTotail;
+    public BigDecimal getDebitTotal() {
+        return debitTotal;
     }
 
-    public void setDebitTotail(BigDecimal debitTotail) {
-        this.debitTotail = debitTotail;
+    public void setDebitTotal(BigDecimal debitTotal) {
+        this.debitTotal = debitTotal;
     }
 
-    public BigDecimal getCreditTotail() {
-        return creditTotail;
+    public BigDecimal getCreditTotal() {
+        return creditTotal;
     }
 
-    public void setCreditTotail(BigDecimal creditTotail) {
-        this.creditTotail = creditTotail;
+    public void setCreditTotal(BigDecimal creditTotal) {
+        this.creditTotal = creditTotal;
     }
 
     public BigDecimal getBalance() {
-        return debitTotail.subtract(creditTotail);
+        return debitTotal.subtract(creditTotal);
     }
 }

@@ -85,7 +85,7 @@
                                 <h:outputText value="#{bundle.Query_ListDetailRecord_OccurDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.occurDate}">
-                                <f:convertDateTime type="date" dateStyle="medium" locale="zh" timeZone="Asia/Shanghai"/>
+                                <f:convertDateTime pattern="yyyy年MM月dd日" locale="zh" timeZone="Asia/Shanghai"/>
                             </h:outputText>
                         </h:column>
 
@@ -93,7 +93,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_id}"/>
                             </f:facet>
-                            <h:outputText value="#{accountQueryController.items.rowIndex + accountQueryController.pagination.pageFirstItem + 1}"/>
+                            <h:outputText value="#{item.id}"/>
                         </h:column>
 
                         <h:column>
@@ -114,21 +114,21 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_Debit}"/>
                             </f:facet>
-                            <h:outputText value="#{item.amount}" rendered="#{item.direction == 0}"/>
+                            <h:outputText value="#{item.debitAmount}" rendered="#{item.debitAmount.intValue() != 0}"/>
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_Credit}"/>
                             </f:facet>
-                            <h:outputText value="#{item.amount}" rendered="#{item.direction == 1}"/>
+                            <h:outputText value="#{item.creditAmount}" rendered="#{item.creditAmount.intValue() != 0}"/>
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailRecord_Direction}"/>
                             </f:facet>
-                            <h:outputText value="#{item.balanceDirection == 0  ? bundle.ListDetailRecord_Debit : bundle.ListDetailRecord_Credit}"/>
+                            <h:outputText value="#{item.balanceDirection == 0  ? bundle.ListDetailRecord_Debit : (item.balanceDirection == 1 ? bundle.ListDetailRecord_Credit : '')}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

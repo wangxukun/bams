@@ -375,8 +375,8 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
             return null;
         }
         FirstBalance firstBalance = new FirstBalance();
-        firstBalance.setDebitTotail((BigDecimal) results.get(0));
-        firstBalance.setCreditTotail((BigDecimal) results.get(1));
+        firstBalance.setDebitTotal((BigDecimal) results.get(0));
+        firstBalance.setCreditTotal((BigDecimal) results.get(1));
         return firstBalance;
     }
 
@@ -386,86 +386,153 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
      * @param firstBalance     　期初余额
      * @param detailRecordList 　发生额集合
      * @return 包含期初余额、发生额（包含余额）、本月合计、累计的DetailRecord对象集合
+     * 累计：指查询期间的借方合计及贷方合计（期末余额　＝　期初余额　＋　累计借方　－　累计贷方）。
      */
     public List<DetailRecord> setBalanceForDetailRecord(FirstBalance firstBalance, List<DetailRecord> detailRecordList) {
         List<DetailRecord> detailRecords = new ArrayList<>();
+        // 保存上一条记录的年、月
+        int prevYear = -1;
+        int prevMonth = -1;
+        // 保存当月合计数
+        BigDecimal debitTotal = BigDecimal.ZERO;
+        BigDecimal creditTotal = BigDecimal.ZERO;
+        // 保存上一个月的累计数
+        BigDecimal prevDebitTotal = BigDecimal.ZERO;
+        BigDecimal prevCreditTotal = BigDecimal.ZERO;
+        // 保存上一条记录的余额，初始为零
         BigDecimal previousBalance = BigDecimal.ZERO;
+        // 保存记录的顺序号
+        int index = 1;
+
+        // 如果有期初余额，设置为第一条记录。
         if (firstBalance != null) {
             DetailRecord first = new DetailRecord();
             first.setSummary(ResourceBundle.getBundle(BUNDLE).getString("FirstBalance_Summary"));
             first.setBalance(firstBalance.getBalance());
+            // 期初余额设置为第一条记录
             detailRecords.add(first);
+            // 期初余额保存在变量中，用于下一条记录计算余额
             previousBalance = previousBalance.add(firstBalance.getBalance());
         }
 
-        // TODO ------------begin--------------------------------------------------------------
-        /*int prevYear = -1;
-        int prevMonth = -1;
-        BigDecimal debitTotal = BigDecimal.ZERO;
-        BigDecimal creditTotal = BigDecimal.ZERO;*/
-        // TODO ---------------end-----------------------------------------------------------
+        // 遍历传入的每一条记录
         for (DetailRecord d : detailRecordList) {
-
-            // TODO ------------begin--------------------------------------------------------------
-          /*  System.out.println("--------------OccurDate-------" + d.getOccurDate());
+            //　设置日历为当前记录的业务发生时间，并取得年度及月份。
             Calendar cal = new Calendar.Builder().setInstant(d.getOccurDate()).build();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
 
-            if (d.getDirection() == 0){
-                debitTotal.add(d.getAmount());
-            }else{
-                creditTotal.add(d.getAmount());
-            }
-
-            if (prevYear == -1) {
+            // 比较当前记录年度及月份与上一条记录是否相等，如果相等
+            if (prevYear == year && prevMonth == month){
+                // 当前记录是否是借方发生额
+                if (d.getDirection() == 0){
+                    // 设置：当前余额　＝　前一条记录的余额　＋　当前记录的发生额
+                    d.setBalance(previousBalance.add(d.getAmount()));
+                    // 设置：当前借方发生额
+                    d.setDebitAmount(d.getAmount());
+                    // 设置：本月合计　＝　本月合计　＋　当前发生额
+                    debitTotal = debitTotal.add(d.getAmount());
+                }else{
+                    // 设置：当前余额　＝　前一条记录的余额　－　当前记录的发生额
+                    d.setBalance(previousBalance.subtract(d.getAmount()));
+                    // 设置：当前贷方发生额
+                    d.setCreditAmount(d.getAmount());
+                    // 设置：本月合计　＝　本月合计　＋　当前发生额
+                    creditTotal = creditTotal.add(d.getAmount());
+                }
+                // 当前记录的年度及月份赋值到中间变量中，用于同下一条记录比较
                 prevYear = year;
                 prevMonth = month;
+
+            //  如果当前记录年度或月份与上一条记录不相等
             }else{
-                if (prevYear == year && prevMonth == month){
-                    if (d.getDirection() == 0){
-                        debitTotal.add(d.getAmount());
-                    }else{
-                        creditTotal.add(d.getAmount());
-                    }
-                    prevYear = year;
-                    prevMonth = month;
-                }else{
-                    // 设置本月合计、累计
-                    DetailRecord  totalThisMonth = new DetailRecord();
-                    totalThisMonth.setSummary("本月合计");
-                    totalThisMonth.setAmount(debitTotal);
-
-                    DetailRecord  cumulative = new DetailRecord();
-                    totalThisMonth.setSummary("累计");
-                    if (firstBalance != null) {
-                        cumulative.setAmount(debitTotal.add(firstBalance.getDebitTotail()));
-                    }else {
-                        cumulative.setAmount(debitTotal);
-                    }
+                // 查询的记录中，第一个月前不设置本月合计及累计
+                if((prevYear != -1) && (prevMonth != -1)) {
+                    // 插入并设置本月合计记录
+                    DetailRecord totalThisMonth = new DetailRecord();
+                    totalThisMonth.setSummary(ResourceBundle.getBundle(BUNDLE).getString("TotalThisMonth"));
+                    totalThisMonth.setDebitAmount(debitTotal);
+                    totalThisMonth.setCreditAmount(creditTotal);
+                    // 清除余额方向
+                    totalThisMonth.setBalanceDirection(-1);
                     detailRecords.add(totalThisMonth);
-                    detailRecords.add(cumulative);
-                    prevYear = year;
-                    prevMonth = month;
-                }
-            }*/
-            // TODO -------------end-------------------------------------------------------------
 
-            if (d.getDirection() == 0) {
-                d.setBalance(previousBalance.add(d.getAmount()));
-            } else {
-                d.setBalance(previousBalance.subtract(d.getAmount()));
+                    // 插入并设置本月累计记录
+                    DetailRecord cumulative = new DetailRecord();
+                    cumulative.setSummary(ResourceBundle.getBundle(BUNDLE).getString("Cumulative"));
+                    cumulative.setDebitAmount(prevDebitTotal.add(debitTotal));
+                    cumulative.setCreditAmount(prevCreditTotal.add(creditTotal));
+                    // 清除余额方向
+                    cumulative.setBalanceDirection(-1);
+                    detailRecords.add(cumulative);
+
+                    // 当前月份的借方累计、贷方累计保存在变量中，用于下一月份累计的计算
+                    prevDebitTotal = cumulative.getDebitAmount();
+                    prevCreditTotal = cumulative.getCreditAmount();
+
+                    // 重置本月借方、贷方合计为零
+                    debitTotal = BigDecimal.ZERO;
+                    creditTotal = BigDecimal.ZERO;
+
+                    // 重置下一条记录的顺序号
+                    index = 1;
+                }
+
+                // 当前记录是否是借方发生额
+                if (d.getDirection() == 0){
+                    // 设置：当前余额　＝　前一条记录的余额　＋　当前记录的发生额
+                    d.setBalance(previousBalance.add(d.getAmount()));
+                    // 设置：当前借方发生额
+                    d.setDebitAmount(d.getAmount());
+                    // 设置：本月合计　＝　本月合计　＋　当前发生额
+                    debitTotal = d.getAmount();
+                }else{
+                    // 设置：当前余额　＝　前一条记录的余额　－　当前记录的发生额
+                    d.setBalance(previousBalance.subtract(d.getAmount()));
+                    // 设置：当前贷方发生额
+                    d.setCreditAmount(d.getAmount());
+                    // 设置：本月合计　＝　本月合计　＋　当前发生额
+                    creditTotal = d.getAmount();
+                }
+                // 当前记录的年度及月份赋值到中间变量中，用于同下一条记录比较
+                prevYear = year;
+                prevMonth = month;
             }
+            //　余额保存在变量中用于下一条记录余额计算
             previousBalance = d.getBalance();
+            // 如果余额小于零，则设置余额方向为贷方，金额为正数。
             if (d.getBalance().compareTo(BigDecimal.ZERO) == -1) {
                 d.setBalanceDirection(1);
                 d.setBalance(d.getBalance().abs());
             } else {
                 d.setBalanceDirection(0);
             }
+            // 设置当前记录的顺序号
+            d.setId(index);
+            // 为下一条记录的顺序号赋值做准备
+            index++;
+            // 当前记录加入到账簿数据记录中
+            detailRecords.add(d);
         }
 
-        detailRecords.addAll(detailRecordList);
+        // 插入并设置查询记录中最后一个月的本月合计记录
+        DetailRecord  totalThisMonth = new DetailRecord();
+        totalThisMonth.setSummary(ResourceBundle.getBundle(BUNDLE).getString("TotalThisMonth"));
+        totalThisMonth.setDebitAmount(debitTotal);
+        totalThisMonth.setCreditAmount(creditTotal);
+        // 清除余额方向
+        totalThisMonth.setBalanceDirection(-1);
+        detailRecords.add(totalThisMonth);
+
+        // 插入并设置查询记录中最后一个月的累计记录
+        DetailRecord  cumulative = new DetailRecord();
+        cumulative.setSummary(ResourceBundle.getBundle(BUNDLE).getString("Cumulative"));
+        cumulative.setDebitAmount(prevDebitTotal.add(debitTotal));
+        cumulative.setCreditAmount(prevCreditTotal.add(creditTotal));
+        // 清除余额方向
+        cumulative.setBalanceDirection(-1);
+        detailRecords.add(cumulative);
+
         return detailRecords;
     }
 }
