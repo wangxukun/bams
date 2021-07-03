@@ -17,7 +17,6 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -183,7 +182,10 @@ public class AccountQueryController implements Serializable {
                         pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance, detailRecordList);
                     }
                     int lastItem = (getPageFirstItem() + getPageSize()) < (pageData.size()) ? (getPageFirstItem() + getPageSize()) : (pageData.size());
-                    return new ListDataModel(pageData.subList(getPageFirstItem(), lastItem));
+                    List<DetailRecord> temp = pageData.subList(getPageFirstItem(), lastItem);
+                    // 设置<h:dataTable rowClasses属性的值
+                    currentQuery.setBookStyle(generateBookTableStyles(temp));
+                    return new ListDataModel(temp);
                 }
             };
         }
@@ -249,4 +251,22 @@ public class AccountQueryController implements Serializable {
             return pagination;
         }
     }*/
+
+    /**
+     * 设置<h:dataTable rowClasses属性的值
+     * @param detailRecordList
+     * @return
+     */
+    private String generateBookTableStyles(List<DetailRecord> detailRecordList){
+        StringBuilder builder = new StringBuilder();
+        detailRecordList.stream().forEach(detailRecord -> {
+            if (detailRecord.getBalanceDirection() == -1) {
+                // jsfcrud_custom_row是css文件中的style
+                builder.append("jsfcrud_custom_row,");
+            } else {
+                builder.append(",");
+            }
+        });
+        return builder.toString();
+    }
 }

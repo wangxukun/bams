@@ -14,6 +14,7 @@ public abstract class AccountQuery implements Serializable {
     Date endDate;
     Area area;
     SubsidiaryAccount subsidiaryAccount;
+    String bookStyle;
 
     protected abstract Person getCurrentUser();
 
@@ -58,6 +59,14 @@ public abstract class AccountQuery implements Serializable {
 
     public void setSubsidiaryAccount(SubsidiaryAccount subsidiaryAccount) {
         this.subsidiaryAccount = subsidiaryAccount;
+    }
+
+    public String getBookStyle() {
+        return bookStyle;
+    }
+
+    public void setBookStyle(String bookStyle) {
+        this.bookStyle = bookStyle;
     }
 
     public String getDescription() {

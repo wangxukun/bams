@@ -577,3 +577,6 @@ option {
 .jsfcrud_even_row{
     background-color: #dddddd;
 }
+.jsfcrud_custom_row{
+    color: #D20005;
+}
