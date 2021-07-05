@@ -158,7 +158,8 @@ public class AccountQueryController implements Serializable {
                     if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
                         return 0;
                     }
-                    int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+//                    int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
+                    int count = pageData.size();
                     return count;
                 }
 
@@ -180,8 +181,10 @@ public class AccountQueryController implements Serializable {
                                 end.getTime(),
                                 currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
                         pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance, detailRecordList);
+                        System.out.println("---------PageData--Size--" + pageData.size());
                     }
                     int lastItem = (getPageFirstItem() + getPageSize()) < (pageData.size()) ? (getPageFirstItem() + getPageSize()) : (pageData.size());
+                    System.out.println("----------First-Last---" + getPageFirstItem() + "-----------" + lastItem);
                     List<DetailRecord> temp = pageData.subList(getPageFirstItem(), lastItem);
                     // 设置<h:dataTable rowClasses属性的值
                     currentQuery.setBookStyle(generateBookTableStyles(temp));
@@ -192,65 +195,6 @@ public class AccountQueryController implements Serializable {
         return pagination;
     }
 
-/*    public AbstractPaginationHelper getPagination2(){
-        {
-            if (pagination == null) {
-                Calendar begin = Calendar.getInstance();
-                Calendar end = Calendar.getInstance();
-                Date beginDate, endDate;
-                try {
-                    beginDate = currentQuery.getBeginDate();
-                    endDate = currentQuery.getEndDate();
-
-                    if (beginDate != null) {
-                        begin.setTime(beginDate);
-                        begin.set(Calendar.HOUR_OF_DAY, 0);
-                        begin.set(Calendar.MINUTE, 0);
-                        begin.set(Calendar.SECOND, 0);
-                    }
-
-                    end.setTime(endDate);
-                    end.set(Calendar.HOUR_OF_DAY, 23);
-                    end.set(Calendar.MINUTE, 59);
-                    end.set(Calendar.SECOND, 59);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                pagination = new AbstractPaginationHelper(AbstractPaginationHelper.DEFAULT_SIZE) {
-                    @Override
-                    public int getItemsCount() {
-                        if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
-                            return 0;
-                        }
-                        int count = ejbFacade.count(userController.getAuthenticatedUser(), begin.getTime(), end.getTime(), currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
-                        return count;
-                    }
-
-                    @Override
-                    public DataModel createPageDataModel() {
-                        if (currentQuery.getBeginDate() == null || currentQuery.getEndDate() == null) {
-                            pagination = null;
-                            return null;
-                        }
-                        FirstBalance beginningBalance = ejbFacade.getBeginningBalance(
-                                userController.getAuthenticatedUser(),
-                                begin.getTime(),
-                                currentQuery.getArea(),
-                                currentQuery.getSubsidiaryAccount());
-                        List<DetailRecord> detailRecordList = ejbFacade.getByEntryOrOccurDate(
-                                new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, userController.getAuthenticatedUser(),
-                                begin.getTime(),
-                                end.getTime(),
-                                currentQuery.isQueryByEnterDate(), currentQuery.getArea(), currentQuery.getSubsidiaryAccount());
-                        List<DetailRecord> pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance,detailRecordList);
-                        return new ListDataModel(pageData);
-                    }
-                };
-            }
-            return pagination;
-        }
-    }*/
 
     /**
      * 设置<h:dataTable rowClasses属性的值
@@ -264,7 +208,7 @@ public class AccountQueryController implements Serializable {
                 // jsfcrud_custom_row是css文件中的style
                 builder.append("jsfcrud_custom_row,");
             } else {
-                builder.append(",");
+                builder.append("jsfcrud_even_row,");
             }
         });
         return builder.toString();

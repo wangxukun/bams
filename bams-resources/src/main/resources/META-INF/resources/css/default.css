@@ -580,3 +580,33 @@ option {
 .jsfcrud_custom_row{
     color: #D20005;
 }
+
+.jsfcrud_custom_col_occurDate{
+    width: 140px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.jsfcrud_custom_col_id{
+    width: 60px;
+    text-align: center;
+}
+
+.jsfcrud_custom_col_name{
+    width: 200px;
+}
+
+.jsfcrud_custom_col_summary{
+    width: auto;
+}
+
+.jsfcrud_custom_col_debit,
+.jsfcrud_custom_col_credit,
+.jsfcrud_custom_col_balance{
+    width: 160px;
+}
+
+.jsfcrud_custom_col_direction{
+    width: 40px;
+    text-align: center;
+}
