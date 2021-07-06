@@ -58,21 +58,7 @@
                 <h:panelGroup id="detailTable" rendered="#{accountQueryController.items.rowCount > 0}">
 
                     <ul class="commandButtons">
-                        <li><h:outputText value="共#{accountQueryController.pagination.pageCount}页" rendered="#{accountQueryController.pagination.pageSize > 0}"/> </li>
-                        <li><h:commandLink action="#{accountQueryController.first}"
-                                           value="#{bundle.first}"
-                                           rendered="#{accountQueryController.pagination.hasPreviousPage}"/></li>
-                        <li><h:commandLink action="#{accountQueryController.previous}"
-                                           value="#{bundle.Previous}"
-                                           disabled="#{!accountQueryController.pagination.hasPreviousPage}"/></li>
-                        <li><h:outputText value="第#{accountQueryController.pagination.currentPage}页" rendered="#{accountQueryController.pagination.pageSize > 0}"/> </li>
-                        <li><h:commandLink action="#{accountQueryController.next}"
-                                           value="#{bundle.Next}"
-                                           disabled="#{!accountQueryController.pagination.hasNextPage}"/></li>
-                        <li><h:commandLink action="#{accountQueryController.last}"
-                                           value="#{bundle.last}"
-                                           rendered="#{accountQueryController.pagination.hasNextPage}"/></li>
-                        <li><h:outputText value="共有#{accountQueryController.pagination.itemsCount}条记录" /></li>
+
                         <li><h:outputText value="范围：#{accountQueryController.selectedQuery.description}"/> </li>
                     </ul>
 

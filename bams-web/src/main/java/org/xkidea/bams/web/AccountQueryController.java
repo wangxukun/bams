@@ -183,12 +183,14 @@ public class AccountQueryController implements Serializable {
                         pageData = ejbFacade.setBalanceForDetailRecord(beginningBalance, detailRecordList);
                         System.out.println("---------PageData--Size--" + pageData.size());
                     }
-                    int lastItem = (getPageFirstItem() + getPageSize()) < (pageData.size()) ? (getPageFirstItem() + getPageSize()) : (pageData.size());
+                    /*int lastItem = (getPageFirstItem() + getPageSize()) < (pageData.size()) ? (getPageFirstItem() + getPageSize()) : (pageData.size());
                     System.out.println("----------First-Last---" + getPageFirstItem() + "-----------" + lastItem);
                     List<DetailRecord> temp = pageData.subList(getPageFirstItem(), lastItem);
                     // 设置<h:dataTable rowClasses属性的值
                     currentQuery.setBookStyle(generateBookTableStyles(temp));
-                    return new ListDataModel(temp);
+                    return new ListDataModel(temp);*/
+                    currentQuery.setBookStyle(generateBookTableStyles(pageData));
+                    return new ListDataModel(pageData);
                 }
             };
         }
