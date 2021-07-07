@@ -44,9 +44,7 @@
                         </h:selectOneMenu>
 
 
-                        <h:commandButton action="#{accountQueryController.query}" id="submit" value="#{bundle.Query}">
-<!--                            <f:ajax render="detailTable" />-->
-                        </h:commandButton>
+                        <h:commandButton action="#{accountQueryController.query}" id="submit" value="#{bundle.Query}"/>
                     </h:form>
 
         </div>
@@ -68,8 +66,7 @@
                                  cellspacing="1"
                                  rowClasses="#{accountQueryController.selectedQuery.bookStyle}"
                                  columnClasses="jsfcrud_custom_col_occurDate,jsfcrud_custom_col_id,jsfcrud_custom_col_name,jsfcrud_custom_col_summary,jsfcrud_custom_col_debit,jsfcrud_custom_col_credit,jsfcrud_custom_col_direction,jsfcrud_custom_col_balance"
-                                 rules="all"
-                                 style="border: 1px solid dimgrey">
+                                 rules="all">
 
                         <h:column>
                             <f:facet name="header">
