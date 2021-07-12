@@ -580,6 +580,7 @@ option {
 }
 
 .jsfcrud_custom_col_occurDate{
+    min-width: 120px;
     width: 140px;
     text-align: center !important;
     margin: 0 auto;
@@ -592,16 +593,19 @@ option {
 
 .jsfcrud_custom_col_name{
     text-align: center !important;
+    min-width: 120px;
     width: 180px;
 }
 
 .jsfcrud_custom_col_summary{
+    min-width: 300px;
     width: auto;
 }
 
 .jsfcrud_custom_col_debit,
 .jsfcrud_custom_col_credit,
 .jsfcrud_custom_col_balance{
+    min-width: 100px;
     width: 160px;
 }
 
