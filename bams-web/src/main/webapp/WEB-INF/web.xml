@@ -25,6 +25,11 @@
         <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>jdbcRealm</realm-name>

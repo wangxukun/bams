@@ -122,8 +122,12 @@ public class SubsidiaryAccountController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountDeleted"));
+            if (!getFacade().hasDetailRecordBean(current)) {
+                getFacade().remove(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountDeleted"));
+            } else {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("SubsidiaryAccountNotDelete"));
+            }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle(BUNDLE).getString("PersistenceErrorOccured"));
         }

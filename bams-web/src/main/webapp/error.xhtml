@@ -12,7 +12,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
     <title>#{bundle.PageTitle}</title>
-    <!--    <h:outputStylesheet library="css" name="default.css"/>-->
+    <h:outputStylesheet library="css" name="default.css"/>
     <h:outputStylesheet library="css" name="error.css"/>
 </h:head>
 <h:body>
@@ -22,9 +22,9 @@
                 <h:graphicImage library="img" name="logo-small.png"/>
             </div>
 
-            <h1>#{bundle.Top_Error_Title}</h1>
+            <h1>#{bundle.Top_Forbidden_Title}</h1>
             <p>#{bundle.Error_Msg}</p>
-            <h:commandButton action="#" value="#{bundle.Login_page}"/>
+            <h:link outcome="/query/index" value="#{bundle.Query_page}"/>
         </div>
     </div>
 </h:body>

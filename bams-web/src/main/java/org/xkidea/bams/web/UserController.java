@@ -34,8 +34,8 @@ public class UserController implements Serializable {
     private CustomerBean ejbFacade;
     private String username;
     private String password;
-    @Inject
-    CustomerController customerController;
+//    @Inject
+//    CustomerController customerController;
 
     public UserController() {
     }
@@ -111,6 +111,24 @@ public class UserController implements Serializable {
     public boolean isTreasurer() {
         for (Groups g : user.getGroupsList()) {
             if (g.getName().equals("TREASURER")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAccountant() {
+        for (Groups g : user.getGroupsList()) {
+            if (g.getName().equals("ACCOUNTANT")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isCustomer() {
+        for (Groups g : user.getGroupsList()) {
+            if (g.getName().equals("CUSTOMER")) {
                 return true;
             }
         }

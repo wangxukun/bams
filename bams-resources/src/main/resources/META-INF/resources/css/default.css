@@ -48,9 +48,9 @@ nav li:hover, nav li:focus {
     background-color: rgba(97, 124, 88, 0.3);
     display: block;
     border: #dddddd 1px solid;
-    -moz-border-radius: 10px;
+    /*-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;
+    border-radius: 10px;*/
 }
 
 .shipItem:hover {
@@ -58,9 +58,9 @@ nav li:hover, nav li:focus {
     background-color: rgba(97, 124, 88, 0.3);
     display: block;
     border: #dddddd 0px solid;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    /*-moz-border-radius: 10px;*/
+    /*-webkit-border-radius: 10px;*/
+    /*border-radius: 10px;*/
     width: 100%;
 }
 
@@ -86,9 +86,9 @@ header {
     display: block;
     overflow: auto;
     border: none 5px #000000;
-    -moz-border-radius: 10px;
+    /*-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;
+    border-radius: 10px;*/
     z-index: 1;
 }
 
@@ -103,9 +103,9 @@ header img {
     position: relative;
     background-color: #3B5A3F;
     border: none 5px #000000;
-    -moz-border-radius: 10px;
+   /* -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;
+    border-radius: 10px;*/
 }
 
 header, #menu {

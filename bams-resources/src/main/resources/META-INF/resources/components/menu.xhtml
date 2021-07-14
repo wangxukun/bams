@@ -17,16 +17,32 @@
 <!-- IMPLEMENTATION -->
 <cc:implementation>
     <div id="vertmenu">
-        <ul>
-<!--            <li><h:commandLink action="/logined/index?faces-redirect=true" value="#{bundle.Menu_Home}"/></li>-->
-<!--            <li><h:commandLink action="/bookkeeping/List?faces-redirect=true" value="#{bundle.Menu_Account_Recode}"/></li>-->
-            <li><h:commandLink action="#{detailRecordController.prepareList}" value="#{bundle.Menu_Account_Recode}"/></li>
-            <li><h:commandLink action="/query/index?faces-redirect=true" value="#{bundle.Menu_Account_Query}"/></li>
-            <li><h:commandLink action="/account/index?faces-redirect=true" value="#{bundle.Menu_Account_Manager}"/></li>
-            <li><h:commandLink action="/admin/index?faces-redirect=true" value="#{bundle.Menu_Admin}"/></li>
-            <li><h:commandLink action="/setting/index?faces-redirect=true" value="#{bundle.Menu_Setting}"/></li>
-            <li><h:commandLink action="/authorization/index?faces-redirect=true" value="#{bundle.Menu_Authorization}"/></li>
-        </ul>
+        <h:panelGroup rendered="#{userController.admin}">
+            <ul>
+                <li><h:commandLink action="/account/index?faces-redirect=true" value="#{bundle.Menu_Account_Manager}"/></li>
+                <li><h:commandLink action="/admin/index?faces-redirect=true" value="#{bundle.Menu_Admin}"/></li>
+                <li><h:commandLink action="/setting/index?faces-redirect=true" value="#{bundle.Menu_Setting}"/></li>
+                <li><h:commandLink action="/authorization/index?faces-redirect=true" value="#{bundle.Menu_Authorization}"/></li>
+            </ul>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{userController.treasurer}">
+            <ul>
+                <li><h:commandLink action="#{detailRecordController.prepareList}" value="#{bundle.Menu_Account_Recode}"/></li>
+                <li><h:commandLink action="/query/index?faces-redirect=true" value="#{bundle.Menu_Account_Query}"/></li>
+                <li><h:commandLink action="/account/index?faces-redirect=true" value="#{bundle.Menu_Account_Manager}"/></li>
+                <li><h:commandLink action="/admin/index?faces-redirect=true" value="#{bundle.Menu_Admin}"/></li>
+                <li><h:commandLink action="/setting/index?faces-redirect=true" value="#{bundle.Menu_Setting}"/></li>
+                <li><h:commandLink action="/authorization/index?faces-redirect=true" value="#{bundle.Menu_Authorization}"/></li>
+            </ul>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{userController.accountant || userController.customer}">
+            <ul>
+                <li><h:commandLink action="/query/index?faces-redirect=true" value="#{bundle.Menu_Account_Query}"/></li>
+            </ul>
+        </h:panelGroup>
+
     </div>
 </cc:implementation>
 </html>

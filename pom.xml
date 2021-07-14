@@ -22,8 +22,8 @@
         <mysql.connector.version>5.1.49</mysql.connector.version>
         <glassfish.home.prefix>/opt</glassfish.home.prefix>
 	    <glassfish.domain.name>domain1</glassfish.domain.name>
-	    <glassfish.home>${glassfish.home.prefix}/glassfish6</glassfish.home>
-	    <container.id>glassfish6x</container.id>
+	    <glassfish.home>${glassfish.home.prefix}/glassfish5</glassfish.home>
+	    <container.id>glassfish5x</container.id>
     </properties>
 
     <modules>
@@ -67,7 +67,7 @@
         </dependencies>
     </dependencyManagement>
 
-    <!--<build>
+    <!-- <build>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
@@ -101,5 +101,5 @@
             </configuration>
             </plugin>
         </plugins>
-        </build>-->
+        </build> -->
 </project>

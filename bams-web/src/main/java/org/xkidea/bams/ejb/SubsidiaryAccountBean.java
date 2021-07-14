@@ -65,4 +65,16 @@ public class SubsidiaryAccountBean extends AbstractFacade<SubsidiaryAccount> {
         return JsfUtil.getSelectItems(getSubsidiaryAccountByArea(area),true);
     }
 
+    /**
+     * 判断给定的明细账户是否有发生额
+     * @param subsidiaryAccount　给定的明细账户
+     * @return 是否有发生额
+     */
+    public boolean hasDetailRecordBean(SubsidiaryAccount subsidiaryAccount) {
+        String sql = "SELECT COUNT(detailRecord) FROM DetailRecord detailRecord WHERE detailRecord.subsidiaryAccount = :subsidiaryAccount";
+        Query query = em.createQuery(sql).setParameter("subsidiaryAccount",subsidiaryAccount);
+        int count = ((Long)query.getSingleResult()).intValue();
+        return count > 0;
+    }
+
 }
