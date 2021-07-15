@@ -565,6 +565,27 @@ option {
     padding-right: 5px;
 }
 
+.bookkeepingPanelHeader form input {
+    width: 120px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.bookkeepingPanelHeader form input[type=submit] {
+    width: 60px;
+}
+
+.bookkeepingPanelHeader form select {
+    border: solid 1px #000000;
+    background-color: #a6bf40;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 120px;
+    height: 25px;
+    line-height: 25px;
+}
+
 .jsfcrud_odd_row{
     background-color: #ffffff;
 }
@@ -622,4 +643,15 @@ option {
 .bookkeepingPanelContent form table tbody td
 {
     border: 1px solid darkcyan !important;
+}
+
+.createDetailRecord select, .createDetailRecord input[type=date] {
+    border: solid 1px #000000;
+    background-color: #a6bf40;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 140px;
+    height: 25px;
+    line-height: 25px;
 }

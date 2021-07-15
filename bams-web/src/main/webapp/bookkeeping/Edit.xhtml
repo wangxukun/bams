@@ -14,7 +14,7 @@
         </ui:define>
         <ui:define name="body">
             <h2>#{bundle.DetailRecord_Edit}</h2> <br/>
-            <h:form>
+            <h:form styleClass="createDetailRecord">
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.detailRecord_area}" for="area" />
                     <h:selectOneMenu value="#{detailRecordController.selectedQuery.area}" required="true" id="area">
