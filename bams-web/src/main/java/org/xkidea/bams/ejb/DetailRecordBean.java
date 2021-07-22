@@ -325,11 +325,11 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
      * @return
      */
     public FirstBalance getBeginningBalance(Person authenticatedUser, Date begin, Area area, SubsidiaryAccount subsidiaryAccount) {
-        List<Object> results;
+        List<Object[]> results;
 
         // 如果未指明区域，则返回当前loginUser下的所有区域下的内容
         if (area == null) {
-            String sql = "SELECT sum(detailRecord.amount) as totail " +
+            String sql = "SELECT sum(detailRecord.amount) as TOTAIL, detailRecord.direction " +
                     "FROM DetailRecord detailRecord " +
                     "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
                     "JOIN subsidiaryAccount.area area, IN(area.personList) person " +
@@ -344,7 +344,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
 
             // 如果未指明明细账户，则返回当前loginUser下选定区域下的内容
             if (subsidiaryAccount == null) {
-                String sql = "SELECT sum(detailRecord.amount) as totail " +
+                String sql = "SELECT sum(detailRecord.amount) as TOTAIL, detailRecord.direction " +
                         "FROM DetailRecord detailRecord " +
                         "JOIN detailRecord.subsidiaryAccount subsidiaryAccount " +
                         "WHERE detailRecord.occurDate < :begin AND subsidiaryAccount.area = :area " +
@@ -358,7 +358,7 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
 
                 // 如果指明了明细账户，则返回当前loginUser下选定明细账户下的内容
             } else {
-                String sql = "SELECT sum(detailRecord.amount) as totail " +
+                String sql = "SELECT sum(detailRecord.amount) as TOTAIL, detailRecord.direction " +
                         "FROM DetailRecord detailRecord " +
                         "WHERE detailRecord.occurDate < :begin AND detailRecord.subsidiaryAccount = :subsidiaryAccount " +
                         "GROUP BY detailRecord.direction " +
@@ -375,8 +375,18 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
             return null;
         }
         FirstBalance firstBalance = new FirstBalance();
-        firstBalance.setDebitTotal((BigDecimal) results.get(0));
-        firstBalance.setCreditTotal((BigDecimal) results.get(1));
+        if (results.size() == 1) {
+            if ((Integer) (results.get(0)[1]) == 0) {
+                firstBalance.setDebitTotal((BigDecimal) results.get(0)[0]);
+                firstBalance.setCreditTotal(BigDecimal.ZERO);
+            } else {
+                firstBalance.setDebitTotal(BigDecimal.ZERO);
+                firstBalance.setCreditTotal((BigDecimal) results.get(0)[0]);
+            }
+        } else {
+            firstBalance.setDebitTotal((BigDecimal) results.get(0)[0]);
+            firstBalance.setCreditTotal((BigDecimal) results.get(1)[0]);
+        }
         return firstBalance;
     }
 
@@ -408,7 +418,14 @@ public class DetailRecordBean extends AbstractFacade<DetailRecord> {
         if (firstBalance != null) {
             DetailRecord first = new DetailRecord();
             first.setSummary(ResourceBundle.getBundle(BUNDLE).getString("FirstBalance_Summary"));
-            first.setBalance(firstBalance.getBalance());
+            // 如果余额小于零，则设置余额方向为贷方，金额为正数。
+            if (firstBalance.getBalance().compareTo(BigDecimal.ZERO) == -1) {
+                first.setBalanceDirection(1);
+                first.setBalance(firstBalance.getBalance().abs());
+            } else {
+                first.setBalanceDirection(0);
+                first.setBalance(firstBalance.getBalance());
+            }
             // 期初余额设置为第一条记录
             detailRecords.add(first);
             // 期初余额保存在变量中，用于下一条记录计算余额
